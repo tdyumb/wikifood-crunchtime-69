@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Navigation from "@/components/Navigation";
+import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import ContactForm from "@/components/ContactForm";
@@ -10,35 +12,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-wiki-100 to-wiki-50 -z-10" />
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto"
-          >
-            <span className="inline-block px-4 py-1 mb-6 text-wiki-600 bg-wiki-100 rounded-full text-sm font-medium">
-              Welcome to WikiFoods
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-wiki-900">
-              Discover the World of Food Knowledge
-            </h1>
-            <p className="text-xl text-wiki-600 mb-8">
-              Your comprehensive guide to understanding food, nutrition, and culinary arts
-            </p>
-            <button 
-              onClick={scrollToFeatures}
-              className="px-8 py-4 bg-wiki-900 text-white rounded-lg hover:bg-wiki-800 transition-colors"
-            >
-              Start Exploring
-            </button>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-wiki-50">
+      <Navigation />
+      <HeroSection />
 
       {/* Recipe Filter Section */}
       <section className="py-16 bg-white">
@@ -68,35 +44,6 @@ const Index = () => {
               image="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800"
             />
           </div>
-        </div>
-      </section>
-
-      {/* About Section with Video */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">A little bit about us</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="aspect-video mb-8">
-              <iframe 
-                className="w-full h-full rounded-lg shadow-lg"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="About WikiFoods"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            <p className="text-center text-wiki-600">
-              At WikiFoods, we're dedicated to making cooking knowledge accessible to everyone.
-              Join our community of food enthusiasts and discover amazing recipes!
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form Section */}
-      <section className="py-16 bg-wiki-50">
-        <div className="container mx-auto px-4">
-          <ContactForm />
         </div>
       </section>
 
@@ -161,25 +108,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-wiki-900 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto"
-          >
-            <h2 className="text-4xl font-bold mb-6">
-              Ready to Start Your Food Journey?
-            </h2>
-            <p className="text-wiki-100 mb-8">
-              Join our community of food enthusiasts and experts today.
-            </p>
-            <button className="px-8 py-4 bg-white text-wiki-900 rounded-lg hover:bg-wiki-50 transition-colors">
-              Get Started
-            </button>
-          </motion.div>
+      {/* Contact Form Section */}
+      <section className="py-16 bg-wiki-50">
+        <div className="container mx-auto px-4">
+          <ContactForm />
         </div>
       </section>
 
