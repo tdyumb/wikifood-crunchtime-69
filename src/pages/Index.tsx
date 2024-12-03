@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
 const Index = () => {
+  const scrollToFeatures = () => {
+    const featuresSection = document.querySelector('#features');
+    featuresSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -22,7 +27,10 @@ const Index = () => {
             <p className="text-xl text-wiki-600 mb-8">
               Your comprehensive guide to understanding food, nutrition, and culinary arts
             </p>
-            <button className="px-8 py-4 bg-wiki-900 text-white rounded-lg hover:bg-wiki-800 transition-colors">
+            <button 
+              onClick={scrollToFeatures}
+              className="px-8 py-4 bg-wiki-900 text-white rounded-lg hover:bg-wiki-800 transition-colors"
+            >
               Start Exploring
             </button>
           </motion.div>
@@ -30,7 +38,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white">
+      <section id="features" className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Why Choose WikiFoods</h2>
