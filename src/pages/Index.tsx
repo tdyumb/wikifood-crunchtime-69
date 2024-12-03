@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import RecipeFilter from "@/components/RecipeFilter";
+import RecipeCard from "@/components/RecipeCard";
+import ContactForm from "@/components/ContactForm";
 
 const Index = () => {
   const scrollToFeatures = () => {
@@ -34,6 +37,66 @@ const Index = () => {
               Start Exploring
             </button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Recipe Filter Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <RecipeFilter />
+        </div>
+      </section>
+
+      {/* Recipe Cards Section */}
+      <section className="py-16 bg-wiki-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">Featured Recipes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <RecipeCard
+              title="Easy Pancakes"
+              description="Fluffy and delicious pancakes perfect for breakfast"
+              image="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800"
+            />
+            <RecipeCard
+              title="Chicken Stir Fry"
+              description="A quick and healthy stir-fry loaded with vegetables"
+              image="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800"
+            />
+            <RecipeCard
+              title="Vegetarian Pasta"
+              description="Fresh and flavorful pasta with seasonal vegetables"
+              image="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* About Section with Video */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">A little bit about us</h2>
+          <div className="max-w-3xl mx-auto">
+            <div className="aspect-video mb-8">
+              <iframe 
+                className="w-full h-full rounded-lg shadow-lg"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="About WikiFoods"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <p className="text-center text-wiki-600">
+              At WikiFoods, we're dedicated to making cooking knowledge accessible to everyone.
+              Join our community of food enthusiasts and discover amazing recipes!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="py-16 bg-wiki-50">
+        <div className="container mx-auto px-4">
+          <ContactForm />
         </div>
       </section>
 
