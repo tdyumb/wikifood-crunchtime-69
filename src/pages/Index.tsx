@@ -1,15 +1,20 @@
-import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import PricingSection from "@/components/PricingSection";
+import WhyChooseSection from "@/components/WhyChooseSection";
+import ContactForm from "@/components/ContactForm";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-wiki-50">
       <Navigation />
       <HeroSection />
+      <WhyChooseSection />
       <PricingSection />
-
+      <div className="py-24 bg-white">
+        <ContactForm />
+      </div>
+      
       {/* Footer */}
       <footer className="bg-wiki-800 text-wiki-100 py-12">
         <div className="container mx-auto px-4">
