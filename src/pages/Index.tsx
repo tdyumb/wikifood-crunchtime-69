@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import ContactForm from "@/components/ContactForm";
+import { Check } from "lucide-react";
 
 const Index = () => {
   const scrollToFeatures = () => {
@@ -47,63 +48,86 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-24 bg-white">
+      {/* Value Proposition Section */}
+      <section className="py-24 bg-wiki-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Why Choose WikiFoods</h2>
-            <p className="text-wiki-600 max-w-2xl mx-auto">
-              Discover how we're revolutionizing food knowledge sharing
+            <p className="text-wiki-300 max-w-2xl mx-auto">
+              Join thousands of food enthusiasts who have transformed their cooking journey with WikiFoods
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 stagger-delay">
-            {features.map((feature, index) => (
+
+          <div className="grid md:grid-cols-3 gap-12">
+            {valueProps.map((prop, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="glass-card p-8 rounded-2xl"
+                transition={{ delay: index * 0.2 }}
+                className="text-center"
               >
-                <div className="text-wiki-900 mb-4 text-2xl">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-wiki-600">{feature.description}</p>
+                <div className="w-16 h-16 mx-auto mb-6 bg-wiki-800 rounded-full flex items-center justify-center">
+                  {prop.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-4">{prop.title}</h3>
+                <p className="text-wiki-300">{prop.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-24 bg-wiki-50">
+      {/* Pricing Section */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
-                alt="About WikiFoods"
-                className="rounded-2xl shadow-lg"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
-              <p className="text-wiki-600 mb-6">
-                WikiFoods is dedicated to making food knowledge accessible to everyone.
-                We believe in the power of shared culinary wisdom and its ability to
-                bring people together.
-              </p>
-              <button className="px-6 py-3 bg-wiki-900 text-white rounded-lg hover:bg-wiki-800 transition-colors">
-                Learn More
-              </button>
-            </motion.div>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Choose Your Perfect Plan</h2>
+            <p className="text-wiki-600 max-w-2xl mx-auto">
+              Start your culinary journey today with our flexible subscription options
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {pricingPlans.map((plan, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className={`rounded-2xl p-8 ${
+                  plan.featured ? 'bg-wiki-900 text-white' : 'bg-wiki-50'
+                }`}
+              >
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                  <div className="text-3xl font-bold mb-6">
+                    ${plan.price}<span className="text-base font-normal">/month</span>
+                  </div>
+                  <ul className="space-y-4 mb-8 text-left">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center">
+                        <Check className="w-5 h-5 mr-2" />
+                        <span className={plan.featured ? 'text-wiki-100' : 'text-wiki-600'}>
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    className={`w-full py-3 px-6 rounded-lg transition-colors ${
+                      plan.featured
+                        ? 'bg-white text-wiki-900 hover:bg-wiki-100'
+                        : 'bg-wiki-900 text-white hover:bg-wiki-800'
+                    }`}
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -152,21 +176,59 @@ const Index = () => {
   );
 };
 
-const features = [
+const valueProps = [
   {
-    icon: "🔍",
-    title: "Comprehensive Search",
-    description: "Find exactly what you're looking for with our powerful search tools.",
+    icon: "🎓",
+    title: "Expert-Led Learning",
+    description: "Learn from professional chefs and culinary experts through detailed video tutorials and interactive lessons.",
   },
   {
-    icon: "📚",
-    title: "Expert Content",
-    description: "Access verified information from food experts and professionals.",
+    icon: "🌍",
+    title: "Global Cuisine Library",
+    description: "Access thousands of authentic recipes from different cultures and traditions around the world.",
   },
   {
-    icon: "🌐",
-    title: "Global Community",
-    description: "Connect with food enthusiasts from around the world.",
+    icon: "💪",
+    title: "Skill Development",
+    description: "Progress from basic to advanced cooking techniques with our structured learning paths.",
+  },
+];
+
+const pricingPlans = [
+  {
+    name: "Basic",
+    price: "9.99",
+    features: [
+      "Access to basic recipes",
+      "Monthly newsletter",
+      "Community forum access",
+      "Basic cooking tutorials",
+    ],
+    featured: false,
+  },
+  {
+    name: "Pro",
+    price: "19.99",
+    features: [
+      "All Basic features",
+      "Premium video tutorials",
+      "Live cooking sessions",
+      "Personal recipe planner",
+      "Priority support",
+    ],
+    featured: true,
+  },
+  {
+    name: "Enterprise",
+    price: "49.99",
+    features: [
+      "All Pro features",
+      "Team collaboration",
+      "Custom recipe development",
+      "Dedicated account manager",
+      "API access",
+    ],
+    featured: false,
   },
 ];
 
