@@ -28,7 +28,13 @@ const PricingSection = () => {
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                 <div className="text-3xl font-bold mb-6">
-                  ${plan.price}<span className="text-base font-normal">/month</span>
+                  {plan.price === "0" ? (
+                    <span>Free</span>
+                  ) : (
+                    <>
+                      ${plan.price}<span className="text-base font-normal">/month</span>
+                    </>
+                  )}
                 </div>
                 <ul className="space-y-4 mb-8 text-left">
                   {plan.features.map((feature, featureIndex) => (
@@ -61,7 +67,7 @@ const PricingSection = () => {
 const pricingPlans = [
   {
     name: "Basic",
-    price: "9.99",
+    price: "0",
     features: [
       "Access to basic recipes",
       "Monthly newsletter",
