@@ -3,11 +3,13 @@ import HeroSection from "@/components/HeroSection";
 import PricingSection from "@/components/PricingSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
 import ContactForm from "@/components/ContactForm";
+import NewsletterPopup from "@/components/NewsletterPopup";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-wiki-50">
       <Navigation />
+      <NewsletterPopup />
       <HeroSection />
       <WhyChooseSection />
       <PricingSection />
