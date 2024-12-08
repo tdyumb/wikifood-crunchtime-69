@@ -1,7 +1,22 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const HeroSection = () => {
+  const [currentText, setCurrentText] = useState("Cook");
+  const phrases = ["Cook", "Talk", "Look"];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText(current => {
+        const currentIndex = phrases.indexOf(current);
+        return phrases[(currentIndex + 1) % phrases.length];
+      });
+    }, 2000); // Change text every 2 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -45,7 +60,16 @@ const HeroSection = () => {
 
           {/* Hero Text */}
           <h1 className="text-6xl md:text-7xl font-bold mb-6 text-white">
-            <span className="text-yellow-400">Cook</span> Like A
+            <motion.span
+              key={currentText}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="text-yellow-400 inline-block"
+            >
+              {currentText}
+            </motion.span> Like A
             <br />
             Chef
           </h1>
