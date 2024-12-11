@@ -5,6 +5,8 @@ import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
 import NewsletterPopup from "@/components/NewsletterPopup";
 import ContactForm from "@/components/ContactForm";
+import PricingSection from "@/components/PricingSection";
+import WhyChooseSection from "@/components/WhyChooseSection";
 
 const Index = () => {
   const { filteredRecipes } = useRecipes();
@@ -41,26 +43,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Video Section */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Watch Our Latest Recipes</h2>
-          <div className="max-w-3xl mx-auto aspect-video">
-            <iframe
-              className="w-full h-full rounded-lg shadow-lg"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="Featured Recipe"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section */}
+      <PricingSection />
+
+      {/* Why Choose Section */}
+      <WhyChooseSection />
 
       {/* Contact Form Section */}
-      <section className="py-16 px-4 bg-white">
-        <ContactForm />
-      </section>
+      <ContactForm />
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
