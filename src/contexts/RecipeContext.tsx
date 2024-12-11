@@ -8,6 +8,8 @@ type Recipe = {
   cuisineType: string;
   mealType: string;
   dietaryRestrictions: string[];
+  cookTime: string;
+  servings: number;
 };
 
 type RecipeContextType = {
@@ -33,6 +35,8 @@ export const RecipeProvider = ({ children }: { children: ReactNode }) => {
       cuisineType: 'american',
       mealType: 'breakfast',
       dietaryRestrictions: ['vegetarian'],
+      cookTime: '20 mins',
+      servings: 4
     },
     {
       id: '2',
@@ -42,6 +46,8 @@ export const RecipeProvider = ({ children }: { children: ReactNode }) => {
       cuisineType: 'chinese',
       mealType: 'dinner',
       dietaryRestrictions: [],
+      cookTime: '30 mins',
+      servings: 4
     },
     {
       id: '3',
@@ -51,6 +57,19 @@ export const RecipeProvider = ({ children }: { children: ReactNode }) => {
       cuisineType: 'italian',
       mealType: 'lunch',
       dietaryRestrictions: ['vegetarian', 'vegan'],
+      cookTime: '25 mins',
+      servings: 6
+    },
+    {
+      id: '4',
+      title: 'Classic Ground Rice',
+      description: 'Traditional ground rice recipe with a modern twist',
+      image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800',
+      cuisineType: 'asian',
+      mealType: 'dinner',
+      dietaryRestrictions: ['gluten-free', 'vegan'],
+      cookTime: '20 mins',
+      servings: 4
     },
   ]);
 
