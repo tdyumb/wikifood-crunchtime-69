@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
@@ -9,19 +10,12 @@ const Index = () => {
   const { filteredRecipes } = useRecipes();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+    <div className="min-h-screen">
       <Navigation />
       <NewsletterPopup />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4">
-        <h1 className="text-4xl md:text-6xl font-bold text-center mb-8">
-          Your Culinary Journey Starts Here
-        </h1>
-        <p className="text-xl text-center text-gray-600 max-w-2xl mx-auto">
-          Discover recipes, share your creations, and join our community of food lovers
-        </p>
-      </section>
+      <HeroSection />
 
       {/* Recipe Filter Section */}
       <section className="py-12 px-4">
@@ -31,7 +25,7 @@ const Index = () => {
       {/* Recipe Collection */}
       <section className="py-12 px-4 bg-white">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Recipe Collection</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">Featured Recipes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {filteredRecipes.map((recipe) => (
               <RecipeCard
@@ -50,12 +44,12 @@ const Index = () => {
       {/* Video Section */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">A little bit about us</h2>
+          <h2 className="text-3xl font-bold mb-8">Watch Our Latest Recipes</h2>
           <div className="max-w-3xl mx-auto aspect-video">
             <iframe
               className="w-full h-full rounded-lg shadow-lg"
               src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="About WikiFoods"
+              title="Featured Recipe"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />

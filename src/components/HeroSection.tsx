@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useToast } from "./ui/use-toast";
 
 const HeroSection = () => {
-  const [currentText, setCurrentText] = useState("Cook");
-  const phrases = ["Cook", "Talk", "Look"];
+  const [currentText, setCurrentText] = useState("Talk");
+  const phrases = ["Talk", "Cook", "Look"];
+  const { toast } = useToast();
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -12,10 +14,17 @@ const HeroSection = () => {
         const currentIndex = phrases.indexOf(current);
         return phrases[(currentIndex + 1) % phrases.length];
       });
-    }, 2000); // Change text every 2 seconds
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleGetStarted = (pack: 'basic' | 'pro') => {
+    toast({
+      title: "Package Selected",
+      description: `You selected the ${pack} pack. Redirecting to subscription page...`,
+    });
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -53,7 +62,15 @@ const HeroSection = () => {
           className="max-w-4xl mx-auto"
         >
           {/* Watch Trailer Button */}
-          <button className="mb-8 px-6 py-2 bg-black/50 text-white rounded-full flex items-center gap-2 mx-auto hover:bg-black/70 transition-colors">
+          <button 
+            className="mb-8 px-6 py-2 bg-black/50 text-white rounded-full flex items-center gap-2 mx-auto hover:bg-black/70 transition-colors"
+            onClick={() => {
+              toast({
+                title: "Trailer",
+                description: "Opening video trailer...",
+              });
+            }}
+          >
             <Play size={16} />
             Watch Trailer
           </button>
@@ -79,10 +96,16 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            <button 
+              onClick={() => handleGetStarted('basic')}
+              className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            >
               GET STARTED: BASIC PACK
             </button>
-            <button className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-100 transition-colors">
+            <button 
+              onClick={() => handleGetStarted('pro')}
+              className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-100 transition-colors"
+            >
               GET STARTED: PRO PACK
             </button>
           </div>
