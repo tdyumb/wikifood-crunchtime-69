@@ -1,4 +1,5 @@
 import { ShoppingCart, User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
@@ -7,17 +8,19 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Left Navigation */}
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-white hover:text-gray-300">Recipes</a>
-            <a href="#" className="text-white hover:text-gray-300">Shop</a>
-            <a href="#" className="text-white hover:text-gray-300">Our Company</a>
+            <Link to="/" className="text-white hover:text-gray-300">Home</Link>
+            <Link to="/find-recipe" className="text-white hover:text-gray-300">Find A Recipe</Link>
+            <Link to="/recipe-collection" className="text-white hover:text-gray-300">Recipe Collection</Link>
           </div>
 
           {/* Logo */}
-          <div className="text-2xl font-bold text-white">WikiFoods</div>
+          <Link to="/" className="text-2xl font-bold text-white">WikiFoods</Link>
 
           {/* Right Navigation */}
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-white hover:text-gray-300">Community</a>
+            <Link to="/about" className="text-white hover:text-gray-300">About</Link>
+            <Link to="/contact" className="text-white hover:text-gray-300">Contact</Link>
+            <Link to="/download" className="text-white hover:text-gray-300">Download the app</Link>
             <div className="flex items-center space-x-4">
               <button className="text-white hover:text-gray-300">
                 <User size={20} />
