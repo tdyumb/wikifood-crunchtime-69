@@ -60,15 +60,17 @@ const RecipeCard = ({
               <h4 className="font-semibold mb-2">Ingredients:</h4>
               <ul className="list-disc list-inside space-y-1">
                 {ingredients.map((ingredient, index) => (
-                  <li key={index} className="text-sm">{ingredient}</li>
+                  <li key={index} className="text-sm text-gray-600">{ingredient}</li>
                 ))}
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-2">Instructions:</h4>
-              <ol className="list-decimal list-inside space-y-1">
+              <ol className="list-decimal list-inside space-y-2">
                 {instructions.map((instruction, index) => (
-                  <li key={index} className="text-sm">{instruction}</li>
+                  <li key={index} className="text-sm text-gray-600">
+                    <span className="font-medium">Step {index + 1}:</span> {instruction}
+                  </li>
                 ))}
               </ol>
             </div>
