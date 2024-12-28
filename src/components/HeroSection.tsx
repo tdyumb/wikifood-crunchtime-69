@@ -19,13 +19,6 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleGetStarted = (pack: 'basic' | 'pro') => {
-    toast({
-      title: "Package Selected",
-      description: `You selected the ${pack} pack. Redirecting to subscription page...`,
-    });
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -94,21 +87,12 @@ const HeroSection = () => {
             Master the art of cooking. Learn techniques and recipes from expert chefs around the world!
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => handleGetStarted('basic')}
-              className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-            >
-              GET STARTED: BASIC PACK
-            </button>
-            <button 
-              onClick={() => handleGetStarted('pro')}
-              className="px-8 py-4 bg-white text-black rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              GET STARTED: PRO PACK
-            </button>
-          </div>
+          {/* Start Exploring Button */}
+          <button 
+            className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Start Exploring Recipes
+          </button>
         </motion.div>
       </div>
     </section>

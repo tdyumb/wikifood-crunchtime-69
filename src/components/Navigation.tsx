@@ -7,7 +7,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Left Navigation */}
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-white hover:text-gray-300">Subscription Boxes</a>
+            <a href="#" className="text-white hover:text-gray-300">Recipes</a>
             <a href="#" className="text-white hover:text-gray-300">Shop</a>
             <a href="#" className="text-white hover:text-gray-300">Our Company</a>
           </div>
@@ -17,8 +17,7 @@ const Navigation = () => {
 
           {/* Right Navigation */}
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-white hover:text-gray-300">Give a Gift</a>
-            <a href="#" className="text-white hover:text-gray-300">Schools & Groups</a>
+            <a href="#" className="text-white hover:text-gray-300">Community</a>
             <div className="flex items-center space-x-4">
               <button className="text-white hover:text-gray-300">
                 <User size={20} />

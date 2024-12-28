@@ -3,9 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
-import NewsletterPopup from "@/components/NewsletterPopup";
 import ContactForm from "@/components/ContactForm";
-import PricingSection from "@/components/PricingSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
 
 const Index = () => {
@@ -14,7 +12,6 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <NewsletterPopup />
       
       {/* Hero Section */}
       <HeroSection />
@@ -42,9 +39,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Pricing Section */}
-      <PricingSection />
 
       {/* Why Choose Section */}
       <WhyChooseSection />
