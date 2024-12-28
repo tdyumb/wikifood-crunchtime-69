@@ -24,6 +24,8 @@ const FindRecipe = () => {
                 image={recipe.image}
                 cookTime={recipe.cookTime}
                 servings={recipe.servings}
+                ingredients={recipe.ingredients}
+                instructions={recipe.instructions}
               />
             ))}
           </div>
