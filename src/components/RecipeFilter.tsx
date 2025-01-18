@@ -32,7 +32,7 @@ const RecipeFilter = () => {
       <h2 className="text-2xl font-bold text-center mb-6">Find Your Perfect Recipe</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Select onValueChange={(value) => setFilters({ ...filters, cuisineType: value })}>
-          <SelectTrigger className="bg-white">
+          <SelectTrigger>
             <SelectValue placeholder="Cuisine Type" />
           </SelectTrigger>
           <SelectContent>
@@ -44,7 +44,7 @@ const RecipeFilter = () => {
         </Select>
         
         <Select onValueChange={(value) => setFilters({ ...filters, mealType: value })}>
-          <SelectTrigger className="bg-white">
+          <SelectTrigger>
             <SelectValue placeholder="Meal Type" />
           </SelectTrigger>
           <SelectContent>
@@ -55,7 +55,7 @@ const RecipeFilter = () => {
         </Select>
         
         <Select onValueChange={(value) => setFilters({ ...filters, dietaryRestrictions: value })}>
-          <SelectTrigger className="bg-white">
+          <SelectTrigger>
             <SelectValue placeholder="Dietary Restrictions" />
           </SelectTrigger>
           <SelectContent>
@@ -71,11 +71,7 @@ const RecipeFilter = () => {
           <Badge 
             key={tag} 
             variant={filters.dietaryRestrictions === tag.toLowerCase() ? "default" : "outline"}
-            className={`cursor-pointer transition-colors ${
-              filters.dietaryRestrictions === tag.toLowerCase() 
-                ? 'bg-[#F97316] hover:bg-[#F97316]/90 border-[#F97316]' 
-                : 'hover:bg-[#F97316] hover:text-white'
-            }`}
+            className="cursor-pointer hover:bg-primary hover:text-white"
             onClick={() => handleTagClick(tag)}
           >
             {tag}
