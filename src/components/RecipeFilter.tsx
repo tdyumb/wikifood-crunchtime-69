@@ -32,10 +32,10 @@ const RecipeFilter = () => {
       <h2 className="text-2xl font-bold text-center mb-6">Find Your Perfect Recipe</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Select onValueChange={(value) => setFilters({ ...filters, cuisineType: value })}>
-          <SelectTrigger className="bg-white">
+          <SelectTrigger className="bg-white border-gray-200">
             <SelectValue placeholder="Cuisine Type" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white border-gray-200">
             <SelectItem value="italian">Italian</SelectItem>
             <SelectItem value="chinese">Chinese</SelectItem>
             <SelectItem value="american">American</SelectItem>
@@ -44,10 +44,10 @@ const RecipeFilter = () => {
         </Select>
         
         <Select onValueChange={(value) => setFilters({ ...filters, mealType: value })}>
-          <SelectTrigger className="bg-white">
+          <SelectTrigger className="bg-white border-gray-200">
             <SelectValue placeholder="Meal Type" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white border-gray-200">
             <SelectItem value="breakfast">Breakfast</SelectItem>
             <SelectItem value="lunch">Lunch</SelectItem>
             <SelectItem value="dinner">Dinner</SelectItem>
@@ -55,10 +55,10 @@ const RecipeFilter = () => {
         </Select>
         
         <Select onValueChange={(value) => setFilters({ ...filters, dietaryRestrictions: value })}>
-          <SelectTrigger className="bg-white">
+          <SelectTrigger className="bg-white border-gray-200">
             <SelectValue placeholder="Dietary Restrictions" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white border-gray-200">
             <SelectItem value="vegetarian">Vegetarian</SelectItem>
             <SelectItem value="vegan">Vegan</SelectItem>
             <SelectItem value="gluten-free">Gluten Free</SelectItem>
