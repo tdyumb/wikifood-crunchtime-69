@@ -1,4 +1,4 @@
-import { Menu, User } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -43,9 +43,6 @@ const Navigation = () => {
               <div className="flex items-center space-x-8">
                 <Link to="/about" className="text-white hover:text-gray-300">About</Link>
                 <Link to="/contact" className="text-white hover:text-gray-300">Contact</Link>
-                <button className="text-white hover:text-gray-300">
-                  <User size={20} />
-                </button>
               </div>
             </>
           )}
@@ -60,10 +57,6 @@ const Navigation = () => {
               <Link to="/recipe-collection" className="text-white hover:text-gray-300 px-4">Recipe Collection</Link>
               <Link to="/about" className="text-white hover:text-gray-300 px-4">About</Link>
               <Link to="/contact" className="text-white hover:text-gray-300 px-4">Contact</Link>
-              <button className="text-white hover:text-gray-300 px-4 flex items-center">
-                <User size={20} className="mr-2" />
-                <span>Profile</span>
-              </button>
             </div>
           </div>
         )}

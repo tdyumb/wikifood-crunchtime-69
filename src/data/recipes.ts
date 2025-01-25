@@ -76,7 +76,7 @@ export const recipeData = [
     id: '3',
     title: 'Keto Chicken Alfredo',
     description: 'Low-carb version of the classic pasta dish using zucchini noodles',
-    image: 'https://images.unsplash.com/photo-1645112411341-6c4fd023402d?auto=format&fit=crop&w=800',
+    image: 'public/lovable-uploads/47c0f811-6f36-4e2a-a87f-7153f345b857.png',
     cuisineType: 'italian',
     mealType: 'dinner',
     dietaryRestrictions: ['low-carb', 'keto'],
