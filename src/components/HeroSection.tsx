@@ -34,8 +34,8 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
-          src="https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151"
-          alt="Hero Background"
+          src="/lovable-uploads/6fc1a0bc-894d-428f-a2f4-ccfe73af9d08.png"
+          alt="Chef cooking in kitchen"
           className="w-full h-full object-cover brightness-50"
         />
       </div>
