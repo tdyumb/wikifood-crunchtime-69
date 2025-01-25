@@ -10,6 +10,9 @@ import RecipeCollection from "./pages/RecipeCollection";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Download from "./pages/Download";
+import Blog from "./pages/Blog";
+import Newsletter from "./pages/Newsletter";
+import Events from "./pages/Events";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/download" element={<Download />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/newsletter" element={<Newsletter />} />
+            <Route path="/events" element={<Events />} />
           </Routes>
         </BrowserRouter>
       </RecipeProvider>
