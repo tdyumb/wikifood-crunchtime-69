@@ -91,11 +91,9 @@ const HeroSection = () => {
           </p>
 
           {/* Start Exploring Button */}
-          <button 
-            className="px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Start Exploring Recipes
-          </button>
+          <p className="text-white text-xl mb-4">
+            Scroll down to find your perfect recipe
+          </p>
         </motion.div>
       </div>
     </section>
