@@ -539,7 +539,7 @@ export const recipeData = [
     id: '20',
     title: 'Keto Mexican Chicken Salad',
     description: 'Low-carb salad with chicken, avocado, and cheese',
-    image: 'https://images.unsplash.com/photo-1580013759032-c96505e24c1f?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800',
     cuisineType: 'mexican',
     mealType: 'lunch',
     dietaryRestrictions: ['keto'],
