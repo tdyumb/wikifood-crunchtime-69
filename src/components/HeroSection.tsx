@@ -19,6 +19,14 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleTrailerClick = () => {
+    window.open('https://www.youtube.com/watch?v=_DbRKvi5_OI', '_blank');
+    toast({
+      title: "Trailer",
+      description: "Opening video trailer...",
+    });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -57,12 +65,7 @@ const HeroSection = () => {
           {/* Watch Trailer Button */}
           <button 
             className="mb-8 px-6 py-2 bg-black/50 text-white rounded-full flex items-center gap-2 mx-auto hover:bg-black/70 transition-colors"
-            onClick={() => {
-              toast({
-                title: "Trailer",
-                description: "Opening video trailer...",
-              });
-            }}
+            onClick={handleTrailerClick}
           >
             <Play size={16} />
             Watch Trailer
