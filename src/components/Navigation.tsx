@@ -20,7 +20,6 @@ const Navigation = () => {
           <div className="flex items-center space-x-8">
             <Link to="/about" className="text-white hover:text-gray-300">About</Link>
             <Link to="/contact" className="text-white hover:text-gray-300">Contact</Link>
-            <Link to="/download" className="text-white hover:text-gray-300">Download the app</Link>
             <div className="flex items-center space-x-4">
               <button className="text-white hover:text-gray-300">
                 <User size={20} />
