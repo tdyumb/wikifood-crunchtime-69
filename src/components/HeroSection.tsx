@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "./ui/use-toast";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const HeroSection = () => {
   const [currentText, setCurrentText] = useState("Talk");
@@ -90,10 +92,15 @@ const HeroSection = () => {
             Master the art of cooking. Learn techniques and recipes from expert chefs around the world!
           </p>
 
-          {/* Start Exploring Button */}
-          <p className="text-white text-xl mb-4">
-            Scroll down to find your perfect recipe
-          </p>
+          {/* Find Recipe Button */}
+          <Link to="/find-recipe">
+            <Button 
+              variant="default"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold text-lg px-8 py-6"
+            >
+              Find your perfect recipe
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
