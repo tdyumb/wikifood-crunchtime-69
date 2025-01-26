@@ -50,7 +50,7 @@ const About = () => {
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
-                  onClick={() => window.open("/tsa-forms/plan-of-work-log.pdf")}
+                  onClick={() => window.open("https://pdf.ac/4dfRqT")}
                 >
                   <Download className="mr-2" />
                   Plan of Work Log
