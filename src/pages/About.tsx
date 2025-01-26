@@ -42,7 +42,7 @@ const About = () => {
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
-                  onClick={() => window.open("/tsa-forms/copyright-checklist.pdf")}
+                  onClick={() => window.open("https://pdf.ac/1n7WMi")}
                 >
                   <Download className="mr-2" />
                   Copyright Checklist
