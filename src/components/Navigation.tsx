@@ -29,7 +29,9 @@ const Navigation = () => {
         : "bg-transparent"
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className={`flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? "h-12" : "h-16"
+        }`}>
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">WikiFoods</Link>
 
