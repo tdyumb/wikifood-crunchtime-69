@@ -12,11 +12,11 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-600/80 backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-black">WikiFoods</Link>
+          <Link to="/" className="text-2xl font-bold text-white">WikiFoods</Link>
 
           {/* Mobile Menu Button */}
           {isMobile && (
@@ -50,13 +50,13 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobile && isMenuOpen && (
-          <div className="bg-wiki-900/95 backdrop-blur-sm py-4 animate-fade-in">
+          <div className="bg-blue-600/95 backdrop-blur-sm py-4 animate-fade-in">
             <div className="flex flex-col space-y-4">
-              <Link to="/" className="text-black hover:text-gray-600 px-4">Home</Link>
-              <Link to="/find-recipe" className="text-black hover:text-gray-600 px-4">Find A Recipe</Link>
-              <Link to="/recipe-collection" className="text-black hover:text-gray-600 px-4">Recipe Collection</Link>
-              <Link to="/about" className="text-black hover:text-gray-600 px-4">About</Link>
-              <Link to="/contact" className="text-black hover:text-gray-600 px-4">Contact</Link>
+              <Link to="/" className="text-white hover:text-gray-200 px-4">Home</Link>
+              <Link to="/find-recipe" className="text-white hover:text-gray-200 px-4">Find A Recipe</Link>
+              <Link to="/recipe-collection" className="text-white hover:text-gray-200 px-4">Recipe Collection</Link>
+              <Link to="/about" className="text-white hover:text-gray-200 px-4">About</Link>
+              <Link to="/contact" className="text-white hover:text-gray-200 px-4">Contact</Link>
             </div>
           </div>
         )}
