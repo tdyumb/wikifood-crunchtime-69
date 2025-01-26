@@ -1,6 +1,4 @@
 import Navigation from "@/components/Navigation";
-import { Button } from "@/components/ui/button";
-import { FileText } from "lucide-react";
 
 const About = () => {
   return (
@@ -32,34 +30,6 @@ const About = () => {
                   To create a global community where culinary knowledge is shared, 
                   celebrated, and preserved for future generations.
                 </p>
-              </div>
-            </div>
-
-            {/* TSA Forms Section */}
-            <div className="bg-white p-8 rounded-lg shadow-md mt-12">
-              <h2 className="text-2xl font-bold mb-6">TSA Forms & Documentation</h2>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
-                  <div className="flex items-center space-x-3">
-                    <FileText className="h-6 w-6 text-blue-500" />
-                    <span className="font-medium">TSA Safety Guidelines</span>
-                  </div>
-                  <Button variant="outline">Download</Button>
-                </div>
-                <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
-                  <div className="flex items-center space-x-3">
-                    <FileText className="h-6 w-6 text-blue-500" />
-                    <span className="font-medium">Food Safety Certification</span>
-                  </div>
-                  <Button variant="outline">Download</Button>
-                </div>
-                <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
-                  <div className="flex items-center space-x-3">
-                    <FileText className="h-6 w-6 text-blue-500" />
-                    <span className="font-medium">Compliance Documentation</span>
-                  </div>
-                  <Button variant="outline">Download</Button>
-                </div>
               </div>
             </div>
           </div>
