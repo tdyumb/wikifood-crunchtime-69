@@ -2,19 +2,20 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
+import type { ConfigEnv, UserConfig } from 'vite';
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode }: ConfigEnv): UserConfig => ({
   server: {
-    host: "0.0.0.0", // Allow external connections
-    port: process.env.PORT || 8080, // Use environment port or default to 8080
+    host: "0.0.0.0",
+    port: 8080, // Fixed port as required
   },
   build: {
-    outDir: "dist", // Specify build output directory
-    sourcemap: true, // Enable source maps for debugging
+    outDir: "dist",
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'], // Split vendor chunks
+          vendor: ['react', 'react-dom', 'react-router-dom'],
         },
       },
     },
