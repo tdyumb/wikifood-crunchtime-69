@@ -68,7 +68,7 @@ const About = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Images</h3>
-                  <p>All images are provided by Unsplash - Beautiful, free images and photos that you can download and use for any project.</p>
+                  <p>All images are provided by Unsplash - Beautiful, free images and photos that you can download and use for any project. These images are copyright-free and were carefully selected by our team.</p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Hosting</h3>
