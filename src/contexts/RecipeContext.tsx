@@ -1,19 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { recipeData } from '../data/recipes';
-
-type Recipe = {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  cuisineType: string;
-  mealType: string;
-  dietaryRestrictions: string[];
-  cookTime: string;
-  servings: number;
-  ingredients: string[];
-  instructions: string[];
-};
+import { recipeData, Recipe } from '../data/recipes';
 
 type RecipeContextType = {
   recipes: Recipe[];

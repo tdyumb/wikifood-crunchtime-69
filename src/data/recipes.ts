@@ -12,7 +12,7 @@ export interface Recipe {
   mealType: string;
 }
 
-export const recipes: Recipe[] = [
+export const recipeData: Recipe[] = [
   {
     id: "1",
     title: "Keto Mexican Cauliflower Rice",
