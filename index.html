@@ -3,14 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wikifood-crunchtime</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-    <meta property="og:image" content="/og-image.png" />
+    <title>WikiFood</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="/" class="nav-logo">WikiFoods</a>
+        <button class="nav-toggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="nav-menu">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/find-recipe" class="nav-link">Find A Recipe</a>
+          <a href="/recipe-collection" class="nav-link">Recipe Collection</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/contact" class="nav-link">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-background">
+        <img src="cooking.gif" alt="Chef cooking with flames" />
+      </div>
+      
+      <!-- Decorative Lights -->
+      <div class="lights">
+        <div class="lights-container">
+          <!-- Lights will be added by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="hero-content">
+        <button class="trailer-btn" onclick="handleTrailerClick()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Watch Trailer
+        </button>
+
+        <h1 class="hero-title">
+          <span class="animated-text">Talk</span> Like A
+          <br />
+          Chef
+        </h1>
+        <p class="hero-description">
+          Master the art of cooking. Learn techniques and recipes from expert chefs around the world!
+        </p>
+
+        <a href="/find-recipe" class="cta-button">
+          Find your perfect recipe
+        </a>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
   </body>
 </html>
