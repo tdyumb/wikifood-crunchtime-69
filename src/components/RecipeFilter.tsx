@@ -101,7 +101,7 @@ const RecipeFilter = () => {
                 <span className="ml-2">({filters.cuisineType.length})</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-2">
+            <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
               <div className="space-y-2">
                 {cuisineTypes.map((cuisine) => (
                   <div key={cuisine} className="flex items-center space-x-2">
@@ -129,7 +129,7 @@ const RecipeFilter = () => {
                 <span className="ml-2">({filters.mealType.length})</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-2">
+            <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
               <div className="space-y-2">
                 {mealTypes.map((meal) => (
                   <div key={meal} className="flex items-center space-x-2">
@@ -157,7 +157,7 @@ const RecipeFilter = () => {
                 <span className="ml-2">({filters.dietaryRestrictions.length})</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-2">
+            <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
               <div className="space-y-2">
                 {dietaryTags.map((tag) => (
                   <div key={tag} className="flex items-center space-x-2">
