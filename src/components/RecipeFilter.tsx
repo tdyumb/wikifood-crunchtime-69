@@ -4,6 +4,7 @@ import { useRecipes } from "@/contexts/RecipeContext";
 import { useToast } from "./ui/use-toast";
 import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
@@ -93,56 +94,86 @@ const RecipeFilter = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">Cuisine Type</label>
-          <div className="space-y-2 border rounded-md p-2">
-            {cuisineTypes.map((cuisine) => (
-              <div key={cuisine} className="flex items-center space-x-2">
-                <Checkbox 
-                  id={`cuisine-${cuisine}`}
-                  checked={filters.cuisineType.includes(cuisine)}
-                  onCheckedChange={() => handleCuisineChange(cuisine)}
-                />
-                <label htmlFor={`cuisine-${cuisine}`} className="text-sm capitalize">
-                  {cuisine}
-                </label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full justify-between">
+                Select Cuisine Types
+                <span className="ml-2">({filters.cuisineType.length})</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-2">
+              <div className="space-y-2">
+                {cuisineTypes.map((cuisine) => (
+                  <div key={cuisine} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`cuisine-${cuisine}`}
+                      checked={filters.cuisineType.includes(cuisine)}
+                      onCheckedChange={() => handleCuisineChange(cuisine)}
+                    />
+                    <label htmlFor={`cuisine-${cuisine}`} className="text-sm capitalize">
+                      {cuisine}
+                    </label>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium">Meal Type</label>
-          <div className="space-y-2 border rounded-md p-2">
-            {mealTypes.map((meal) => (
-              <div key={meal} className="flex items-center space-x-2">
-                <Checkbox 
-                  id={`meal-${meal}`}
-                  checked={filters.mealType.includes(meal)}
-                  onCheckedChange={() => handleMealChange(meal)}
-                />
-                <label htmlFor={`meal-${meal}`} className="text-sm capitalize">
-                  {meal}
-                </label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full justify-between">
+                Select Meal Types
+                <span className="ml-2">({filters.mealType.length})</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-2">
+              <div className="space-y-2">
+                {mealTypes.map((meal) => (
+                  <div key={meal} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`meal-${meal}`}
+                      checked={filters.mealType.includes(meal)}
+                      onCheckedChange={() => handleMealChange(meal)}
+                    />
+                    <label htmlFor={`meal-${meal}`} className="text-sm capitalize">
+                      {meal}
+                    </label>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium">Dietary Restrictions</label>
-          <div className="space-y-2 border rounded-md p-2">
-            {dietaryTags.map((tag) => (
-              <div key={tag} className="flex items-center space-x-2">
-                <Checkbox 
-                  id={`dietary-${tag}`}
-                  checked={filters.dietaryRestrictions.includes(tag.toLowerCase())}
-                  onCheckedChange={() => handleTagClick(tag)}
-                />
-                <label htmlFor={`dietary-${tag}`} className="text-sm capitalize">
-                  {tag}
-                </label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full justify-between">
+                Select Restrictions
+                <span className="ml-2">({filters.dietaryRestrictions.length})</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-2">
+              <div className="space-y-2">
+                {dietaryTags.map((tag) => (
+                  <div key={tag} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`dietary-${tag}`}
+                      checked={filters.dietaryRestrictions.includes(tag.toLowerCase())}
+                      onCheckedChange={() => handleTagClick(tag)}
+                    />
+                    <label htmlFor={`dietary-${tag}`} className="text-sm capitalize">
+                      {tag}
+                    </label>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 
