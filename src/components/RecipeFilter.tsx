@@ -5,7 +5,7 @@ import { useToast } from "./ui/use-toast";
 import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Italic } from "lucide-react"; // Only import Italic since LetterC doesn't exist
+import { Italic, Globe, Flag, Beef } from "lucide-react"; // Import icons for each cuisine
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
@@ -20,9 +20,16 @@ const RecipeFilter = () => {
 
   const getCuisineIcon = (cuisine: string) => {
     switch (cuisine.toLowerCase()) {
+      case 'all':
+        return <Globe className="h-4 w-4" />;
       case 'italian':
         return <Italic className="h-4 w-4" />;
-      // Removed Chinese case since we don't have a suitable icon
+      case 'chinese':
+        return <Beef className="h-4 w-4" />; // Using Beef icon for Chinese cuisine
+      case 'american':
+        return <Flag className="h-4 w-4" />; // Using Flag icon for American cuisine
+      case 'mexican':
+        return <Beef className="h-4 w-4" />; // Using Beef icon for Mexican cuisine
       default:
         return null;
     }
