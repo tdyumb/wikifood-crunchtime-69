@@ -126,23 +126,24 @@ const RecipeFilter = () => {
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-wrap gap-2 justify-center my-4">
-        {dietaryTags.map((tag) => (
-          <Badge 
-            key={tag} 
-            variant={filters.dietaryRestrictions.includes(tag.toLowerCase()) ? "default" : "outline"}
-            className={`cursor-pointer transition-colors ${
-              filters.dietaryRestrictions.includes(tag.toLowerCase()) 
-                ? 'bg-[#F97316] hover:bg-[#F97316]/90 border-[#F97316]' 
-                : 'hover:bg-[#F97316] hover:text-white'
-            }`}
-            onClick={() => handleTagClick(tag)}
-          >
-            {tag}
-          </Badge>
-        ))}
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Dietary Restrictions</label>
+          <div className="space-y-2 border rounded-md p-2">
+            {dietaryTags.map((tag) => (
+              <div key={tag} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`dietary-${tag}`}
+                  checked={filters.dietaryRestrictions.includes(tag.toLowerCase())}
+                  onCheckedChange={() => handleTagClick(tag)}
+                />
+                <label htmlFor={`dietary-${tag}`} className="text-sm capitalize">
+                  {tag}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <Button onClick={handleSearch} className="w-full md:w-auto mx-auto block">
