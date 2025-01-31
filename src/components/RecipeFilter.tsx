@@ -4,8 +4,6 @@ import { useRecipes } from "@/contexts/RecipeContext";
 import { useToast } from "./ui/use-toast";
 import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "./ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
@@ -47,82 +45,104 @@ const RecipeFilter = () => {
     });
   };
 
+  const handleCuisineChange = (cuisine: string) => {
+    let newCuisines: string[];
+    
+    if (cuisine === 'all') {
+      newCuisines = filters.cuisineType.includes('all') ? [] : ['all'];
+    } else {
+      if (filters.cuisineType.includes('all')) {
+        newCuisines = [cuisine];
+      } else {
+        newCuisines = filters.cuisineType.includes(cuisine)
+          ? filters.cuisineType.filter(t => t !== cuisine)
+          : [...filters.cuisineType, cuisine];
+      }
+    }
+
+    setFilters({
+      ...filters,
+      cuisineType: newCuisines
+    });
+  };
+
+  const handleMealChange = (meal: string) => {
+    let newMeals: string[];
+    
+    if (meal === 'all') {
+      newMeals = filters.mealType.includes('all') ? [] : ['all'];
+    } else {
+      if (filters.mealType.includes('all')) {
+        newMeals = [meal];
+      } else {
+        newMeals = filters.mealType.includes(meal)
+          ? filters.mealType.filter(t => t !== meal)
+          : [...filters.mealType, meal];
+      }
+    }
+
+    setFilters({
+      ...filters,
+      mealType: newMeals
+    });
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-6 bg-white rounded-lg shadow-sm">
       <h2 className="text-2xl font-bold text-center mb-6">Find Your Perfect Recipe</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">Cuisine Type</label>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="w-full flex items-center justify-between px-4 py-2 bg-white border rounded-md">
-              <span>Select Cuisine Types</span>
-              <ChevronDown className="h-4 w-4 opacity-50" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white">
-              {cuisineTypes.map((cuisine) => (
-                <DropdownMenuCheckboxItem
-                  key={cuisine}
+          <div className="space-y-2 border rounded-md p-2">
+            {cuisineTypes.map((cuisine) => (
+              <div key={cuisine} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`cuisine-${cuisine}`}
                   checked={filters.cuisineType.includes(cuisine)}
-                  onCheckedChange={() => {
-                    const newCuisines = filters.cuisineType.includes(cuisine)
-                      ? filters.cuisineType.filter(c => c !== cuisine)
-                      : [...filters.cuisineType, cuisine];
-                    setFilters({ ...filters, cuisineType: newCuisines });
-                  }}
-                >
-                  {cuisine.charAt(0).toUpperCase() + cuisine.slice(1)}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  onCheckedChange={() => handleCuisineChange(cuisine)}
+                />
+                <label htmlFor={`cuisine-${cuisine}`} className="text-sm capitalize">
+                  {cuisine}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-2">
           <label className="text-sm font-medium">Meal Type</label>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="w-full flex items-center justify-between px-4 py-2 bg-white border rounded-md">
-              <span>Select Meal Types</span>
-              <ChevronDown className="h-4 w-4 opacity-50" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white">
-              {mealTypes.map((meal) => (
-                <DropdownMenuCheckboxItem
-                  key={meal}
+          <div className="space-y-2 border rounded-md p-2">
+            {mealTypes.map((meal) => (
+              <div key={meal} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`meal-${meal}`}
                   checked={filters.mealType.includes(meal)}
-                  onCheckedChange={() => {
-                    const newMeals = filters.mealType.includes(meal)
-                      ? filters.mealType.filter(m => m !== meal)
-                      : [...filters.mealType, meal];
-                    setFilters({ ...filters, mealType: newMeals });
-                  }}
-                >
-                  {meal.charAt(0).toUpperCase() + meal.slice(1)}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  onCheckedChange={() => handleMealChange(meal)}
+                />
+                <label htmlFor={`meal-${meal}`} className="text-sm capitalize">
+                  {meal}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Dietary Restrictions</label>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="w-full flex items-center justify-between px-4 py-2 bg-white border rounded-md">
-              <span>Select Dietary Restrictions</span>
-              <ChevronDown className="h-4 w-4 opacity-50" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white">
-              {dietaryTags.map((tag) => (
-                <DropdownMenuCheckboxItem
-                  key={tag}
-                  checked={filters.dietaryRestrictions.includes(tag.toLowerCase())}
-                  onCheckedChange={() => handleTagClick(tag)}
-                >
-                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      <div className="flex flex-wrap gap-2 justify-center my-4">
+        {dietaryTags.map((tag) => (
+          <Badge 
+            key={tag} 
+            variant={filters.dietaryRestrictions.includes(tag.toLowerCase()) ? "default" : "outline"}
+            className={`cursor-pointer transition-colors ${
+              filters.dietaryRestrictions.includes(tag.toLowerCase()) 
+                ? 'bg-[#F97316] hover:bg-[#F97316]/90 border-[#F97316]' 
+                : 'hover:bg-[#F97316] hover:text-white'
+            }`}
+            onClick={() => handleTagClick(tag)}
+          >
+            {tag}
+          </Badge>
+        ))}
       </div>
 
       <Button onClick={handleSearch} className="w-full md:w-auto mx-auto block">
