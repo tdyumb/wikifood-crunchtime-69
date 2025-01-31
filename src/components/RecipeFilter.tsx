@@ -181,7 +181,6 @@ const RecipeFilter = () => {
                     ))}
                   </div>
                 </div>
-                <span className="ml-2">({filters.cuisineType.length})</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
@@ -217,7 +216,6 @@ const RecipeFilter = () => {
                     ))}
                   </div>
                 </div>
-                <span className="ml-2">({filters.mealType.length})</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
@@ -253,7 +251,6 @@ const RecipeFilter = () => {
                     ))}
                   </div>
                 </div>
-                <span className="ml-2">({filters.dietaryRestrictions.length})</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
