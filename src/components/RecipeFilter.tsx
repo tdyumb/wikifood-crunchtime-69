@@ -5,7 +5,23 @@ import { useToast } from "./ui/use-toast";
 import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Italic, Globe, Flag, Beef } from "lucide-react"; // Import icons for each cuisine
+import { 
+  Globe, 
+  UtensilsCrossed, 
+  Pizza, 
+  Flag, 
+  ChiliHot,
+  Sunrise,
+  Coffee,
+  Soup,
+  UtensilsCrossed as Dinner,
+  Leaf,
+  Wheat,
+  Milk,
+  Heart,
+  Apple,
+  Carrot
+} from "lucide-react";
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
@@ -23,13 +39,55 @@ const RecipeFilter = () => {
       case 'all':
         return <Globe className="h-4 w-4" />;
       case 'italian':
-        return <Italic className="h-4 w-4" />;
+        return <Pizza className="h-4 w-4" />;
       case 'chinese':
-        return <Beef className="h-4 w-4" />; // Using Beef icon for Chinese cuisine
+        return <UtensilsCrossed className="h-4 w-4" />;
       case 'american':
-        return <Flag className="h-4 w-4" />; // Using Flag icon for American cuisine
+        return <Flag className="h-4 w-4" />;
       case 'mexican':
-        return <Beef className="h-4 w-4" />; // Using Beef icon for Mexican cuisine
+        return <ChiliHot className="h-4 w-4" />;
+      default:
+        return null;
+    }
+  };
+
+  const getMealIcon = (meal: string) => {
+    switch (meal.toLowerCase()) {
+      case 'all':
+        return <UtensilsCrossed className="h-4 w-4" />;
+      case 'breakfast':
+        return <Coffee className="h-4 w-4" />;
+      case 'lunch':
+        return <Soup className="h-4 w-4" />;
+      case 'dinner':
+        return <Dinner className="h-4 w-4" />;
+      default:
+        return null;
+    }
+  };
+
+  const getDietaryIcon = (tag: string) => {
+    switch (tag.toLowerCase()) {
+      case 'all':
+        return <UtensilsCrossed className="h-4 w-4" />;
+      case 'vegetarian':
+        return <Leaf className="h-4 w-4" />;
+      case 'vegan':
+        return <Carrot className="h-4 w-4" />;
+      case 'gluten-free':
+        return <Wheat className="h-4 w-4" />;
+      case 'dairy-free':
+        return <Milk className="h-4 w-4" />;
+      case 'low-carb':
+        return <Heart className="h-4 w-4" />;
+      case 'keto':
+        return <Apple className="h-4 w-4" />;
+      case 'paleo':
+        return <Leaf className="h-4 w-4" />;
+      case 'whole30':
+        return <Heart className="h-4 w-4" />;
+      case 'pescatarian':
+        return <UtensilsCrossed className="h-4 w-4" />;
       default:
         return null;
     }
@@ -151,7 +209,14 @@ const RecipeFilter = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full justify-between">
-                Select Meal Types
+                <div className="flex items-center gap-2">
+                  Select Meal Types
+                  <div className="flex gap-1">
+                    {filters.mealType.map((meal, index) => (
+                      <span key={index}>{getMealIcon(meal)}</span>
+                    ))}
+                  </div>
+                </div>
                 <span className="ml-2">({filters.mealType.length})</span>
               </Button>
             </PopoverTrigger>
@@ -164,8 +229,9 @@ const RecipeFilter = () => {
                       checked={filters.mealType.includes(meal)}
                       onCheckedChange={() => handleMealChange(meal)}
                     />
-                    <label htmlFor={`meal-${meal}`} className="text-sm capitalize">
+                    <label htmlFor={`meal-${meal}`} className="text-sm capitalize flex items-center gap-2">
                       {meal}
+                      {getMealIcon(meal)}
                     </label>
                   </div>
                 ))}
@@ -179,7 +245,14 @@ const RecipeFilter = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full justify-between">
-                Select Restrictions
+                <div className="flex items-center gap-2">
+                  Select Restrictions
+                  <div className="flex gap-1">
+                    {filters.dietaryRestrictions.map((tag, index) => (
+                      <span key={index}>{getDietaryIcon(tag)}</span>
+                    ))}
+                  </div>
+                </div>
                 <span className="ml-2">({filters.dietaryRestrictions.length})</span>
               </Button>
             </PopoverTrigger>
@@ -192,8 +265,9 @@ const RecipeFilter = () => {
                       checked={filters.dietaryRestrictions.includes(tag.toLowerCase())}
                       onCheckedChange={() => handleTagClick(tag)}
                     />
-                    <label htmlFor={`dietary-${tag}`} className="text-sm capitalize">
+                    <label htmlFor={`dietary-${tag}`} className="text-sm capitalize flex items-center gap-2">
                       {tag}
+                      {getDietaryIcon(tag)}
                     </label>
                   </div>
                 ))}
