@@ -5,6 +5,7 @@ import { useToast } from "./ui/use-toast";
 import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Italic, LetterC } from "lucide-react"; // Import icons
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
@@ -16,6 +17,17 @@ const RecipeFilter = () => {
     "all", "vegetarian", "vegan", "gluten-free", "dairy-free", 
     "low-carb", "keto", "paleo", "whole30", "pescatarian"
   ];
+
+  const getCuisineIcon = (cuisine: string) => {
+    switch (cuisine.toLowerCase()) {
+      case 'italian':
+        return <Italic className="h-4 w-4" />;
+      case 'chinese':
+        return <LetterC className="h-4 w-4" />;
+      default:
+        return null;
+    }
+  };
 
   const handleSearch = () => {
     toast({
@@ -97,7 +109,14 @@ const RecipeFilter = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full justify-between">
-                Select Cuisine Types
+                <div className="flex items-center gap-2">
+                  Select Cuisine Types
+                  <div className="flex gap-1">
+                    {filters.cuisineType.map((cuisine) => (
+                      getCuisineIcon(cuisine)
+                    ))}
+                  </div>
+                </div>
                 <span className="ml-2">({filters.cuisineType.length})</span>
               </Button>
             </PopoverTrigger>
@@ -110,8 +129,9 @@ const RecipeFilter = () => {
                       checked={filters.cuisineType.includes(cuisine)}
                       onCheckedChange={() => handleCuisineChange(cuisine)}
                     />
-                    <label htmlFor={`cuisine-${cuisine}`} className="text-sm capitalize">
+                    <label htmlFor={`cuisine-${cuisine}`} className="text-sm capitalize flex items-center gap-2">
                       {cuisine}
+                      {getCuisineIcon(cuisine)}
                     </label>
                   </div>
                 ))}
