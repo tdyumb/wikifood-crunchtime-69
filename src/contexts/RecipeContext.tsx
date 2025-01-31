@@ -19,11 +19,11 @@ type RecipeContextType = {
   recipes: Recipe[];
   filteredRecipes: Recipe[];
   filters: {
-    cuisineType: string;
-    mealType: string;
-    dietaryRestrictions: string;
+    cuisineType: string[];
+    mealType: string[];
+    dietaryRestrictions: string[];
   };
-  setFilters: (filters: { cuisineType: string; mealType: string; dietaryRestrictions: string }) => void;
+  setFilters: (filters: { cuisineType: string[]; mealType: string[]; dietaryRestrictions: string[] }) => void;
 };
 
 const RecipeContext = createContext<RecipeContextType | undefined>(undefined);
@@ -32,15 +32,15 @@ export const RecipeProvider = ({ children }: { children: ReactNode }) => {
   const [recipes] = useState<Recipe[]>(recipeData);
 
   const [filters, setFilters] = useState({
-    cuisineType: '',
-    mealType: '',
-    dietaryRestrictions: '',
+    cuisineType: [],
+    mealType: [],
+    dietaryRestrictions: [],
   });
 
   const filteredRecipes = recipes.filter(recipe => {
-    if (filters.cuisineType && recipe.cuisineType !== filters.cuisineType) return false;
-    if (filters.mealType && recipe.mealType !== filters.mealType) return false;
-    if (filters.dietaryRestrictions && !recipe.dietaryRestrictions.includes(filters.dietaryRestrictions)) return false;
+    if (filters.cuisineType.length > 0 && !filters.cuisineType.includes('all') && !filters.cuisineType.includes(recipe.cuisineType)) return false;
+    if (filters.mealType.length > 0 && !filters.mealType.includes('all') && !filters.mealType.includes(recipe.mealType)) return false;
+    if (filters.dietaryRestrictions.length > 0 && !filters.dietaryRestrictions.includes('all') && !recipe.dietaryRestrictions.some(r => filters.dietaryRestrictions.includes(r))) return false;
     return true;
   });
 
