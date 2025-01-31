@@ -5,7 +5,7 @@ import { useToast } from "./ui/use-toast";
 import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Italic, LetterC } from "lucide-react"; // Import icons
+import { Italic } from "lucide-react"; // Only import Italic since LetterC doesn't exist
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
@@ -22,8 +22,7 @@ const RecipeFilter = () => {
     switch (cuisine.toLowerCase()) {
       case 'italian':
         return <Italic className="h-4 w-4" />;
-      case 'chinese':
-        return <LetterC className="h-4 w-4" />;
+      // Removed Chinese case since we don't have a suitable icon
       default:
         return null;
     }
@@ -112,8 +111,8 @@ const RecipeFilter = () => {
                 <div className="flex items-center gap-2">
                   Select Cuisine Types
                   <div className="flex gap-1">
-                    {filters.cuisineType.map((cuisine) => (
-                      getCuisineIcon(cuisine)
+                    {filters.cuisineType.map((cuisine, index) => (
+                      <span key={index}>{getCuisineIcon(cuisine)}</span>
                     ))}
                   </div>
                 </div>
