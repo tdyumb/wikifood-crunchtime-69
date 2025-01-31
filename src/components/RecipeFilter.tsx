@@ -10,7 +10,7 @@ import {
   UtensilsCrossed, 
   Pizza, 
   Flag, 
-  ChiliHot,
+  Beef,
   Sunrise,
   Coffee,
   Soup,
@@ -45,7 +45,7 @@ const RecipeFilter = () => {
       case 'american':
         return <Flag className="h-4 w-4" />;
       case 'mexican':
-        return <ChiliHot className="h-4 w-4" />;
+        return <Beef className="h-4 w-4" />;
       default:
         return null;
     }
