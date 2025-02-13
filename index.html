@@ -7,70 +7,9 @@
     <title>WikiFood</title>
     <meta name="description" content="Find Your Perfect Recipe" />
     <meta name="author" content="WikiFood" />
-    <link rel="stylesheet" href="/src/styles.css">
   </head>
   <body>
-    <nav class="navbar">
-      <div class="nav-container">
-        <a href="/" class="nav-logo">WikiFoods</a>
-        <div class="nav-links">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/find-recipe" class="nav-link">Find A Recipe</a>
-          <a href="/recipe-collection" class="nav-link">Recipe Collection</a>
-          <a href="/about" class="nav-link">About</a>
-          <a href="/contact" class="nav-link">Contact</a>
-        </div>
-      </div>
-    </nav>
-
-    <main>
-      <section class="recipe-filter">
-        <div class="filter-container">
-          <h2 class="filter-title">Find Your Perfect Recipe</h2>
-          
-          <div class="filter-grid">
-            <div class="filter-group">
-              <label>Cuisine Type</label>
-              <select id="cuisine-select" class="filter-select">
-                <option value="all">All Cuisines</option>
-                <option value="italian">Italian</option>
-                <option value="chinese">Chinese</option>
-                <option value="american">American</option>
-                <option value="mexican">Mexican</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
-              <label>Meal Type</label>
-              <select id="meal-select" class="filter-select">
-                <option value="all">All Meals</option>
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
-              <label>Dietary Restrictions</label>
-              <div class="checkbox-group">
-                <label><input type="checkbox" value="vegetarian"> Vegetarian</label>
-                <label><input type="checkbox" value="vegan"> Vegan</label>
-                <label><input type="checkbox" value="gluten-free"> Gluten Free</label>
-                <label><input type="checkbox" value="dairy-free"> Dairy Free</label>
-              </div>
-            </div>
-          </div>
-
-          <button id="search-button" class="search-button">Find Recipes</button>
-        </div>
-      </section>
-
-      <section class="recipe-results" id="recipe-results">
-        <!-- Results will be dynamically populated here -->
-      </section>
-    </main>
-
-    <script src="/src/app.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
