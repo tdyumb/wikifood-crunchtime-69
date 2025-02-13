@@ -32,19 +32,6 @@ function showNotification(message) {
   notification.className = 'notification';
   notification.textContent = message;
   
-  // Style the notification
-  Object.assign(notification.style, {
-    position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    backgroundColor: '#9b87f5',
-    color: 'white',
-    padding: '1rem',
-    borderRadius: '4px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    zIndex: '1000'
-  });
-  
   document.body.appendChild(notification);
   
   // Remove notification after 3 seconds
