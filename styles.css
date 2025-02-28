@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
@@ -61,7 +65,7 @@ body {
   transition: color 0.3s;
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -122,6 +126,7 @@ body {
 #changing-text {
   color: #f8c433;
   display: inline-block;
+  transition: opacity 0.5s, transform 0.5s;
 }
 
 .hero-description {
@@ -175,7 +180,6 @@ body {
 .recipe-filter {
   padding: 5rem 0;
   background-color: white;
-  display: none;
 }
 
 .section-title {
@@ -198,9 +202,11 @@ body {
   gap: 0.5rem;
 }
 
-.filter-group label {
+.filter-group h3 {
+  font-size: 1rem;
   font-weight: 500;
   color: #4a5568;
+  margin-bottom: 0.5rem;
 }
 
 .filter-select {
@@ -208,19 +214,7 @@ body {
   border: 1px solid #e2e8f0;
   border-radius: 0.25rem;
   background-color: white;
-}
-
-.checkbox-group {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-.checkbox-group label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
 }
 
 .search-button {
@@ -235,6 +229,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: 'Poppins', sans-serif;
 }
 
 .search-button:hover {
@@ -245,7 +240,6 @@ body {
 .recipe-results {
   padding: 5rem 0;
   background-color: #f8fafc;
-  display: none;
 }
 
 .recipe-grid {
@@ -325,6 +319,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: 'Poppins', sans-serif;
 }
 
 .recipe-button:hover {
@@ -422,8 +417,14 @@ body {
   .hero-title {
     font-size: 3rem;
   }
-  
-  .checkbox-group {
+}
+
+@media (max-width: 480px) {
+  .filter-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
   }
 }

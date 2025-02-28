@@ -16,9 +16,9 @@
         <div class="nav-container">
           <a href="#" class="logo">WikiFoods</a>
           <div class="nav-links">
-            <a href="#" class="nav-link">Home</a>
-            <a href="#" class="nav-link">Find A Recipe</a>
-            <a href="#" class="nav-link">Recipe Collection</a>
+            <a href="#" class="nav-link active">Home</a>
+            <a href="#find-recipe" class="nav-link">Find A Recipe</a>
+            <a href="#recipe-results" class="nav-link">Recipe Collection</a>
             <a href="#" class="nav-link">About</a>
             <a href="#" class="nav-link">Contact</a>
           </div>
@@ -49,44 +49,55 @@
           Master the art of cooking. Learn techniques and recipes from expert chefs around the world!
         </p>
         
-        <a href="#" class="cta-button">Find your perfect recipe</a>
+        <a href="#find-recipe" class="cta-button">Find your perfect recipe</a>
       </div>
     </section>
 
-    <!-- Recipe Filter Section (Hidden initially) -->
-    <section class="recipe-filter" id="recipe-filter">
+    <!-- Recipe Filter Section -->
+    <section class="recipe-filter" id="find-recipe">
       <div class="container">
         <h2 class="section-title">Find Your Perfect Recipe</h2>
         <div class="filter-grid">
           <div class="filter-group">
-            <label for="cuisine-select">Cuisine Type</label>
+            <h3>Cuisine Type</h3>
             <select id="cuisine-select" class="filter-select">
-              <option value="all">All Cuisines</option>
+              <option value="">Select Cuisine Types</option>
               <option value="italian">Italian</option>
               <option value="chinese">Chinese</option>
               <option value="american">American</option>
               <option value="mexican">Mexican</option>
+              <option value="thai">Thai</option>
+              <option value="indian">Indian</option>
+              <option value="french">French</option>
+              <option value="japanese">Japanese</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label for="meal-select">Meal Type</label>
+            <h3>Meal Type</h3>
             <select id="meal-select" class="filter-select">
-              <option value="all">All Meals</option>
+              <option value="">Select Meal Types</option>
               <option value="breakfast">Breakfast</option>
               <option value="lunch">Lunch</option>
               <option value="dinner">Dinner</option>
+              <option value="dessert">Dessert</option>
+              <option value="snack">Snack</option>
+              <option value="appetizer">Appetizer</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label>Dietary Restrictions</label>
-            <div class="checkbox-group">
-              <label><input type="checkbox" value="vegetarian"> Vegetarian</label>
-              <label><input type="checkbox" value="vegan"> Vegan</label>
-              <label><input type="checkbox" value="gluten-free"> Gluten Free</label>
-              <label><input type="checkbox" value="dairy-free"> Dairy Free</label>
-            </div>
+            <h3>Dietary Restrictions</h3>
+            <select id="dietary-select" class="filter-select">
+              <option value="">Select Restrictions</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="gluten-free">Gluten Free</option>
+              <option value="dairy-free">Dairy Free</option>
+              <option value="keto">Keto</option>
+              <option value="paleo">Paleo</option>
+              <option value="low-carb">Low Carb</option>
+            </select>
           </div>
         </div>
 
@@ -94,12 +105,27 @@
       </div>
     </section>
 
-    <!-- Recipe Results Section (Hidden initially) -->
+    <!-- Recipe Results Section -->
     <section id="recipe-results" class="recipe-results">
-      <!-- Recipe cards will be generated here by JavaScript -->
+      <div class="container">
+        <h2 class="section-title">Featured Recipes</h2>
+        <div class="recipe-grid">
+          <!-- Recipe cards will be generated here by JavaScript -->
+        </div>
+      </div>
     </section>
 
     <!-- Toast Notification Container -->
     <div id="toast-container" class="toast-container"></div>
+
+    <!-- Recipe Modal (Hidden initially) -->
+    <div id="recipe-modal" class="modal">
+      <div class="modal-content">
+        <button id="close-modal" class="close-modal">&times;</button>
+        <div id="modal-body">
+          <!-- Recipe details will be loaded here -->
+        </div>
+      </div>
+    </div>
   </body>
 </html>
