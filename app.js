@@ -119,7 +119,7 @@ function setupButtonEvents() {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       
-      if (href.startsWith('#')) {
+      if (href && href.startsWith('#')) {
         e.preventDefault();
         const targetSection = document.querySelector(href);
         
@@ -202,7 +202,7 @@ function displayRecipes(recipes) {
   });
 }
 
-// Show recipe modal with details
+// Show recipe modal with details - updated to match the provided design
 function showRecipeModal(recipe) {
   const modal = document.getElementById('recipe-modal');
   const modalBody = document.getElementById('modal-body');
@@ -211,56 +211,66 @@ function showRecipeModal(recipe) {
   
   // Generate ingredients HTML
   const ingredientsHtml = recipe.ingredients && recipe.ingredients.length > 0
-    ? `<ul class="ingredients-list">
-        ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-      </ul>`
-    : '<p>No ingredients listed</p>';
+    ? recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')
+    : '<li>No ingredients listed</li>';
   
   // Generate instructions HTML
   const instructionsHtml = recipe.instructions && recipe.instructions.length > 0
-    ? `<ol class="instructions-list">
-        ${recipe.instructions.map(instruction => `<li>${instruction}</li>`).join('')}
-      </ol>`
-    : '<p>No instructions available</p>';
+    ? recipe.instructions.map(instruction => `<li>${instruction}</li>`).join('')
+    : '<li>No instructions available</li>';
   
   modalBody.innerHTML = `
-    <h2 class="text-2xl font-bold mb-4">${recipe.title}</h2>
-    <img src="${recipe.image}" alt="${recipe.title}" class="w-full rounded-lg mb-6" style="max-height: 400px; object-fit: cover;">
+    <h2 class="modal-title">${recipe.title}</h2>
+    <img src="${recipe.image}" alt="${recipe.title}" class="modal-image">
     
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <h3 class="font-semibold mb-2">Cook Time</h3>
-        <p>${recipe.cookTime || '30 min'}</p>
+    <div class="recipe-details-grid">
+      <div class="recipe-detail-box">
+        <span class="detail-label">Prep Time</span>
+        <span class="detail-value">${recipe.prepTime || '15 min'}</span>
       </div>
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <h3 class="font-semibold mb-2">Servings</h3>
-        <p>${recipe.servings || '4'} servings</p>
+      <div class="recipe-detail-box">
+        <span class="detail-label">Cook Time</span>
+        <span class="detail-value">${recipe.cookTime || '25 mins'}</span>
+      </div>
+      <div class="recipe-detail-box">
+        <span class="detail-label">Difficulty</span>
+        <span class="detail-value">${recipe.difficulty || 'Beginner'}</span>
+      </div>
+      <div class="recipe-detail-box">
+        <span class="detail-label">Yield</span>
+        <span class="detail-value">${recipe.servings || '4'} servings</span>
       </div>
     </div>
     
-    <div class="mb-6">
-      <h3 class="text-xl font-semibold mb-3">Ingredients</h3>
-      ${ingredientsHtml}
+    <div class="recipe-section">
+      <h3 class="recipe-section-title">Ingredients</h3>
+      <ul class="ingredients-list">
+        ${ingredientsHtml}
+      </ul>
     </div>
     
-    <div>
-      <h3 class="text-xl font-semibold mb-3">Instructions</h3>
-      ${instructionsHtml}
+    <div class="recipe-section">
+      <h3 class="recipe-section-title">Steps</h3>
+      <ol class="steps-list">
+        ${instructionsHtml}
+      </ol>
     </div>
   `;
   
   modal.style.display = 'block';
 }
 
-// Sample recipe data with expanded details that match the screenshot
+// Sample recipe data with expanded details
 const sampleRecipes = [
   {
     id: 1,
     title: "Classic Italian Pasta Carbonara",
     description: "A creamy Italian pasta dish with bacon or pancetta, eggs, and cheese.",
     image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
-    cookTime: "25 min",
+    prepTime: "15 min",
+    cookTime: "25 mins",
     servings: 4,
+    difficulty: "Beginner",
     cuisine: "italian",
     mealType: "dinner",
     dietaryRestrictions: [],
@@ -268,11 +278,12 @@ const sampleRecipes = [
       "400g spaghetti",
       "200g pancetta or guanciale, diced",
       "4 large eggs",
-      "100g Pecorino Romano cheese, grated",
-      "100g Parmigiano Reggiano, grated",
+      "100g Pecorino Romano, freshly grated",
+      "100g Parmigiano Reggiano, freshly grated",
+      "Fresh black pepper",
+      "Sea salt",
       "2 cloves garlic, minced (optional)",
-      "Black pepper, freshly ground",
-      "Salt, to taste"
+      "2 tablespoons olive oil"
     ],
     instructions: [
       "Bring a large pot of salted water to a boil. Add the spaghetti and cook until al dente.",
@@ -289,8 +300,10 @@ const sampleRecipes = [
     title: "Vegetarian Buddha Bowl",
     description: "A nourishing bowl packed with colorful vegetables, grains, and protein.",
     image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    prepTime: "20 min",
     cookTime: "40 min",
     servings: 2,
+    difficulty: "Easy",
     cuisine: "american",
     mealType: "lunch",
     dietaryRestrictions: ["vegetarian", "vegan", "dairy-free"],
@@ -328,8 +341,10 @@ const sampleRecipes = [
     title: "Keto Chicken Alfredo",
     description: "A low-carb version of the classic chicken alfredo using zucchini noodles.",
     image: "https://images.unsplash.com/photo-1547496502-affa22d38842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80",
+    prepTime: "15 min",
     cookTime: "30 min",
     servings: 3,
+    difficulty: "Intermediate",
     cuisine: "italian",
     mealType: "dinner",
     dietaryRestrictions: ["gluten-free", "keto", "low-carb"],

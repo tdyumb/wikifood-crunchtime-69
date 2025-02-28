@@ -341,21 +341,119 @@ body {
 
 .modal-content {
   background-color: white;
-  margin: 5% auto;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  max-width: 800px;
+  margin: 2% auto;
+  width: 95%;
+  max-width: 650px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
+  padding: 0;
+  overflow: hidden;
 }
 
 .close-modal {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
+  z-index: 10;
+  color: #333;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#modal-body {
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  padding: 1.5rem;
+  margin: 0;
+  color: #1A1F2C;
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.recipe-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.recipe-detail-box {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.recipe-section {
+  padding: 1.5rem;
+}
+
+.recipe-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1A1F2C;
+}
+
+.ingredients-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ingredients-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.ingredients-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #4b5563;
+}
+
+.steps-list {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.steps-list li {
+  margin-bottom: 1rem;
+  position: relative;
 }
 
 /* Toast Notification */
@@ -416,6 +514,10 @@ body {
   
   .hero-title {
     font-size: 3rem;
+  }
+  
+  .recipe-details-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
