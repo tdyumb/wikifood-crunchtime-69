@@ -1,16 +1,105 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wikifood-crunchtime</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-    <meta property="og:image" content="/og-image.png" />
+    <title>WikiFood</title>
+    <meta name="description" content="Master the art of cooking" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Navigation Bar -->
+    <header>
+      <nav class="navbar">
+        <div class="nav-container">
+          <a href="#" class="logo">WikiFoods</a>
+          <div class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Find A Recipe</a>
+            <a href="#" class="nav-link">Recipe Collection</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+          </div>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <button class="trailer-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Watch Trailer
+        </button>
+        
+        <h1 class="hero-title">
+          <span id="changing-text">Look</span> Like A<br>Chef
+        </h1>
+        
+        <p class="hero-description">
+          Master the art of cooking. Learn techniques and recipes from expert chefs around the world!
+        </p>
+        
+        <a href="#" class="cta-button">Find your perfect recipe</a>
+      </div>
+    </section>
+
+    <!-- Recipe Filter Section (Hidden initially) -->
+    <section class="recipe-filter" id="recipe-filter">
+      <div class="container">
+        <h2 class="section-title">Find Your Perfect Recipe</h2>
+        <div class="filter-grid">
+          <div class="filter-group">
+            <label for="cuisine-select">Cuisine Type</label>
+            <select id="cuisine-select" class="filter-select">
+              <option value="all">All Cuisines</option>
+              <option value="italian">Italian</option>
+              <option value="chinese">Chinese</option>
+              <option value="american">American</option>
+              <option value="mexican">Mexican</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="meal-select">Meal Type</label>
+            <select id="meal-select" class="filter-select">
+              <option value="all">All Meals</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Dietary Restrictions</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" value="vegetarian"> Vegetarian</label>
+              <label><input type="checkbox" value="vegan"> Vegan</label>
+              <label><input type="checkbox" value="gluten-free"> Gluten Free</label>
+              <label><input type="checkbox" value="dairy-free"> Dairy Free</label>
+            </div>
+          </div>
+        </div>
+
+        <button id="search-button" class="search-button">Find Recipes</button>
+      </div>
+    </section>
+
+    <!-- Recipe Results Section (Hidden initially) -->
+    <section id="recipe-results" class="recipe-results">
+      <!-- Recipe cards will be generated here by JavaScript -->
+    </section>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
   </body>
 </html>
