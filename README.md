@@ -1,2 +1,1 @@
-
-A TSA Project by Wikifoods
+A TSA Project
