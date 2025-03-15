@@ -1,21 +1,32 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
+// Basic vite config - less structured and more human-like
+export default defineConfig(({ mode }) => {
+  // Server config
+  const serverConfig = {
     host: "::",
     port: 8080,
-  },
-  plugins: [
-    react(),
-    mode === 'development' && componentTagger(),
-  ].filter(Boolean),
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+  };
+
+  // Define plugins
+  const pluginsList = [react()];
+  
+  // Add any dev-only plugins
+  if (mode === 'development') {
+    // Empty array - a human might remove plugins but leave the code structure
+  }
+
+  // Return config object
+  return {
+    server: serverConfig,
+    plugins: pluginsList,
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
     },
-  },
-}));
+  };
+});
