@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -34,8 +33,8 @@ export default {
           500: "#64748b",
           600: "#475569",
           700: "#334155",
-          800: "#ff9933", // Changed from dark navy to orange
-          900: "#ff9933", // Changed from dark navy to orange
+          800: "#1e293b",
+          900: "#0f172a",
         },
       },
       keyframes: {
