@@ -1,3 +1,4 @@
+
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
@@ -47,12 +48,12 @@ const Index = () => {
       <ContactForm />
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-[#ff9933] text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <h3 className="font-bold mb-4">WikiFoods</h3>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-white/80">
                 Your trusted source for food knowledge and culinary inspiration.
               </p>
             </div>
@@ -62,7 +63,7 @@ const Index = () => {
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
-                      <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+                      <a href="#" className="text-sm text-white/80 hover:text-white transition-colors">
                         {link}
                       </a>
                     </li>
@@ -71,7 +72,7 @@ const Index = () => {
               </div>
             ))}
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+          <div className="border-t border-white/20 mt-8 pt-8 text-center text-sm text-white/80">
             <p>&copy; 2024 WikiFoods. All rights reserved.</p>
           </div>
         </div>
