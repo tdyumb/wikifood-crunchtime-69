@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -36,6 +37,9 @@ export default {
           800: "#1e293b",
           900: "#0f172a",
         },
+        orange: {
+          500: "#ff9933",
+        }
       },
       keyframes: {
         "fade-up": {

@@ -1,3 +1,4 @@
+
 import { GraduationCap, Globe, Trophy } from "lucide-react";
 
 const WhyChooseSection = () => {
@@ -29,17 +30,17 @@ const WhyChooseSection = () => {
 
 const features = [
   {
-    icon: <GraduationCap className="w-8 h-8 text-red-400" />,
+    icon: <GraduationCap className="w-8 h-8 text-[#ff9933]" />,
     title: "Expert-Led Learning",
     description: "Learn from professional chefs and culinary experts through detailed video tutorials and interactive lessons."
   },
   {
-    icon: <Globe className="w-8 h-8 text-green-400" />,
+    icon: <Globe className="w-8 h-8 text-[#ff9933]" />,
     title: "Global Cuisine Library",
     description: "Access thousands of authentic recipes from different cultures and traditions around the world."
   },
   {
-    icon: <Trophy className="w-8 h-8 text-yellow-400" />,
+    icon: <Trophy className="w-8 h-8 text-[#ff9933]" />,
     title: "Skill Development",
     description: "Progress from basic to advanced cooking techniques with our structured learning paths."
   }
