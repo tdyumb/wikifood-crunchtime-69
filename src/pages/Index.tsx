@@ -34,6 +34,17 @@ const Index = () => {
     }
   };
 
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -42,12 +53,24 @@ const Index = () => {
       <HeroSection />
 
       {/* Recipe Filter Section */}
-      <section className="py-12 px-4">
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+        className="py-12 px-4"
+      >
         <RecipeFilter />
-      </section>
+      </motion.section>
 
       {/* Recipe Collection */}
-      <section className="py-12 px-4 bg-white">
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+        className="py-12 px-4 bg-white"
+      >
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Featured Recipes</h2>
           <motion.div 
@@ -71,26 +94,44 @@ const Index = () => {
             ))}
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Why Choose Section */}
       <WhyChooseSection />
 
       {/* Contact Form Section */}
-      <ContactForm />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+      >
+        <ContactForm />
+      </motion.div>
 
       {/* Footer */}
       <footer className="bg-[#ff9933] text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <h3 className="font-bold mb-4">WikiFoods</h3>
               <p className="text-sm text-white/80">
                 Your trusted source for food knowledge and culinary inspiration.
               </p>
-            </div>
+            </motion.div>
             {footerLinks.map((section, index) => (
-              <div key={index}>
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+                viewport={{ once: true }}
+              >
                 <h4 className="font-bold mb-4">{section.title}</h4>
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
@@ -101,12 +142,18 @@ const Index = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
-          <div className="border-t border-white/20 mt-8 pt-8 text-center text-sm text-white/80">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="border-t border-white/20 mt-8 pt-8 text-center text-sm text-white/80"
+          >
             <p>&copy; 2024 WikiFoods. All rights reserved.</p>
-          </div>
+          </motion.div>
         </div>
       </footer>
     </div>

@@ -37,8 +37,22 @@ const FindRecipe = () => {
       
       <div className="pt-24 pb-12 px-4">
         <div className="container mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-8">Find Your Perfect Recipe</h1>
-          <RecipeFilter />
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold text-center mb-8"
+          >
+            Find Your Perfect Recipe
+          </motion.h1>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            <RecipeFilter />
+          </motion.div>
           
           <motion.div 
             className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
