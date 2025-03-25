@@ -54,6 +54,7 @@ const Home = () => {
 
       {/* Recipe Filter Section */}
       <motion.section 
+        id="recipe-filter-section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
