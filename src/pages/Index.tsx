@@ -6,9 +6,33 @@ import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
 import ContactForm from "@/components/ContactForm";
 import WhyChooseSection from "@/components/WhyChooseSection";
+import { motion } from "framer-motion";
 
 const Index = () => {
   const { filteredRecipes } = useRecipes();
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    show: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 20
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -26,18 +50,26 @@ const Index = () => {
       <section className="py-12 px-4 bg-white">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Featured Recipes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-            {filteredRecipes.map((recipe) => (
-              <RecipeCard
-                key={recipe.id}
-                title={recipe.title}
-                description={recipe.description}
-                image={recipe.image}
-                cookTime={recipe.cookTime}
-                servings={recipe.servings}
-              />
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
+            variants={container}
+            initial="hidden"
+            animate="show"
+            key={filteredRecipes.length} // Re-animate when recipes change
+          >
+            {filteredRecipes.map((recipe, index) => (
+              <motion.div key={recipe.id} variants={item} custom={index}>
+                <RecipeCard
+                  key={recipe.id}
+                  title={recipe.title}
+                  description={recipe.description}
+                  image={recipe.image}
+                  cookTime={recipe.cookTime}
+                  servings={recipe.servings}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
