@@ -417,7 +417,7 @@ export const recipeData = [
     id: '15',
     title: 'Keto Mexican Cauliflower Rice',
     description: 'Low-carb cauliflower rice with spices',
-    image: '/Wikifoods Images/a33e8ecc-7b76-4198-91d4-81c9e1a4d73a.png',
+    image: '/public/Wikifoods Images/a33e8ecc-7b76-4198-91d4-81c9e1a4d73a.png',
     cuisineType: 'mexican',
     mealType: 'lunch',
     dietaryRestrictions: ['keto', 'low-carb'],
@@ -513,7 +513,7 @@ export const recipeData = [
     id: '19',
     title: 'Vegetarian Italian Stuffed Peppers',
     description: 'Bell peppers filled with rice, beans, and cheese',
-    image: '/Wikifoods Images/c6082ec9-e744-4532-880f-d0e61bc37083.png',
+    image: '/public/Wikifoods Images/c6082ec9-e744-4532-880f-d0e61bc37083.png',
     cuisineType: 'italian',
     mealType: 'dinner',
     dietaryRestrictions: ['vegetarian'],
@@ -675,4 +675,7 @@ export const recipeData = [
       'Finish under broiler'
     ]
   }
-];
+].map(recipe => ({
+  ...recipe,
+  image: recipe.image.startsWith('/public/') ? recipe.image : recipe.image
+}));
