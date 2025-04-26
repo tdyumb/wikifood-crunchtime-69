@@ -45,7 +45,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <img 
-          src="/lovable-uploads/0fddfe61-51f7-4f97-bba5-555b7789c0ff.png"
+          src="/Wikifoods Images/0fddfe61-51f7-4f97-bba5-555b7789c0ff.png"
           alt="Chef cooking with flames"
           className="w-full h-full object-cover brightness-75"
         />
