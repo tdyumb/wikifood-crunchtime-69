@@ -1,3 +1,4 @@
+
 export const recipeData = [
   {
     id: '1',
@@ -20,7 +21,7 @@ export const recipeData = [
     ],
     instructions: [
       'First, fill a large pot with water (about 3/4 full) and add 1 teaspoon of salt. The salt helps flavor the pasta!',
-      'Turn the heat to high and wait for big bubbles to appear (that's boiling!). Add your spaghetti and stir gently so it doesn\'t stick together.',
+      'Turn the heat to high and wait for big bubbles to appear (that\'s boiling!). Add your spaghetti and stir gently so it doesn\'t stick together.',
       'While the pasta cooks, put the bacon pieces in a large pan on medium heat. TIP: Start with a cold pan - it helps bacon cook more evenly!',
       'Cook the bacon until it\'s crispy and brown (about 5-7 minutes). Remove it from the pan but keep the bacon fat - it adds flavor!',
       'In a large bowl, crack the eggs and add the cheese. Mix them together with a fork until well combined. This will be your creamy sauce!',
