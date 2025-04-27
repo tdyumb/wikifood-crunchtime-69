@@ -677,5 +677,5 @@ export const recipeData = [
   }
 ].map(recipe => ({
   ...recipe,
-  image: recipe.image.startsWith('/public/') ? recipe.image : recipe.image
+  image: recipe.image.startsWith('/public/Wikifoods Images/') ? recipe.image : recipe.image
 }));
