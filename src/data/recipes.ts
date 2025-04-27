@@ -1,7 +1,7 @@
 export const recipeData = [
   {
     id: '1',
-    title: 'Easy Spaghetti Carbonara',
+    title: 'Basic Bacon Pasta',
     description: 'A creamy pasta dish with eggs, cheese, and bacon - perfect for beginners!',
     image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -32,7 +32,7 @@ export const recipeData = [
   },
   {
     id: '2',
-    title: 'Rainbow Veggie Bowl',
+    title: 'Colorful Veggie Bowl',
     description: 'A healthy bowl packed with colorful veggies and protein',
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -65,7 +65,7 @@ export const recipeData = [
   },
   {
     id: '3',
-    title: 'Low-Carb Chicken Alfredo',
+    title: 'Zucchini Chicken Pasta',
     description: 'Creamy chicken pasta using zucchini noodles instead of regular pasta',
     image: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -99,7 +99,7 @@ export const recipeData = [
   },
   {
     id: '4',
-    title: 'Vegan Mexican Tacos',
+    title: 'Mushroom Tacos',
     description: 'Plant-based tacos with mushroom and walnut filling',
     image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800',
     cuisineType: 'mexican',
@@ -137,7 +137,7 @@ export const recipeData = [
   },
   {
     id: '5',
-    title: 'Chinese Stir-Fry Noodles',
+    title: 'Easy Noodle Stir-Fry',
     description: 'Quick and flavorful stir-fried noodles with vegetables',
     image: 'https://images.unsplash.com/photo-1619683548293-c74defe8d5d2?auto=format&fit=crop&w=800',
     cuisineType: 'chinese',
@@ -176,7 +176,7 @@ export const recipeData = [
   },
   {
     id: '6',
-    title: 'Mexican Breakfast Burrito',
+    title: 'Egg and Bean Breakfast Wrap',
     description: 'Hearty breakfast burrito filled with eggs, beans, and cheese',
     image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800',
     cuisineType: 'mexican',
@@ -203,7 +203,7 @@ export const recipeData = [
   },
   {
     id: '7',
-    title: 'Vegan Italian Pasta Primavera',
+    title: 'Veggie Pasta',
     description: 'Light and fresh pasta loaded with spring vegetables',
     image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -229,7 +229,7 @@ export const recipeData = [
   },
   {
     id: '8',
-    title: 'Gluten-Free Chinese Fried Rice',
+    title: 'Simple Fried Rice',
     description: 'Classic fried rice made with gluten-free soy sauce',
     image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800',
     cuisineType: 'chinese',
@@ -253,8 +253,8 @@ export const recipeData = [
   },
   {
     id: '9',
-    title: 'Keto American Breakfast Bowl',
-    description: 'Low-carb breakfast bowl with eggs and avocado',
+    title: 'Egg and Avocado Bowl',
+    description: 'Keto breakfast bowl with eggs and avocado',
     image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800',
     cuisineType: 'american',
     mealType: 'breakfast',
@@ -277,7 +277,7 @@ export const recipeData = [
   },
   {
     id: '10',
-    title: 'Vegetarian Mexican Enchiladas',
+    title: 'Cheese and Bean Tortilla Rolls',
     description: 'Cheese and bean enchiladas with red sauce',
     image: 'https://images.unsplash.com/photo-1534352956036-cd81e27dd615?auto=format&fit=crop&w=800',
     cuisineType: 'mexican',
@@ -302,7 +302,7 @@ export const recipeData = [
   },
   {
     id: '11',
-    title: 'Vegan Chinese Dumplings',
+    title: 'Veggie Dumplings',
     description: 'Steamed dumplings with mushroom and vegetable filling',
     image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800',
     cuisineType: 'chinese',
@@ -326,7 +326,7 @@ export const recipeData = [
   },
   {
     id: '12',
-    title: 'Gluten-Free Italian Risotto',
+    title: 'Creamy Rice Bowl',
     description: 'Creamy risotto made with arborio rice and fresh herbs',
     image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -353,7 +353,7 @@ export const recipeData = [
   },
   {
     id: '13',
-    title: 'Keto Vegan Salad',
+    title: 'Green Power Salad',
     description: 'Low-carb salad with avocado, nuts, and greens',
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -377,7 +377,7 @@ export const recipeData = [
   },
   {
     id: '14',
-    title: 'Vegetarian Chinese Mapo Tofu',
+    title: 'Spicy Tofu Bowl',
     description: 'Spicy tofu dish with a rich sauce',
     image: 'https://images.unsplash.com/photo-1582576163090-09d3b6f8a969?auto=format&fit=crop&w=800',
     cuisineType: 'chinese',
@@ -402,7 +402,7 @@ export const recipeData = [
   },
   {
     id: '15',
-    title: 'Keto Mexican Cauliflower Rice',
+    title: 'Cauliflower Rice',
     description: 'Low-carb cauliflower rice with spices',
     image: '/public/Wikifoods Images/a33e8ecc-7b76-4198-91d4-81c9e1a4d73a.png',
     cuisineType: 'mexican',
@@ -425,7 +425,7 @@ export const recipeData = [
   },
   {
     id: '16',
-    title: 'Vegan Italian Caprese Salad',
+    title: 'Tomato and Basil Salad',
     description: 'Fresh salad with tomatoes, basil, and vegan mozzarella',
     image: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -449,7 +449,7 @@ export const recipeData = [
   },
   {
     id: '17',
-    title: 'Gluten-Free American Pancakes',
+    title: 'No-Gluten Pancakes',
     description: 'Fluffy pancakes made with gluten-free flour',
     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -475,7 +475,7 @@ export const recipeData = [
   },
   {
     id: '18',
-    title: 'Keto Vegan Chocolate Mousse',
+    title: 'Chocolate Avocado Pudding',
     description: 'Rich and creamy chocolate mousse without sugar',
     image: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -498,7 +498,7 @@ export const recipeData = [
   },
   {
     id: '19',
-    title: 'Vegetarian Italian Stuffed Peppers',
+    title: 'Stuffed Bell Peppers',
     description: 'Bell peppers filled with rice, beans, and cheese',
     image: '/public/Wikifoods Images/c6082ec9-e744-4532-880f-d0e61bc37083.png',
     cuisineType: 'italian',
@@ -524,7 +524,7 @@ export const recipeData = [
   },
   {
     id: '20',
-    title: 'Keto Mexican Chicken Salad',
+    title: 'Chicken Avocado Salad',
     description: 'Low-carb salad with chicken, avocado, and cheese',
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800',
     cuisineType: 'mexican',
@@ -546,7 +546,7 @@ export const recipeData = [
   },
   {
     id: '21',
-    title: 'Vegan American BBQ Jackfruit Sandwiches',
+    title: 'BBQ Jackfruit Sandwich',
     description: 'Pulled jackfruit in BBQ sauce served on buns',
     image: 'https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -568,7 +568,7 @@ export const recipeData = [
   },
   {
     id: '22',
-    title: 'Gluten-Free Vegan Chocolate Chip Cookies',
+    title: 'Easy Chocolate Cookies',
     description: 'Delicious cookies made without gluten or dairy',
     image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -593,7 +593,7 @@ export const recipeData = [
   },
   {
     id: '23',
-    title: 'Keto Italian Zucchini Noodles',
+    title: 'Zucchini Spaghetti',
     description: 'Low-carb noodles made from zucchini with marinara sauce',
     image: 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -616,7 +616,7 @@ export const recipeData = [
   },
   {
     id: '24',
-    title: 'Vegan Mexican Quinoa Salad',
+    title: 'Bean and Corn Bowl',
     description: 'Healthy salad with quinoa, black beans, and corn',
     image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=800',
     cuisineType: 'mexican',
@@ -640,7 +640,7 @@ export const recipeData = [
   },
   {
     id: '25',
-    title: 'Italian Breakfast Frittata',
+    title: 'Veggie Egg Bake',
     description: 'Fluffy egg frittata with Italian herbs and vegetables',
     image: 'https://images.unsplash.com/photo-1513442542250-854d436a73f2?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
