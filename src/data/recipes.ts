@@ -1,7 +1,7 @@
 export const recipeData = [
   {
     id: '1',
-    title: 'Basic Bacon Pasta',
+    title: 'Easy Cheesy Bacon Pasta',
     description: 'A creamy pasta dish with eggs, cheese, and bacon - perfect for beginners!',
     image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
@@ -11,28 +11,30 @@ export const recipeData = [
     servings: 4,
     ingredients: [
       '1 box (16 oz) spaghetti',
-      '8 slices bacon, cut into pieces',
+      '8 slices bacon, cut into small pieces',
       '4 large eggs',
       '1 cup grated parmesan cheese',
-      'Black pepper',
-      'Salt',
-      '2 cloves garlic, chopped (optional)'
+      'Black pepper to taste',
+      '1 teaspoon salt (for pasta water)',
+      '2 cloves garlic, chopped (optional but adds great flavor!)'
     ],
     instructions: [
-      'Boil a large pot of water and add salt',
-      'Cook spaghetti following the box instructions',
-      'While pasta cooks, cook bacon pieces until crispy',
-      'In a bowl, mix eggs and cheese',
-      'Save 1 cup of pasta water before draining',
-      'Mix hot pasta with bacon',
-      'Quickly stir in egg mixture',
-      'Add pasta water if needed to make it creamy',
-      'Top with extra cheese and pepper'
+      'First, fill a large pot with water (about 3/4 full) and add 1 teaspoon of salt. The salt helps flavor the pasta!',
+      'Turn the heat to high and wait for big bubbles to appear (that's boiling!). Add your spaghetti and stir gently so it doesn\'t stick together.',
+      'While the pasta cooks, put the bacon pieces in a large pan on medium heat. TIP: Start with a cold pan - it helps bacon cook more evenly!',
+      'Cook the bacon until it\'s crispy and brown (about 5-7 minutes). Remove it from the pan but keep the bacon fat - it adds flavor!',
+      'In a large bowl, crack the eggs and add the cheese. Mix them together with a fork until well combined. This will be your creamy sauce!',
+      'IMPORTANT: Before draining the pasta, scoop out 1 cup of the pasta water and set it aside. This starchy water helps make the sauce creamy!',
+      'Drain the pasta in a colander, but don\'t rinse it! The starch helps the sauce stick better.',
+      'Working quickly (while pasta is still very hot), put the pasta back in the pot and add the bacon.',
+      'Now for the tricky part: Pour the egg and cheese mixture over the hot pasta and stir quickly! The heat from the pasta will cook the eggs into a creamy sauce.',
+      'If it looks too thick, add a little of your reserved pasta water (start with 1/4 cup) and stir until it\'s just right.',
+      'Finish with lots of black pepper on top. More cheese is always welcome too!'
     ]
   },
   {
     id: '2',
-    title: 'Colorful Veggie Bowl',
+    title: 'Rainbow Veggie Power Bowl',
     description: 'A healthy bowl packed with colorful veggies and protein',
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800',
     cuisineType: 'american',
@@ -41,26 +43,31 @@ export const recipeData = [
     cookTime: '35 mins',
     servings: 2,
     ingredients: [
-      '1 cup quinoa',
-      '2 sweet potatoes, cut in cubes',
-      '1 can chickpeas',
-      '2 cups kale',
-      '1 avocado',
-      '2 tablespoons tahini sauce',
-      'Olive oil',
+      '1 cup quinoa (or rice if you prefer)',
+      '2 sweet potatoes, cut into 1-inch cubes',
+      '1 can chickpeas, drained and rinsed',
+      '2 cups kale, torn into bite-sized pieces',
+      '1 ripe avocado',
+      '2 tablespoons tahini sauce (or your favorite dressing)',
+      '3 tablespoons olive oil',
       '1 lemon',
-      'Salt and pepper'
+      'Salt and pepper to taste'
     ],
     instructions: [
-      'Heat oven to 400°F',
-      'Cook quinoa following package directions',
-      'Toss sweet potatoes with oil, salt, and pepper',
-      'Bake sweet potatoes for 25 minutes',
-      'Drain chickpeas and mix with oil and seasonings',
-      'Bake chickpeas for 20 minutes until crunchy',
-      'Mix kale with lemon juice',
-      'Put everything in bowls',
-      'Top with avocado slices and sauce'
+      'Preheat your oven to 400°F (that\'s medium-high heat). TIP: Let the oven fully heat up before putting food in!',
+      'Rinse the quinoa in a fine strainer - this removes any bitterness. Put it in a pot with 2 cups of water and a pinch of salt.',
+      'Bring quinoa to a boil, then lower heat and cover the pot. Cook for about 15 minutes or until you see little spiral tails on the quinoa - that means it\'s done!',
+      'While quinoa cooks, put your sweet potato cubes on a baking sheet. Drizzle with 2 tablespoons olive oil, sprinkle with salt and pepper, and mix with your hands to coat evenly.',
+      'Spread sweet potatoes out - TIP: Give them space! Crowded vegetables steam instead of getting crispy.',
+      'Put the sweet potatoes in the oven. Set a timer for 25 minutes. They\'re done when you can easily stick a fork through them.',
+      'Drain and rinse your chickpeas, then dry them really well with a paper towel (this helps them get crunchy!).',
+      'Put chickpeas on another baking sheet, drizzle with 1 tablespoon olive oil, add salt and any spices you like.',
+      'When the sweet potatoes have been in for 5 minutes, add the chickpeas to the oven. They\'ll need about 20 minutes to get crunchy.',
+      'While everything\'s cooking, tear your kale into bite-sized pieces. TIP: Remove the tough stems first!',
+      'Put kale in a bowl and squeeze half a lemon over it. Use your hands to massage the kale for about 1 minute - this makes it softer and tastier!',
+      'When everything\'s ready, build your bowls: quinoa on the bottom, then arrange your roasted sweet potatoes, chickpeas, and kale in sections.',
+      'Cut your avocado in half, remove the pit, and slice it while it\'s still in the skin. Scoop out with a spoon for perfect slices!',
+      'Drizzle with tahini sauce and squeeze the remaining lemon over everything. Add more salt and pepper if needed.'
     ]
   },
   {
