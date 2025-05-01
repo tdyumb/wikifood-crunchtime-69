@@ -84,7 +84,7 @@ const Index = () => {
             {filteredRecipes.map((recipe, index) => (
               <motion.div key={recipe.id} variants={item} custom={index}>
                 <RecipeCard
-                  key={recipe.id}
+                  id={recipe.id}
                   title={recipe.title}
                   description={recipe.description}
                   image={recipe.image}

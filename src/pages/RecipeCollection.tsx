@@ -63,6 +63,7 @@ const RecipeCollection = () => {
             {recipes.map((recipe, index) => (
               <motion.div key={recipe.id} variants={item} custom={index}>
                 <RecipeCard
+                  id={recipe.id}
                   title={recipe.title}
                   description={recipe.description}
                   image={recipe.image}
