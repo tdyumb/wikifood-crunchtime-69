@@ -1,9 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Clock, Users } from "lucide-react";
+import { Clock, Users, Save, ToggleRight } from "lucide-react";
+import { Switch } from "./ui/switch";
 import ReviewsDialog from "./ReviewsDialog";
 import { reviewsData } from "@/data/reviews";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface RecipeCardProps {
   id: string;
@@ -18,6 +21,14 @@ interface RecipeCardProps {
   prepTime?: string;
   yield?: string;
   sweetness?: string[];
+}
+
+interface NutritionalInfo {
+  calories: number;
+  protein: string;
+  carbs: string;
+  fat: string;
+  fiber: string;
 }
 
 const RecipeCard = ({ 
@@ -35,6 +46,61 @@ const RecipeCard = ({
   sweetness = []
 }: RecipeCardProps) => {
   const recipeReviews = reviewsData.filter(review => review.recipeId === id);
+  const [keepScreenOn, setKeepScreenOn] = useState(false);
+  const { toast } = useToast();
+  
+  // This would come from an API or database in a real app
+  const getNutritionalInfo = (recipeId: string): NutritionalInfo => {
+    // Default nutritional info
+    const defaultInfo: NutritionalInfo = {
+      calories: 320,
+      protein: "12g",
+      carbs: "45g",
+      fat: "15g", 
+      fiber: "6g"
+    };
+    
+    // In a real app, we would have different values for each recipe
+    const nutritionalData: Record<string, NutritionalInfo> = {
+      "1": { calories: 650, protein: "25g", carbs: "70g", fat: "30g", fiber: "3g" },
+      "2": { calories: 420, protein: "15g", carbs: "55g", fat: "18g", fiber: "12g" },
+      "3": { calories: 380, protein: "28g", carbs: "12g", fat: "26g", fiber: "5g" },
+      "4": { calories: 290, protein: "8g", carbs: "35g", fat: "12g", fiber: "9g" },
+      "5": { calories: 520, protein: "18g", carbs: "75g", fat: "16g", fiber: "7g" }
+    };
+    
+    return nutritionalData[recipeId] || defaultInfo;
+  };
+  
+  const nutritionalInfo = getNutritionalInfo(id);
+  
+  const handleSaveRecipe = () => {
+    toast({
+      title: "Recipe Saved!",
+      description: `${title} has been saved to your collection`,
+    });
+  };
+  
+  const handleToggleScreenOn = () => {
+    setKeepScreenOn(!keepScreenOn);
+    
+    if (!keepScreenOn) {
+      // This would prevent screen from turning off in a real mobile app
+      // We would use Capacitor or a similar API to keep the screen on
+      toast({
+        title: "Screen will stay on",
+        description: "Your screen will stay on while viewing this recipe",
+      });
+    } else {
+      toast({
+        title: "Normal screen behavior restored",
+        description: "Your screen will turn off normally",
+      });
+    }
+    
+    // This is just a simulation as browser can't prevent screen from turning off
+    document.documentElement.classList.toggle("keep-screen-on", !keepScreenOn);
+  };
 
   return (
     <Card className="w-full max-w-sm hover:shadow-lg transition-shadow overflow-hidden">
@@ -93,6 +159,33 @@ const RecipeCard = ({
                   </div>
                 </div>
 
+                {/* Nutritional Information */}
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold text-blue-900 mb-2">Nutritional Information</h3>
+                  <div className="grid grid-cols-5 gap-2">
+                    <div className="text-center p-2">
+                      <p className="text-sm text-blue-800">Calories</p>
+                      <p className="font-bold text-blue-900">{nutritionalInfo.calories}</p>
+                    </div>
+                    <div className="text-center p-2">
+                      <p className="text-sm text-blue-800">Protein</p>
+                      <p className="font-bold text-blue-900">{nutritionalInfo.protein}</p>
+                    </div>
+                    <div className="text-center p-2">
+                      <p className="text-sm text-blue-800">Carbs</p>
+                      <p className="font-bold text-blue-900">{nutritionalInfo.carbs}</p>
+                    </div>
+                    <div className="text-center p-2">
+                      <p className="text-sm text-blue-800">Fat</p>
+                      <p className="font-bold text-blue-900">{nutritionalInfo.fat}</p>
+                    </div>
+                    <div className="text-center p-2">
+                      <p className="text-sm text-blue-800">Fiber</p>
+                      <p className="font-bold text-blue-900">{nutritionalInfo.fiber}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {sweetness.length > 0 && (
                   <div className="flex gap-2">
                     {sweetness.map((level, index) => (
@@ -137,11 +230,35 @@ const RecipeCard = ({
                     <li>• Ensure all ingredients are fresh and properly stored</li>
                   </ul>
                 </div>
+                
+                {/* Keep Screen On Toggle */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <ToggleRight className={keepScreenOn ? "text-green-500" : "text-gray-400"} />
+                    <span className="text-sm font-medium">Keep Screen On</span>
+                  </div>
+                  <Switch 
+                    checked={keepScreenOn} 
+                    onCheckedChange={handleToggleScreenOn} 
+                  />
+                </div>
               </div>
             </DialogContent>
           </Dialog>
-          
-          <ReviewsDialog reviews={recipeReviews} recipeName={title} />
+
+          <div className="flex gap-2 mt-2">
+            <ReviewsDialog reviews={recipeReviews} recipeName={title} />
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex-1"
+              onClick={handleSaveRecipe}
+            >
+              <Save className="mr-1" />
+              Save Recipe
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
