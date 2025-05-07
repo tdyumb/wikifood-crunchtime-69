@@ -1,5 +1,5 @@
 
-import { Menu, Search } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -7,14 +7,6 @@ import { useLocation } from "react-router-dom";
 import { Input } from "./ui/input";
 import { useRecipes } from "@/contexts/RecipeContext";
 import { useNavigate } from "react-router-dom";
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList
-} from "@/components/ui/command";
 
 // Less structured component with some inconsistencies
 const Navigation = () => {
@@ -22,6 +14,7 @@ const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchCommand, setShowSearchCommand] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState<{
     recipes: { id: string; title: string }[];
     mealTypes: string[];
@@ -37,6 +30,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const { recipes, setFilters } = useRecipes();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
   // Generate search suggestions based on current query
   useEffect(() => {
@@ -89,8 +83,24 @@ const Navigation = () => {
     
   }, [searchQuery, recipes]);
 
+  // Focus the mobile search input when it's shown
+  useEffect(() => {
+    if (showMobileSearch && mobileSearchInputRef.current) {
+      mobileSearchInputRef.current.focus();
+    }
+  }, [showMobileSearch]);
+
   // Simple toggle function a human would write
   const handleMenuToggle = () => setMenuOpen(!menuOpen);
+  
+  // Toggle mobile search
+  const handleMobileSearchToggle = () => {
+    setShowMobileSearch(!showMobileSearch);
+    if (!showMobileSearch) {
+      // Clear the search query when opening the search bar
+      setSearchQuery("");
+    }
+  };
 
   // Scroll to recipe filter section if on home page
   const scrollToRecipeFilter = (e: React.MouseEvent) => {
@@ -100,26 +110,6 @@ const Navigation = () => {
       if (recipeFilterSection) {
         recipeFilterSection.scrollIntoView({ behavior: 'smooth' });
       }
-    }
-  };
-
-  // Handle click on search input - now just focuses the input for direct typing
-  const handleSearchFocus = () => {
-    // Only open command dialog if there's a search query
-    if (searchQuery.trim() !== "") {
-      setShowSearchCommand(true);
-    }
-  };
-
-  // Handle changes to search input
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchQuery(value);
-    // Open command dialog when user starts typing
-    if (value.trim() !== "") {
-      setShowSearchCommand(true);
-    } else {
-      setShowSearchCommand(false);
     }
   };
 
@@ -183,12 +173,13 @@ const Navigation = () => {
       navigate("/find-recipe");
     }
     
-    setShowSearchCommand(false);
+    // Close mobile search if it's open
+    if (showMobileSearch) {
+      setShowMobileSearch(false);
+    }
   };
 
   const handleSearchItemSelect = (value: string, type: 'recipe' | 'mealType' | 'dietary') => {
-    setShowSearchCommand(false);
-    
     if (type === 'recipe') {
       const recipe = recipes.find(r => r.id === value);
       if (recipe) {
@@ -208,6 +199,12 @@ const Navigation = () => {
         dietaryRestrictions: [value.toLowerCase()]
       });
       navigate("/find-recipe");
+    }
+    
+    // Reset search state
+    setSearchQuery("");
+    if (showMobileSearch) {
+      setShowMobileSearch(false);
     }
   };
 
@@ -232,25 +229,127 @@ const Navigation = () => {
                     placeholder="Search recipes, meal types, dietary..."
                     className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
                     value={searchQuery}
-                    onChange={handleSearchInputChange}
-                    onFocus={handleSearchFocus}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Search size={18} className="text-gray-400" />
                   </div>
+                  
+                  {/* Search Suggestions Dropdown */}
+                  {searchQuery.trim() !== "" && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                      {searchSuggestions.recipes.length === 0 && 
+                       searchSuggestions.mealTypes.length === 0 && 
+                       searchSuggestions.dietaryRestrictions.length === 0 ? (
+                        <div className="p-4 text-center text-gray-500">No results found</div>
+                      ) : (
+                        <div className="max-h-60 overflow-y-auto">
+                          {searchSuggestions.recipes.length > 0 && (
+                            <div className="p-2">
+                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
+                              <ul>
+                                {searchSuggestions.recipes.map(recipe => (
+                                  <li key={recipe.id}>
+                                    <button
+                                      type="button"
+                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                      onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
+                                    >
+                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                      <span>{recipe.title}</span>
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {searchSuggestions.mealTypes.length > 0 && (
+                            <div className="p-2">
+                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
+                              <ul>
+                                {searchSuggestions.mealTypes.map(mealType => (
+                                  <li key={mealType}>
+                                    <button
+                                      type="button"
+                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                      onClick={() => handleSearchItemSelect(mealType, 'mealType')}
+                                    >
+                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                      <span>{mealType}</span>
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {searchSuggestions.dietaryRestrictions.length > 0 && (
+                            <div className="p-2">
+                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
+                              <ul>
+                                {searchSuggestions.dietaryRestrictions.map(restriction => (
+                                  <li key={restriction}>
+                                    <button
+                                      type="button"
+                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                      onClick={() => handleSearchItemSelect(restriction, 'dietary')}
+                                    >
+                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                      <span>{restriction}</span>
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          <div className="p-2 border-t">
+                            <button
+                              type="submit"
+                              className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
+                            >
+                              <Search className="mr-2 h-4 w-4" />
+                              <span>Search for "{searchQuery}"</span>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </form>
             )}
 
-            {/* Mobile menu button with inconsistent formatting */}
+            {/* Mobile buttons */}
             {isMobile && (
-              <button
-                onClick={handleMenuToggle}
-                className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
-                aria-label="Toggle menu"
-              >
-                <Menu size={24} />
-              </button>
+              <div className="flex items-center space-x-2">
+                {!showMobileSearch ? (
+                  <button
+                    onClick={handleMobileSearchToggle}
+                    className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
+                    aria-label="Search"
+                  >
+                    <Search size={24} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleMobileSearchToggle}
+                    className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
+                    aria-label="Close search"
+                  >
+                    <X size={24} />
+                  </button>
+                )}
+                
+                <button
+                  onClick={handleMenuToggle}
+                  className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
+                  aria-label="Toggle menu"
+                >
+                  <Menu size={24} />
+                </button>
+              </div>
             )}
 
             {/* Desktop Navigation with less structured comments and formatting */}
@@ -278,26 +377,113 @@ const Navigation = () => {
             )}
           </div>
 
-          {/* Mobile menu - inconsistent naming with menuOpen instead of isMenuOpen */}
-          {isMobile && menuOpen && (
-            <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
-              {/* Mobile search bar */}
-              <form onSubmit={handleSearch} className="px-4 mb-4">
+          {/* Mobile search input - only shown when search icon is clicked */}
+          {isMobile && showMobileSearch && (
+            <div className="py-2 animate-fadeIn">
+              <form onSubmit={handleSearch}>
                 <div className="relative">
                   <Input
+                    ref={mobileSearchInputRef}
                     type="search"
                     placeholder="Search recipes, meal types, dietary..."
                     className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
                     value={searchQuery}
-                    onChange={handleSearchInputChange}
-                    onFocus={handleSearchFocus}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Search size={18} className="text-gray-400" />
                   </div>
+                  
+                  {/* Mobile Search Suggestions Dropdown */}
+                  {searchQuery.trim() !== "" && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                      {searchSuggestions.recipes.length === 0 && 
+                       searchSuggestions.mealTypes.length === 0 && 
+                       searchSuggestions.dietaryRestrictions.length === 0 ? (
+                        <div className="p-4 text-center text-gray-500">No results found</div>
+                      ) : (
+                        <div className="max-h-60 overflow-y-auto">
+                          {searchSuggestions.recipes.length > 0 && (
+                            <div className="p-2">
+                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
+                              <ul>
+                                {searchSuggestions.recipes.map(recipe => (
+                                  <li key={recipe.id}>
+                                    <button
+                                      type="button"
+                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                      onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
+                                    >
+                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                      <span>{recipe.title}</span>
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {searchSuggestions.mealTypes.length > 0 && (
+                            <div className="p-2">
+                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
+                              <ul>
+                                {searchSuggestions.mealTypes.map(mealType => (
+                                  <li key={mealType}>
+                                    <button
+                                      type="button"
+                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                      onClick={() => handleSearchItemSelect(mealType, 'mealType')}
+                                    >
+                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                      <span>{mealType}</span>
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {searchSuggestions.dietaryRestrictions.length > 0 && (
+                            <div className="p-2">
+                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
+                              <ul>
+                                {searchSuggestions.dietaryRestrictions.map(restriction => (
+                                  <li key={restriction}>
+                                    <button
+                                      type="button"
+                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                      onClick={() => handleSearchItemSelect(restriction, 'dietary')}
+                                    >
+                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                      <span>{restriction}</span>
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          
+                          <div className="p-2 border-t">
+                            <button
+                              type="submit"
+                              className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
+                            >
+                              <Search className="mr-2 h-4 w-4" />
+                              <span>Search for "{searchQuery}"</span>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </form>
-              
+            </div>
+          )}
+
+          {/* Mobile menu - inconsistent naming with menuOpen instead of isMenuOpen */}
+          {isMobile && menuOpen && !showMobileSearch && (
+            <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
               <div className="flex flex-col space-y-4">
                 <Link to="/" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Home</Link>
                 <Link 
@@ -315,68 +501,6 @@ const Navigation = () => {
           )}
         </div>
       </nav>
-
-      {/* Search Command Dialog */}
-      <CommandDialog open={showSearchCommand} onOpenChange={setShowSearchCommand}>
-        <CommandInput 
-          placeholder="Search recipes, meal types or dietary restrictions..." 
-          value={searchQuery}
-          onValueChange={setSearchQuery}
-        />
-        <CommandList>
-          <CommandEmpty>No results found</CommandEmpty>
-          
-          {searchSuggestions.recipes.length > 0 && (
-            <CommandGroup heading="Recipes">
-              {searchSuggestions.recipes.map((recipe) => (
-                <CommandItem 
-                  key={recipe.id}
-                  onSelect={() => handleSearchItemSelect(recipe.id, 'recipe')}
-                >
-                  <Search className="mr-2 h-4 w-4" />
-                  {recipe.title}
-                </CommandItem>
-              ))}
-              {searchQuery.trim() !== "" && (
-                <CommandItem 
-                  onSelect={() => handleSearch(undefined, searchQuery)}
-                >
-                  <Search className="mr-2 h-4 w-4" />
-                  Search all recipes for "{searchQuery}"
-                </CommandItem>
-              )}
-            </CommandGroup>
-          )}
-          
-          {searchSuggestions.mealTypes.length > 0 && (
-            <CommandGroup heading="Meal Types">
-              {searchSuggestions.mealTypes.map((mealType) => (
-                <CommandItem 
-                  key={mealType}
-                  onSelect={() => handleSearchItemSelect(mealType, 'mealType')}
-                >
-                  <Search className="mr-2 h-4 w-4" />
-                  {mealType}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          )}
-          
-          {searchSuggestions.dietaryRestrictions.length > 0 && (
-            <CommandGroup heading="Dietary Restrictions">
-              {searchSuggestions.dietaryRestrictions.map((restriction) => (
-                <CommandItem 
-                  key={restriction}
-                  onSelect={() => handleSearchItemSelect(restriction, 'dietary')}
-                >
-                  <Search className="mr-2 h-4 w-4" />
-                  {restriction}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          )}
-        </CommandList>
-      </CommandDialog>
     </>
   );
 };
