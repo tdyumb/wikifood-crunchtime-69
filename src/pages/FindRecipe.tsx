@@ -98,11 +98,11 @@ const FindRecipe = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            key={filteredRecipes.length} // Re-animate when recipes change
+            key={`${filteredRecipes.length}-${JSON.stringify(filters)}`} // Re-animate when recipes or filters change
           >
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe, index) => (
-                <motion.div key={recipe.id} variants={item} custom={index}>
+                <motion.div key={recipe.id} variants={item}>
                   <RecipeCard
                     id={recipe.id}
                     title={recipe.title}

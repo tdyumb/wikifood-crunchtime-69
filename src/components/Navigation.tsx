@@ -103,9 +103,24 @@ const Navigation = () => {
     }
   };
 
-  // Open command dialog for search
+  // Handle click on search input - now just focuses the input for direct typing
   const handleSearchFocus = () => {
-    setShowSearchCommand(true);
+    // Only open command dialog if there's a search query
+    if (searchQuery.trim() !== "") {
+      setShowSearchCommand(true);
+    }
+  };
+
+  // Handle changes to search input
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    // Open command dialog when user starts typing
+    if (value.trim() !== "") {
+      setShowSearchCommand(true);
+    } else {
+      setShowSearchCommand(false);
+    }
   };
 
   // Handle search submission
@@ -132,15 +147,30 @@ const Navigation = () => {
       new Set(filteredRecipes.map(recipe => recipe.cuisineType))
     );
     
-    const isMealType = ["breakfast", "lunch", "dinner", "dessert"].includes(finalQuery.toLowerCase());
-    const mealTypesFilter = isMealType ? [finalQuery.toLowerCase()] : [];
+    const isMealType = ["breakfast", "lunch", "dinner", "dessert"].some(
+      mealType => finalQuery.toLowerCase().includes(mealType.toLowerCase())
+    );
     
-    const isDietaryRestriction = [
+    const mealTypesFilter = isMealType 
+      ? ["breakfast", "lunch", "dinner", "dessert"].filter(
+          mealType => finalQuery.toLowerCase().includes(mealType.toLowerCase())
+        )
+      : [];
+    
+    const dietaryRestrictionsList = [
       "vegetarian", "vegan", "gluten-free", "dairy-free", 
       "low-carb", "keto", "paleo", "whole30", "pescatarian"
-    ].includes(finalQuery.toLowerCase());
+    ];
     
-    const dietaryRestrictionsFilter = isDietaryRestriction ? [finalQuery.toLowerCase()] : [];
+    const isDietaryRestriction = dietaryRestrictionsList.some(
+      restriction => finalQuery.toLowerCase().includes(restriction.toLowerCase())
+    );
+    
+    const dietaryRestrictionsFilter = isDietaryRestriction 
+      ? dietaryRestrictionsList.filter(
+          restriction => finalQuery.toLowerCase().includes(restriction.toLowerCase())
+        )
+      : [];
     
     setFilters({
       cuisineType: uniqueCuisineTypes.length > 0 ? uniqueCuisineTypes : [],
@@ -202,7 +232,7 @@ const Navigation = () => {
                     placeholder="Search recipes, meal types, dietary..."
                     className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchInputChange}
                     onFocus={handleSearchFocus}
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -259,7 +289,7 @@ const Navigation = () => {
                     placeholder="Search recipes, meal types, dietary..."
                     className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleSearchInputChange}
                     onFocus={handleSearchFocus}
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
