@@ -1,4 +1,3 @@
-
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
@@ -45,6 +44,22 @@ const Index = () => {
     }
   };
 
+  // Sample equipment data for each recipe
+  const equipmentOptions = [
+    ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"],
+    ["Pot", "Cutting Board", "Chef's Knife", "Wooden Spoon"],
+    ["Skillet", "Spatula", "Mixing Bowls", "Measuring Spoons"],
+    ["Baking Dish", "Grater", "Peeler", "Food Processor"],
+    ["Dutch Oven", "Tongs", "Colander", "Timer"]
+  ];
+
+  // Function to get equipment for a recipe based on its ID
+  const getEquipmentForRecipe = (id: string) => {
+    const numId = parseInt(id, 10);
+    const index = (numId % 5); // Use modulo to cycle through equipment options
+    return equipmentOptions[index] || equipmentOptions[0];
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -75,22 +90,27 @@ const Index = () => {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Featured Recipes</h2>
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={container}
             initial="hidden"
             animate="show"
             key={filteredRecipes.length} // Re-animate when recipes change
           >
             {filteredRecipes.map((recipe, index) => (
-              <motion.div key={recipe.id} variants={item} custom={index}>
-                <RecipeCard
-                  id={recipe.id}
-                  title={recipe.title}
-                  description={recipe.description}
-                  image={recipe.image}
-                  cookTime={recipe.cookTime}
-                  servings={recipe.servings}
-                />
+              <motion.div key={recipe.id} variants={item} custom={index} className="h-full flex">
+                <div className="w-full">
+                  <RecipeCard
+                    id={recipe.id}
+                    title={recipe.title}
+                    description={recipe.description}
+                    image={recipe.image}
+                    cookTime={recipe.cookTime}
+                    servings={recipe.servings}
+                    ingredients={recipe.ingredients}
+                    instructions={recipe.instructions}
+                    equipment={getEquipmentForRecipe(recipe.id)}
+                  />
+                </div>
               </motion.div>
             ))}
           </motion.div>

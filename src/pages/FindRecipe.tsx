@@ -59,6 +59,22 @@ const FindRecipe = () => {
     }
   };
 
+  // Sample equipment data for each recipe
+  const equipmentOptions = [
+    ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"],
+    ["Pot", "Cutting Board", "Chef's Knife", "Wooden Spoon"],
+    ["Skillet", "Spatula", "Mixing Bowls", "Measuring Spoons"],
+    ["Baking Dish", "Grater", "Peeler", "Food Processor"],
+    ["Dutch Oven", "Tongs", "Colander", "Timer"]
+  ];
+
+  // Function to get equipment for a recipe based on its ID
+  const getEquipmentForRecipe = (id: string) => {
+    const numId = parseInt(id, 10);
+    const index = (numId % 5); // Use modulo to cycle through equipment options
+    return equipmentOptions[index] || equipmentOptions[0];
+  };
+
   return (
     <div className="min-h-screen bg-wiki-50">
       <Navigation />
@@ -102,17 +118,20 @@ const FindRecipe = () => {
           >
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe, index) => (
-                <motion.div key={recipe.id} variants={item}>
-                  <RecipeCard
-                    id={recipe.id}
-                    title={recipe.title}
-                    description={recipe.description}
-                    image={recipe.image}
-                    cookTime={recipe.cookTime}
-                    servings={recipe.servings}
-                    ingredients={recipe.ingredients}
-                    instructions={recipe.instructions}
-                  />
+                <motion.div key={recipe.id} variants={item} className="h-full flex">
+                  <div className="w-full">
+                    <RecipeCard
+                      id={recipe.id}
+                      title={recipe.title}
+                      description={recipe.description}
+                      image={recipe.image}
+                      cookTime={recipe.cookTime}
+                      servings={recipe.servings}
+                      ingredients={recipe.ingredients}
+                      instructions={recipe.instructions}
+                      equipment={getEquipmentForRecipe(recipe.id)}
+                    />
+                  </div>
                 </motion.div>
               ))
             ) : (

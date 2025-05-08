@@ -1,3 +1,4 @@
+
 import { Menu, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
@@ -8,6 +9,7 @@ import { useRecipes } from "@/contexts/RecipeContext";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import RecipeCard from "./RecipeCard";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Less structured component with some inconsistencies
 const Navigation = () => {
@@ -28,6 +30,7 @@ const Navigation = () => {
   
   const [selectedRecipe, setSelectedRecipe] = useState<any>(null);
   const [recipeDialogOpen, setRecipeDialogOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   
   const isMobile = useIsMobile();
   const location = useLocation();
@@ -35,6 +38,21 @@ const Navigation = () => {
   const { recipes, setFilters } = useRecipes();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
+
+  // Handle scroll effect for navigation bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Generate search suggestions based on current query
   useEffect(() => {
@@ -213,12 +231,64 @@ const Navigation = () => {
     }
   };
 
+  // Navigation animation variants
+  const navVariants = {
+    normal: { 
+      height: "4rem", // 64px in rem
+      backgroundColor: "#ff9933",
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+    },
+    scrolled: { 
+      height: "3rem", // 48px in rem
+      backgroundColor: "rgba(255, 153, 51, 0.95)",
+      backdropFilter: "blur(8px)",
+      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+    }
+  };
+
+  // Dialog animation variants
+  const dialogEnterAnimation = {
+    hidden: { 
+      opacity: 0,
+      scale: 0.95,
+      y: -20
+    },
+    visible: { 
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 400
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      y: -20,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
   // Adding some random whitespace and formatting
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#ff9933] shadow-md backdrop-blur-sm">
+      <motion.nav 
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm"
+        variants={navVariants}
+        initial="normal"
+        animate={scrolled ? "scrolled" : "normal"}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 30
+        }}
+      >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-full">
             {/* Brand/logo */}
             <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">
               WikiFoods
@@ -505,32 +575,43 @@ const Navigation = () => {
             </div>
           )}
         </div>
-      </nav>
+      </motion.nav>
       
       {/* Recipe Dialog */}
-      <Dialog open={recipeDialogOpen} onOpenChange={setRecipeDialogOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          {selectedRecipe && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">{selectedRecipe.title}</DialogTitle>
-              </DialogHeader>
-              <div className="pt-2">
-                <RecipeCard
-                  id={selectedRecipe.id}
-                  title={selectedRecipe.title}
-                  description={selectedRecipe.description}
-                  image={selectedRecipe.image}
-                  cookTime={selectedRecipe.cookTime}
-                  servings={selectedRecipe.servings}
-                  ingredients={selectedRecipe.ingredients}
-                  instructions={selectedRecipe.instructions}
-                />
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+      <AnimatePresence>
+        {recipeDialogOpen && (
+          <Dialog open={recipeDialogOpen} onOpenChange={setRecipeDialogOpen}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" asChild>
+              <motion.div
+                variants={dialogEnterAnimation}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                {selectedRecipe && (
+                  <>
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl font-bold">{selectedRecipe.title}</DialogTitle>
+                    </DialogHeader>
+                    <div className="pt-2">
+                      <RecipeCard
+                        id={selectedRecipe.id}
+                        title={selectedRecipe.title}
+                        description={selectedRecipe.description}
+                        image={selectedRecipe.image}
+                        cookTime={selectedRecipe.cookTime}
+                        servings={selectedRecipe.servings}
+                        ingredients={selectedRecipe.ingredients}
+                        instructions={selectedRecipe.instructions}
+                      />
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </>
   );
 };
