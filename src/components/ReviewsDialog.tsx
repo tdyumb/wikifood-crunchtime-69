@@ -17,7 +17,11 @@ const ReviewsDialog = ({ reviews, recipeName }: ReviewsDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm" className="mt-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="mt-2"
+        >
           <Star className="mr-1" />
           See Reviews ({reviews.length})
         </Button>
