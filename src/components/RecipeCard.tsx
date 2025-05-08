@@ -128,6 +128,7 @@ const RecipeCard = ({
               <Button 
                 variant="outline" 
                 className="w-full"
+                style={{ backgroundColor: "#e3dbd5", borderColor: "#e3dbd5" }}
               >
                 View Recipe
               </Button>
