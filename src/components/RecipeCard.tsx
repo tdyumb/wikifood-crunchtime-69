@@ -247,13 +247,15 @@ const RecipeCard = ({
             </DialogContent>
           </Dialog>
 
-          <div className="flex gap-2 mt-2">
-            <ReviewsDialog reviews={recipeReviews} recipeName={title} />
+          <div className="flex gap-2">
+            <div className="w-1/2">
+              <ReviewsDialog reviews={recipeReviews} recipeName={title} />
+            </div>
             
             <Button 
               variant="outline" 
               size="sm" 
-              className="flex-1"
+              className="w-1/2"
               onClick={handleSaveRecipe}
             >
               <Save className="mr-1" />

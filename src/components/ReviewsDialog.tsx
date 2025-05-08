@@ -20,7 +20,7 @@ const ReviewsDialog = ({ reviews, recipeName }: ReviewsDialogProps) => {
         <Button 
           variant="outline" 
           size="sm" 
-          className="mt-2"
+          className="w-full"
         >
           <Star className="mr-1" />
           See Reviews ({reviews.length})
