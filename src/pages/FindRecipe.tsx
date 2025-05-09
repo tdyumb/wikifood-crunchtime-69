@@ -59,20 +59,30 @@ const FindRecipe = () => {
     }
   };
 
-  // Sample equipment data for each recipe
-  const equipmentOptions = [
-    ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"],
-    ["Pot", "Cutting Board", "Chef's Knife", "Wooden Spoon"],
-    ["Skillet", "Spatula", "Mixing Bowls", "Measuring Spoons"],
-    ["Baking Dish", "Grater", "Peeler", "Food Processor"],
-    ["Dutch Oven", "Tongs", "Colander", "Timer"]
-  ];
-
-  // Function to get equipment for a recipe based on its ID
-  const getEquipmentForRecipe = (id: string) => {
-    const numId = parseInt(id, 10);
-    const index = (numId % 5); // Use modulo to cycle through equipment options
-    return equipmentOptions[index] || equipmentOptions[0];
+  // Function to get equipment for a recipe based on its meal type
+  const getEquipmentForRecipe = (id: string, mealType: string) => {
+    // Different equipment based on meal type
+    const breakfastEquipment = ["Whisk", "Mixing Bowl", "Spatula", "Frying Pan"];
+    const lunchEquipment = ["Knife", "Cutting Board", "Skillet", "Measuring Cups"];
+    const dinnerEquipment = ["Pot", "Pan", "Colander", "Wooden Spoon"];
+    const dessertEquipment = ["Mixer", "Baking Sheet", "Measuring Spoons", "Oven"];
+    
+    const recipe = filteredRecipes.find(r => r.id === id);
+    if (recipe) {
+      switch(recipe.mealType) {
+        case "breakfast":
+          return breakfastEquipment;
+        case "lunch":
+          return lunchEquipment;
+        case "dinner":
+          return dinnerEquipment;
+        case "dessert":
+          return dessertEquipment;
+        default:
+          return ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
+      }
+    }
+    return ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
   };
 
   return (
@@ -126,10 +136,11 @@ const FindRecipe = () => {
                       description={recipe.description}
                       image={recipe.image}
                       cookTime={recipe.cookTime}
+                      prepTime={recipe.prepTime}
                       servings={recipe.servings}
                       ingredients={recipe.ingredients}
                       instructions={recipe.instructions}
-                      equipment={getEquipmentForRecipe(recipe.id)}
+                      equipment={getEquipmentForRecipe(recipe.id, recipe.mealType)}
                     />
                   </div>
                 </motion.div>

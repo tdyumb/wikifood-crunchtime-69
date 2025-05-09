@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Clock, Users, Save, ToggleRight, Utensils } from "lucide-react";
+import { Clock, Users, Save, ToggleRight, Utensils, Timer } from "lucide-react";
 import { Switch } from "./ui/switch";
 import ReviewsDialog from "./ReviewsDialog";
 import { reviewsData } from "@/data/reviews";
@@ -15,11 +15,11 @@ interface RecipeCardProps {
   description: string;
   image: string;
   cookTime?: string;
+  prepTime?: string;
   servings?: number;
   ingredients?: string[];
   instructions?: string[];
   difficulty?: string;
-  prepTime?: string;
   yield?: string;
   sweetness?: string[];
   equipment?: string[];
@@ -39,11 +39,11 @@ const RecipeCard = ({
   description, 
   image, 
   cookTime = "30 mins", 
+  prepTime = "15 mins",
   servings = 4,
   ingredients = [],
   instructions = [],
   difficulty = "Beginner",
-  prepTime = "15 min",
   yield: recipeYield = "4 servings",
   sweetness = [],
   equipment = ["Bowl", "Whisk", "Baking Sheet"] // Default equipment if none provided
@@ -65,11 +65,22 @@ const RecipeCard = ({
     
     // In a real app, we would have different values for each recipe
     const nutritionalData: Record<string, NutritionalInfo> = {
-      "1": { calories: 650, protein: "25g", carbs: "70g", fat: "30g", fiber: "3g" },
-      "2": { calories: 420, protein: "15g", carbs: "55g", fat: "18g", fiber: "12g" },
-      "3": { calories: 380, protein: "28g", carbs: "12g", fat: "26g", fiber: "5g" },
-      "4": { calories: 290, protein: "8g", carbs: "35g", fat: "12g", fiber: "9g" },
-      "5": { calories: 520, protein: "18g", carbs: "75g", fat: "16g", fiber: "7g" }
+      "1": { calories: 510, protein: "41g", carbs: "2g", fat: "37g", fiber: "0g" },
+      "2": { calories: 259, protein: "13g", carbs: "48g", fat: "3g", fiber: "7g" },
+      "3": { calories: 703, protein: "31g", carbs: "80g", fat: "30g", fiber: "8g" },
+      "4": { calories: 447, protein: "13g", carbs: "65g", fat: "16g", fiber: "2g" },
+      "5": { calories: 703, protein: "31g", carbs: "80g", fat: "30g", fiber: "8g" },
+      "6": { calories: 262, protein: "10g", carbs: "26g", fat: "13g", fiber: "4g" },
+      "7": { calories: 577, protein: "38g", carbs: "35g", fat: "32g", fiber: "4g" },
+      "8": { calories: 176, protein: "10g", carbs: "2g", fat: "14g", fiber: "0g" },
+      "9": { calories: 516, protein: "17g", carbs: "43g", fat: "32g", fiber: "2g" },
+      "10": { calories: 106, protein: "4g", carbs: "16g", fat: "3g", fiber: "2g" },
+      "11": { calories: 280, protein: "16g", carbs: "41g", fat: "8g", fiber: "13g" },
+      "12": { calories: 390, protein: "29g", carbs: "49g", fat: "17g", fiber: "4g" },
+      "13": { calories: 409, protein: "2g", carbs: "61g", fat: "19g", fiber: "2g" },
+      "14": { calories: 217, protein: "3g", carbs: "29g", fat: "11g", fiber: "1g" },
+      "15": { calories: 43, protein: "10g", carbs: "5g", fat: "2g", fiber: "0.2g" },
+      "16": { calories: 262, protein: "10g", carbs: "26g", fat: "13g", fiber: "4g" }
     };
     
     return nutritionalData[recipeId] || defaultInfo;
@@ -163,8 +174,8 @@ const RecipeCard = ({
                       <p className="font-semibold">{difficulty}</p>
                     </div>
                     <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600">Yield</p>
-                      <p className="font-semibold">{recipeYield}</p>
+                      <p className="text-sm text-gray-600">Servings</p>
+                      <p className="font-semibold">{servings}</p>
                     </div>
                   </div>
 
