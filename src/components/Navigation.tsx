@@ -39,7 +39,7 @@ const Navigation = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
-  // Enhanced scroll effect for navigation bar with more detailed tracking
+  // Enhanced scroll effect for navigation bar with sliding animation
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -237,18 +237,28 @@ const Navigation = () => {
     }
   };
 
-  // Enhanced navigation animation variants with more detailed transitions
+  // Enhanced navigation animation variants with sliding effect
   const navVariants = {
     normal: { 
       height: "4rem", // 64px in rem
       backgroundColor: "#ff9933",
-      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      y: 0,
+      scale: 1,
+      width: "100%",
+      margin: "0",
+      borderRadius: "0"
     },
     scrolled: { 
       height: "3rem", // 48px in rem when scrolled
       backgroundColor: "rgba(255, 153, 51, 0.95)",
       backdropFilter: "blur(8px)",
-      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      y: "5px",
+      scale: 0.95,
+      width: "90%",
+      margin: "0 auto",
+      borderRadius: "0 0 1rem 1rem"
     }
   };
 
@@ -283,20 +293,15 @@ const Navigation = () => {
   return (
     <>
       <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm transition-all"
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm"
         initial="normal"
         animate={scrolled ? "scrolled" : "normal"}
         variants={navVariants}
-        style={{
-          width: scrolled ? "90%" : "100%", 
-          margin: scrolled ? "0 auto" : "0",
-          borderRadius: scrolled ? "0 0 1rem 1rem" : "0",
-          transform: scrolled ? `translateY(${scrollProgress * 5}px)` : "translateY(0)"
-        }}
         transition={{
           type: "spring",
           stiffness: 300,
-          damping: 30
+          damping: 30,
+          mass: 1
         }}
       >
         <div className="container mx-auto px-4">
