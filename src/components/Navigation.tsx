@@ -1,4 +1,3 @@
-
 import { Menu, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
@@ -31,6 +30,7 @@ const Navigation = () => {
   const [selectedRecipe, setSelectedRecipe] = useState<any>(null);
   const [recipeDialogOpen, setRecipeDialogOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   
   const isMobile = useIsMobile();
   const location = useLocation();
@@ -39,11 +39,17 @@ const Navigation = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
-  // Handle scroll effect for navigation bar
+  // Enhanced scroll effect for navigation bar with more detailed tracking
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 50) {
+      const maxScroll = 100; // After 100px of scrolling, apply full effect
+      
+      // Calculate scroll progress as a percentage (0 to 1)
+      const progress = Math.min(scrollPosition / maxScroll, 1);
+      setScrollProgress(progress);
+      
+      if (scrollPosition > 20) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -231,7 +237,7 @@ const Navigation = () => {
     }
   };
 
-  // Navigation animation variants
+  // Enhanced navigation animation variants with more detailed transitions
   const navVariants = {
     normal: { 
       height: "4rem", // 64px in rem
@@ -239,7 +245,7 @@ const Navigation = () => {
       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
     },
     scrolled: { 
-      height: "3rem", // 48px in rem
+      height: "3rem", // 48px in rem when scrolled
       backgroundColor: "rgba(255, 153, 51, 0.95)",
       backdropFilter: "blur(8px)",
       boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
@@ -277,10 +283,16 @@ const Navigation = () => {
   return (
     <>
       <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm"
-        variants={navVariants}
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm transition-all"
         initial="normal"
         animate={scrolled ? "scrolled" : "normal"}
+        variants={navVariants}
+        style={{
+          width: scrolled ? "90%" : "100%", 
+          margin: scrolled ? "0 auto" : "0",
+          borderRadius: scrolled ? "0 0 1rem 1rem" : "0",
+          transform: scrolled ? `translateY(${scrollProgress * 5}px)` : "translateY(0)"
+        }}
         transition={{
           type: "spring",
           stiffness: 300,
@@ -291,7 +303,16 @@ const Navigation = () => {
           <div className="flex items-center justify-between h-full">
             {/* Brand/logo */}
             <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">
-              WikiFoods
+              <motion.div
+                animate={{ 
+                  fontSize: scrolled ? "1.25rem" : "1.5rem",
+                  paddingTop: scrolled ? "0.25rem" : "0",
+                  paddingBottom: scrolled ? "0.25rem" : "0"
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                WikiFoods
+              </motion.div>
             </Link>
 
             {/* Search bar - visible on desktop, hidden on mobile */}
@@ -432,21 +453,66 @@ const Navigation = () => {
               <>
                 {/* Left links */}
                 <div className="flex items-center space-x-8">
-                  <Link to="/" className="text-white hover:text-gray-200 transition-colors">Home</Link>
-                  <Link 
-                    to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
-                    className="text-white hover:text-gray-200 transition-colors"
-                    onClick={scrollToRecipeFilter}
+                  <motion.div
+                    animate={{ 
+                      fontSize: scrolled ? "0.875rem" : "1rem",
+                      paddingTop: scrolled ? "0.25rem" : "0",
+                      paddingBottom: scrolled ? "0.25rem" : "0"
+                    }}
+                    transition={{ duration: 0.3 }}
                   >
-                    Find A Recipe
-                  </Link>
-                  <Link to="/recipe-collection" className="text-white hover:text-gray-200 transition-colors">Recipe Collection</Link>
+                    <Link to="/" className="text-white hover:text-gray-200 transition-colors">Home</Link>
+                  </motion.div>
+                  <motion.div
+                    animate={{ 
+                      fontSize: scrolled ? "0.875rem" : "1rem",
+                      paddingTop: scrolled ? "0.25rem" : "0",
+                      paddingBottom: scrolled ? "0.25rem" : "0"
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Link 
+                      to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                      className="text-white hover:text-gray-200 transition-colors"
+                      onClick={scrollToRecipeFilter}
+                    >
+                      Find A Recipe
+                    </Link>
+                  </motion.div>
+                  <motion.div
+                    animate={{ 
+                      fontSize: scrolled ? "0.875rem" : "1rem",
+                      paddingTop: scrolled ? "0.25rem" : "0",
+                      paddingBottom: scrolled ? "0.25rem" : "0"
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Link to="/recipe-collection" className="text-white hover:text-gray-200 transition-colors">Recipe Collection</Link>
+                  </motion.div>
                 </div>
 
                 {/* Right links */}
                 <div className="flex items-center space-x-8">
-                  <Link to="/about" className="text-white hover:text-gray-200 transition-colors">About</Link>
-                  <Link to="/contact" className="text-white hover:text-gray-200 transition-colors">Contact</Link>
+                  <motion.div
+                    animate={{ 
+                      fontSize: scrolled ? "0.875rem" : "1rem",
+                      paddingTop: scrolled ? "0.25rem" : "0",
+                      paddingBottom: scrolled ? "0.25rem" : "0"
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Link to="/about" className="text-white hover:text-gray-200 transition-colors">About</Link>
+                  </motion.div>
+                  <motion.div
+                    animate={{ 
+                      fontSize: scrolled ? "0.875rem" : "1rem",
+                      paddingTop: scrolled ? "0.25rem" : "0",
+                      paddingBottom: scrolled ? "0.25rem" : "0"
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Link to="/contact" className="text-white hover:text-gray-200 transition-colors">Contact</Link>
+                  </motion.div>
                 </div>
               </>
             )}
