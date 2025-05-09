@@ -1,4 +1,3 @@
-
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import RecipeFilter from "@/components/RecipeFilter";
@@ -62,7 +61,12 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen pt-16"> {/* Added padding-top to account for fixed navbar */}
+    <motion.div 
+      className="min-h-screen pt-16"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+    >
       <Navigation />
       
       {/* Hero Section */}
@@ -178,7 +182,7 @@ const Home = () => {
           </motion.div>
         </div>
       </footer>
-    </div>
+    </motion.div>
   );
 };
 

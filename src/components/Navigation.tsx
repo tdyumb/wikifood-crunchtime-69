@@ -39,6 +39,24 @@ const Navigation = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
+  // Initial appearance animation for the navigation
+  const initialNavVariants = {
+    hidden: {
+      y: -100,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+        delay: 0.2
+      }
+    }
+  };
+
   // Enhanced scroll effect for navigation bar with sliding animation
   useEffect(() => {
     const handleScroll = () => {
@@ -294,358 +312,365 @@ const Navigation = () => {
     <>
       <motion.nav 
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm"
-        initial="normal"
-        animate={scrolled ? "scrolled" : "normal"}
-        variants={navVariants}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-          mass: 1
-        }}
+        initial="hidden"
+        animate="visible"
+        variants={initialNavVariants}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-full">
-            {/* Brand/logo */}
-            <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">
-              <motion.div
-                animate={{ 
-                  fontSize: scrolled ? "1.25rem" : "1.5rem",
-                  paddingTop: scrolled ? "0.25rem" : "0",
-                  paddingBottom: scrolled ? "0.25rem" : "0"
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                WikiFoods
-              </motion.div>
-            </Link>
-
-            {/* Search bar - visible on desktop, hidden on mobile */}
-            {!isMobile && (
-              <form onSubmit={handleSearch} className="relative mx-4 flex-1 max-w-md">
-                <div className="relative">
-                  <Input
-                    ref={searchInputRef}
-                    type="search"
-                    placeholder="Search recipes, meal types, dietary..."
-                    className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search size={18} className="text-gray-400" />
-                  </div>
-                  
-                  {/* Search Suggestions Dropdown */}
-                  {searchQuery.trim() !== "" && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
-                      {searchSuggestions.recipes.length === 0 && 
-                       searchSuggestions.mealTypes.length === 0 && 
-                       searchSuggestions.dietaryRestrictions.length === 0 ? (
-                        <div className="p-4 text-center text-gray-500">No results found</div>
-                      ) : (
-                        <div className="max-h-60 overflow-y-auto">
-                          {searchSuggestions.recipes.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
-                              <ul>
-                                {searchSuggestions.recipes.map(recipe => (
-                                  <li key={recipe.id}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{recipe.title}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {searchSuggestions.mealTypes.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
-                              <ul>
-                                {searchSuggestions.mealTypes.map(mealType => (
-                                  <li key={mealType}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(mealType, 'mealType')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{mealType}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {searchSuggestions.dietaryRestrictions.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
-                              <ul>
-                                {searchSuggestions.dietaryRestrictions.map(restriction => (
-                                  <li key={restriction}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(restriction, 'dietary')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{restriction}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          <div className="p-2 border-t">
-                            <button
-                              type="submit"
-                              className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
-                            >
-                              <Search className="mr-2 h-4 w-4" />
-                              <span>Search for "{searchQuery}"</span>
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </form>
-            )}
-
-            {/* Mobile buttons */}
-            {isMobile && (
-              <div className="flex items-center space-x-2">
-                {!showMobileSearch ? (
-                  <button
-                    onClick={handleMobileSearchToggle}
-                    className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
-                    aria-label="Search"
-                  >
-                    <Search size={24} />
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleMobileSearchToggle}
-                    className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
-                    aria-label="Close search"
-                  >
-                    <X size={24} />
-                  </button>
-                )}
-                
-                <button
-                  onClick={handleMenuToggle}
-                  className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
-                  aria-label="Toggle menu"
+        <motion.div
+          className="w-full"
+          initial="normal"
+          animate={scrolled ? "scrolled" : "normal"}
+          variants={navVariants}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+            mass: 1
+          }}
+        >
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between h-full">
+              {/* Brand/logo */}
+              <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors">
+                <motion.div
+                  animate={{ 
+                    fontSize: scrolled ? "1.25rem" : "1.5rem",
+                    paddingTop: scrolled ? "0.25rem" : "0",
+                    paddingBottom: scrolled ? "0.25rem" : "0"
+                  }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <Menu size={24} />
-                </button>
+                  WikiFoods
+                </motion.div>
+              </Link>
+
+              {/* Search bar - visible on desktop, hidden on mobile */}
+              {!isMobile && (
+                <form onSubmit={handleSearch} className="relative mx-4 flex-1 max-w-md">
+                  <div className="relative">
+                    <Input
+                      ref={searchInputRef}
+                      type="search"
+                      placeholder="Search recipes, meal types, dietary..."
+                      className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Search size={18} className="text-gray-400" />
+                    </div>
+                    
+                    {/* Search Suggestions Dropdown */}
+                    {searchQuery.trim() !== "" && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                        {searchSuggestions.recipes.length === 0 && 
+                         searchSuggestions.mealTypes.length === 0 && 
+                         searchSuggestions.dietaryRestrictions.length === 0 ? (
+                          <div className="p-4 text-center text-gray-500">No results found</div>
+                        ) : (
+                          <div className="max-h-60 overflow-y-auto">
+                            {searchSuggestions.recipes.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
+                                <ul>
+                                  {searchSuggestions.recipes.map(recipe => (
+                                    <li key={recipe.id}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{recipe.title}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {searchSuggestions.mealTypes.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
+                                <ul>
+                                  {searchSuggestions.mealTypes.map(mealType => (
+                                    <li key={mealType}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(mealType, 'mealType')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{mealType}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {searchSuggestions.dietaryRestrictions.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
+                                <ul>
+                                  {searchSuggestions.dietaryRestrictions.map(restriction => (
+                                    <li key={restriction}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(restriction, 'dietary')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{restriction}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            <div className="p-2 border-t">
+                              <button
+                                type="submit"
+                                className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
+                              >
+                                <Search className="mr-2 h-4 w-4" />
+                                <span>Search for "{searchQuery}"</span>
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </form>
+              )}
+
+              {/* Mobile buttons */}
+              {isMobile && (
+                <div className="flex items-center space-x-2">
+                  {!showMobileSearch ? (
+                    <button
+                      onClick={handleMobileSearchToggle}
+                      className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
+                      aria-label="Search"
+                    >
+                      <Search size={24} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleMobileSearchToggle}
+                      className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
+                      aria-label="Close search"
+                    >
+                      <X size={24} />
+                    </button>
+                  )}
+                  
+                  <button
+                    onClick={handleMenuToggle}
+                    className="text-white p-2 hover:bg-[#ff9933]/80 rounded-lg transition-colors"
+                    aria-label="Toggle menu"
+                  >
+                    <Menu size={24} />
+                  </button>
+                </div>
+              )}
+
+              {/* Desktop Navigation with less structured comments and formatting */}
+              {!isMobile && (
+                <>
+                  {/* Left links */}
+                  <div className="flex items-center space-x-8">
+                    <motion.div
+                      animate={{ 
+                        fontSize: scrolled ? "0.875rem" : "1rem",
+                        paddingTop: scrolled ? "0.25rem" : "0",
+                        paddingBottom: scrolled ? "0.25rem" : "0"
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link to="/" className="text-white hover:text-gray-200 transition-colors">Home</Link>
+                    </motion.div>
+                    <motion.div
+                      animate={{ 
+                        fontSize: scrolled ? "0.875rem" : "1rem",
+                        paddingTop: scrolled ? "0.25rem" : "0",
+                        paddingBottom: scrolled ? "0.25rem" : "0"
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link 
+                        to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                        className="text-white hover:text-gray-200 transition-colors"
+                        onClick={scrollToRecipeFilter}
+                      >
+                        Find A Recipe
+                      </Link>
+                    </motion.div>
+                    <motion.div
+                      animate={{ 
+                        fontSize: scrolled ? "0.875rem" : "1rem",
+                        paddingTop: scrolled ? "0.25rem" : "0",
+                        paddingBottom: scrolled ? "0.25rem" : "0"
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link to="/recipe-collection" className="text-white hover:text-gray-200 transition-colors">Recipe Collection</Link>
+                    </motion.div>
+                  </div>
+
+                  {/* Right links */}
+                  <div className="flex items-center space-x-8">
+                    <motion.div
+                      animate={{ 
+                        fontSize: scrolled ? "0.875rem" : "1rem",
+                        paddingTop: scrolled ? "0.25rem" : "0",
+                        paddingBottom: scrolled ? "0.25rem" : "0"
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link to="/about" className="text-white hover:text-gray-200 transition-colors">About</Link>
+                    </motion.div>
+                    <motion.div
+                      animate={{ 
+                        fontSize: scrolled ? "0.875rem" : "1rem",
+                        paddingTop: scrolled ? "0.25rem" : "0",
+                        paddingBottom: scrolled ? "0.25rem" : "0"
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link to="/contact" className="text-white hover:text-gray-200 transition-colors">Contact</Link>
+                    </motion.div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Mobile search input - only shown when search icon is clicked */}
+            {isMobile && showMobileSearch && (
+              <div className="py-2 animate-fadeIn">
+                <form onSubmit={handleSearch}>
+                  <div className="relative">
+                    <Input
+                      ref={mobileSearchInputRef}
+                      type="search"
+                      placeholder="Search recipes, meal types, dietary..."
+                      className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Search size={18} className="text-gray-400" />
+                    </div>
+                    
+                    {/* Mobile Search Suggestions Dropdown */}
+                    {searchQuery.trim() !== "" && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                        {searchSuggestions.recipes.length === 0 && 
+                         searchSuggestions.mealTypes.length === 0 && 
+                         searchSuggestions.dietaryRestrictions.length === 0 ? (
+                          <div className="p-4 text-center text-gray-500">No results found</div>
+                        ) : (
+                          <div className="max-h-60 overflow-y-auto">
+                            {searchSuggestions.recipes.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
+                                <ul>
+                                  {searchSuggestions.recipes.map(recipe => (
+                                    <li key={recipe.id}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{recipe.title}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {searchSuggestions.mealTypes.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
+                                <ul>
+                                  {searchSuggestions.mealTypes.map(mealType => (
+                                    <li key={mealType}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(mealType, 'mealType')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{mealType}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {searchSuggestions.dietaryRestrictions.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
+                                <ul>
+                                  {searchSuggestions.dietaryRestrictions.map(restriction => (
+                                    <li key={restriction}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(restriction, 'dietary')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{restriction}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            <div className="p-2 border-t">
+                              <button
+                                type="submit"
+                                className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
+                              >
+                                <Search className="mr-2 h-4 w-4" />
+                                <span>Search for "{searchQuery}"</span>
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </form>
               </div>
             )}
 
-            {/* Desktop Navigation with less structured comments and formatting */}
-            {!isMobile && (
-              <>
-                {/* Left links */}
-                <div className="flex items-center space-x-8">
-                  <motion.div
-                    animate={{ 
-                      fontSize: scrolled ? "0.875rem" : "1rem",
-                      paddingTop: scrolled ? "0.25rem" : "0",
-                      paddingBottom: scrolled ? "0.25rem" : "0"
-                    }}
-                    transition={{ duration: 0.3 }}
+            {/* Mobile menu - inconsistent naming with menuOpen instead of isMenuOpen */}
+            {isMobile && menuOpen && !showMobileSearch && (
+              <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
+                <div className="flex flex-col space-y-4">
+                  <Link to="/" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Home</Link>
+                  <Link 
+                    to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                    className="text-white hover:text-gray-200 px-4 py-2 transition-colors"
+                    onClick={scrollToRecipeFilter}
                   >
-                    <Link to="/" className="text-white hover:text-gray-200 transition-colors">Home</Link>
-                  </motion.div>
-                  <motion.div
-                    animate={{ 
-                      fontSize: scrolled ? "0.875rem" : "1rem",
-                      paddingTop: scrolled ? "0.25rem" : "0",
-                      paddingBottom: scrolled ? "0.25rem" : "0"
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Link 
-                      to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
-                      className="text-white hover:text-gray-200 transition-colors"
-                      onClick={scrollToRecipeFilter}
-                    >
-                      Find A Recipe
-                    </Link>
-                  </motion.div>
-                  <motion.div
-                    animate={{ 
-                      fontSize: scrolled ? "0.875rem" : "1rem",
-                      paddingTop: scrolled ? "0.25rem" : "0",
-                      paddingBottom: scrolled ? "0.25rem" : "0"
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Link to="/recipe-collection" className="text-white hover:text-gray-200 transition-colors">Recipe Collection</Link>
-                  </motion.div>
+                    Find A Recipe
+                  </Link>
+                  <Link to="/recipe-collection" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Recipe Collection</Link>
+                  <Link to="/about" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">About</Link>
+                  <Link to="/contact" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Contact</Link>
                 </div>
-
-                {/* Right links */}
-                <div className="flex items-center space-x-8">
-                  <motion.div
-                    animate={{ 
-                      fontSize: scrolled ? "0.875rem" : "1rem",
-                      paddingTop: scrolled ? "0.25rem" : "0",
-                      paddingBottom: scrolled ? "0.25rem" : "0"
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Link to="/about" className="text-white hover:text-gray-200 transition-colors">About</Link>
-                  </motion.div>
-                  <motion.div
-                    animate={{ 
-                      fontSize: scrolled ? "0.875rem" : "1rem",
-                      paddingTop: scrolled ? "0.25rem" : "0",
-                      paddingBottom: scrolled ? "0.25rem" : "0"
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Link to="/contact" className="text-white hover:text-gray-200 transition-colors">Contact</Link>
-                  </motion.div>
-                </div>
-              </>
+              </div>
             )}
           </div>
-
-          {/* Mobile search input - only shown when search icon is clicked */}
-          {isMobile && showMobileSearch && (
-            <div className="py-2 animate-fadeIn">
-              <form onSubmit={handleSearch}>
-                <div className="relative">
-                  <Input
-                    ref={mobileSearchInputRef}
-                    type="search"
-                    placeholder="Search recipes, meal types, dietary..."
-                    className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search size={18} className="text-gray-400" />
-                  </div>
-                  
-                  {/* Mobile Search Suggestions Dropdown */}
-                  {searchQuery.trim() !== "" && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
-                      {searchSuggestions.recipes.length === 0 && 
-                       searchSuggestions.mealTypes.length === 0 && 
-                       searchSuggestions.dietaryRestrictions.length === 0 ? (
-                        <div className="p-4 text-center text-gray-500">No results found</div>
-                      ) : (
-                        <div className="max-h-60 overflow-y-auto">
-                          {searchSuggestions.recipes.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
-                              <ul>
-                                {searchSuggestions.recipes.map(recipe => (
-                                  <li key={recipe.id}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{recipe.title}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {searchSuggestions.mealTypes.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
-                              <ul>
-                                {searchSuggestions.mealTypes.map(mealType => (
-                                  <li key={mealType}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(mealType, 'mealType')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{mealType}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {searchSuggestions.dietaryRestrictions.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
-                              <ul>
-                                {searchSuggestions.dietaryRestrictions.map(restriction => (
-                                  <li key={restriction}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(restriction, 'dietary')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{restriction}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          <div className="p-2 border-t">
-                            <button
-                              type="submit"
-                              className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
-                            >
-                              <Search className="mr-2 h-4 w-4" />
-                              <span>Search for "{searchQuery}"</span>
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </form>
-            </div>
-          )}
-
-          {/* Mobile menu - inconsistent naming with menuOpen instead of isMenuOpen */}
-          {isMobile && menuOpen && !showMobileSearch && (
-            <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
-              <div className="flex flex-col space-y-4">
-                <Link to="/" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Home</Link>
-                <Link 
-                  to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
-                  className="text-white hover:text-gray-200 px-4 py-2 transition-colors"
-                  onClick={scrollToRecipeFilter}
-                >
-                  Find A Recipe
-                </Link>
-                <Link to="/recipe-collection" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Recipe Collection</Link>
-                <Link to="/about" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">About</Link>
-                <Link to="/contact" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Contact</Link>
-              </div>
-            </div>
-          )}
-        </div>
+        </motion.div>
       </motion.nav>
       
       {/* Recipe Dialog */}
