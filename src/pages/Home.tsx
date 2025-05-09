@@ -182,4 +182,20 @@ const Home = () => {
   );
 };
 
+// Adding the footerLinks array that was missing
+const footerLinks = [
+  {
+    title: "Company",
+    links: ["About", "Careers", "Press", "Contact"],
+  },
+  {
+    title: "Resources",
+    links: ["Blog", "Newsletter", "Events", "Help Center"],
+  },
+  {
+    title: "Legal",
+    links: ["Terms", "Privacy", "Cookies", "Licenses"],
+  },
+];
+
 export default Home;
