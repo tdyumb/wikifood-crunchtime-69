@@ -40,7 +40,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     }
   };
 
-  // Shimmer effect
+  // Shimmer effect with updated color
   const shimmerVariants = {
     initial: { x: '-100%', opacity: 0.3 },
     animate: {
@@ -77,27 +77,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             className="w-full h-full object-contain"
           />
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-300 to-transparent"
             variants={shimmerVariants}
             initial="initial"
             animate="animate"
             style={{ mixBlendMode: 'overlay' }}
           />
         </motion.div>
-        
-        <motion.div
-          className="mt-3 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500 h-1 rounded-full"
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ 
-            width: '160px', 
-            opacity: 1,
-            transition: { 
-              delay: 1.2, 
-              duration: 0.8, 
-              ease: 'easeOut' 
-            } 
-          }}
-        />
       </div>
     </motion.div>
   );
