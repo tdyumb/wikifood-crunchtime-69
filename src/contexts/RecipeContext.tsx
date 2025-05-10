@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { recipeData } from '../data/recipes';
 
@@ -10,9 +11,17 @@ type Recipe = {
   mealType: string;
   dietaryRestrictions: string[];
   cookTime: string;
+  prepTime: string; // Add prepTime property
   servings: number;
   ingredients: string[];
   instructions: string[];
+  nutritionInfo?: {
+    calories: number;
+    protein: string;
+    carbs: string;
+    fat: string;
+    fiber: string;
+  };
 };
 
 type RecipeContextType = {
