@@ -52,22 +52,6 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="absolute top-0 w-full overflow-hidden">
-        <div className="flex justify-between px-4 py-2">
-          {[...Array(20)].map((_, i) => (
-            <span
-              key={i}
-              className={`w-3 h-3 rounded-full ${
-                i % 5 === 0 ? 'bg-red-500' : 
-                i % 5 === 1 ? 'bg-blue-500' : 
-                i % 5 === 2 ? 'bg-green-500' : 
-                i % 5 === 3 ? 'bg-yellow-500' : 'bg-purple-500'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-
       <div className="container mx-auto px-4 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
