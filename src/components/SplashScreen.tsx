@@ -40,23 +40,6 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     }
   };
 
-  // Text reveal animation for each letter
-  const letters = "WikiFoods".split("");
-  
-  // Letter animation
-  const letterVariants = {
-    initial: { y: 40, opacity: 0 },
-    animate: (i: number) => ({
-      y: 0,
-      opacity: 1,
-      transition: { 
-        delay: 0.05 * i,
-        duration: 0.6,
-        ease: [0.6, -0.05, 0.01, 0.99]
-      }
-    })
-  };
-
   // Shimmer effect
   const shimmerVariants = {
     initial: { x: '-100%', opacity: 0.3 },
@@ -75,7 +58,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
 
   return (
     <motion.div 
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-black to-gray-900"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black"
       initial="initial"
       animate={isSplashVisible ? "animate" : "exit"}
       variants={containerVariants}
@@ -83,32 +66,23 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     >
       <div className="relative flex flex-col items-center">
         <motion.div 
-          className="text-white text-6xl font-bold tracking-tight text-center px-4 relative overflow-hidden"
+          className="relative w-64 h-64 overflow-hidden"
           variants={logoVariants}
           initial="initial"
           animate="animate"
         >
-          <div className="flex relative">
-            {letters.map((letter, index) => (
-              <motion.span
-                key={index}
-                custom={index}
-                variants={letterVariants}
-                initial="initial"
-                animate="animate"
-                className="inline-block relative"
-              >
-                {letter}
-              </motion.span>
-            ))}
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
-              variants={shimmerVariants}
-              initial="initial"
-              animate="animate"
-              style={{ mixBlendMode: 'overlay' }}
-            />
-          </div>
+          <img 
+            src="/lovable-uploads/139e78dd-f344-4f8a-b32c-a0d926fbb889.png" 
+            alt="WikiFoods Logo"
+            className="w-full h-full object-contain"
+          />
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
+            variants={shimmerVariants}
+            initial="initial"
+            animate="animate"
+            style={{ mixBlendMode: 'overlay' }}
+          />
         </motion.div>
         
         <motion.div
