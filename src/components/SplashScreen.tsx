@@ -11,13 +11,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
 
   useEffect(() => {
-    // Set a timeout to trigger the exit animation after 2.5 seconds
+    // Set a timeout to trigger the exit animation after 5 seconds (increased to allow for 10 shimmer repeats)
     const timer = setTimeout(() => {
       setIsSplashVisible(false);
       
       // Additional time for exit animation to complete before calling onComplete
       setTimeout(onComplete, 800);
-    }, 2500);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -40,14 +40,14 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     }
   };
 
-  // Shimmer effect with updated color
+  // Shimmer effect with updated color and increased repeats
   const shimmerVariants = {
     initial: { x: '-100%', opacity: 0.3 },
     animate: {
       x: '100%',
       opacity: 0.7,
       transition: { 
-        repeat: 2,
+        repeat: 10,
         repeatType: 'mirror' as const,
         duration: 1.8,
         ease: 'easeInOut',
