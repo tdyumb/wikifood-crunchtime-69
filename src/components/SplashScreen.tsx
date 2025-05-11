@@ -72,7 +72,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
           animate="animate"
         >
           <img 
-            src="/lovable-uploads/139e78dd-f344-4f8a-b32c-a0d926fbb889.png" 
+            src="/Wikifoods Images/139e78dd-f344-4f8a-b32c-a0d926fbb889.png" 
             alt="WikiFoods Logo"
             className="w-full h-full object-contain"
           />
