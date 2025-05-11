@@ -1,7 +1,8 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Clock, Users, Save, ToggleRight, Utensils, Timer } from "lucide-react";
+import { Clock, Users, Save, ToggleRight, Utensils, Timer, ExternalLink } from "lucide-react";
 import { Switch } from "./ui/switch";
 import ReviewsDialog from "./ReviewsDialog";
 import { reviewsData } from "@/data/reviews";
@@ -23,6 +24,7 @@ interface RecipeCardProps {
   yield?: string;
   sweetness?: string[];
   equipment?: string[];
+  sourceUrl?: string;
 }
 
 interface NutritionalInfo {
@@ -46,7 +48,8 @@ const RecipeCard = ({
   difficulty = "Beginner",
   yield: recipeYield = "4 servings",
   sweetness = [],
-  equipment = ["Bowl", "Whisk", "Baking Sheet"] // Default equipment if none provided
+  equipment = ["Bowl", "Whisk", "Baking Sheet"],
+  sourceUrl
 }: RecipeCardProps) => {
   const recipeReviews = reviewsData.filter(review => review.recipeId === id);
   const [keepScreenOn, setKeepScreenOn] = useState(false);
@@ -99,8 +102,6 @@ const RecipeCard = ({
     setKeepScreenOn(!keepScreenOn);
     
     if (!keepScreenOn) {
-      // This would prevent screen from turning off in a real mobile app
-      // We would use Capacitor or a similar API to keep the screen on
       toast({
         title: "Screen will stay on",
         description: "Your screen will stay on while viewing this recipe",
@@ -112,7 +113,6 @@ const RecipeCard = ({
       });
     }
     
-    // This is just a simulation as browser can't prevent screen from turning off
     document.documentElement.classList.toggle("keep-screen-on", !keepScreenOn);
   };
 
@@ -257,6 +257,24 @@ const RecipeCard = ({
                       ))}
                     </ol>
                   </div>
+
+                  {/* Source Link Section */}
+                  {sourceUrl && (
+                    <div className="pt-4 mt-2 border-t border-gray-200">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <ExternalLink size={16} />
+                        <span className="text-sm">Recipe Source:</span>
+                        <a 
+                          href={sourceUrl} 
+                          className="text-blue-600 hover:underline text-sm"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {new URL(sourceUrl).hostname.replace('www.', '')}
+                        </a>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="bg-pink-50 p-4 rounded-lg">
                     <h3 className="text-lg font-semibold text-pink-900 mb-2">Safety Tips</h3>

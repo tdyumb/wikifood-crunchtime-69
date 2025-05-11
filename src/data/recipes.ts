@@ -34,7 +34,8 @@ export const recipeData = [
       carbs: "2g",
       fat: "37g",
       fiber: "0g"
-    }
+    },
+    sourceUrl: "https://www.tasteofhome.com/recipes/ham-and-swiss-omelet/"
   },
   {
     id: '2',
@@ -63,7 +64,8 @@ export const recipeData = [
       carbs: "48g",
       fat: "3g",
       fiber: "7g"
-    }
+    },
+    sourceUrl: "https://www.tasteofhome.com/recipes/rise-and-shine-parfait/"
   },
   {
     id: '3',
@@ -97,7 +99,8 @@ export const recipeData = [
       carbs: "80g",
       fat: "30g",
       fiber: "8g"
-    }
+    },
+    sourceUrl: "https://www.tasteofhome.com/recipes/banana-oatmeal-pancakes/"
   },
   {
     id: '4',
@@ -133,7 +136,8 @@ export const recipeData = [
       carbs: "65g",
       fat: "16g",
       fiber: "2g"
-    }
+    },
+    sourceUrl: "https://www.tasteofhome.com/recipes/marmalade-french-toast-sandwiches/"
   },
   {
     id: '5',
@@ -177,7 +181,8 @@ export const recipeData = [
       carbs: "80g",
       fat: "30g",
       fiber: "8g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/pizza-lava-toast-7974170"
   },
   {
     id: '6',
@@ -210,7 +215,8 @@ export const recipeData = [
       carbs: "26g",
       fat: "13g",
       fiber: "4g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/recipe/257865/easy-chorizo-street-tacos/"
   },
   {
     id: '7',
@@ -244,7 +250,8 @@ export const recipeData = [
       carbs: "35g",
       fat: "32g",
       fiber: "4g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/recipe/235531/grilled-turkey-and-swiss-sandwich/"
   },
   {
     id: '8',
@@ -274,7 +281,8 @@ export const recipeData = [
       carbs: "2g",
       fat: "14g",
       fiber: "0g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/recipe/231484/simple-egg-salad/"
   },
   {
     id: '9',
@@ -311,7 +319,8 @@ export const recipeData = [
       carbs: "43g",
       fat: "32g",
       fiber: "2g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/recipe/21193/fettuccine-alfredo-with-ham/"
   },
   {
     id: '10',
@@ -349,7 +358,8 @@ export const recipeData = [
       carbs: "16g",
       fat: "3g",
       fiber: "2g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/recipe/23298/egg-fried-rice/"
   },
   {
     id: '11',
@@ -392,7 +402,8 @@ export const recipeData = [
       carbs: "41g",
       fat: "8g",
       fiber: "13g"
-    }
+    },
+    sourceUrl: "https://www.allrecipes.com/recipe/238683/bbq-chicken-chopped-salad/"
   },
   {
     id: '12',
@@ -432,7 +443,8 @@ export const recipeData = [
       carbs: "49g",
       fat: "17g",
       fiber: "4g"
-    }
+    },
+    sourceUrl: "https://www.bettycrocker.com/recipes/stuffed-peppers/63e29e18-903e-467c-aec5-fba4ce3a138f"
   },
   {
     id: '13',
@@ -481,7 +493,8 @@ export const recipeData = [
       carbs: "61g",
       fat: "19g",
       fiber: "2g"
-    }
+    },
+    sourceUrl: "https://www.inspiredtaste.net/48231/chocolate-cupcakes/"
   },
   {
     id: '14',
@@ -525,7 +538,8 @@ export const recipeData = [
       carbs: "29g",
       fat: "11g",
       fiber: "1g"
-    }
+    },
+    sourceUrl: "https://www.inspiredtaste.net/43971/easy-chocolate-chip-cookies/"
   },
   {
     id: '15',
@@ -563,7 +577,8 @@ export const recipeData = [
       carbs: "5g",
       fat: "2g",
       fiber: "0.2g"
-    }
+    },
+    sourceUrl: "https://foolproofliving.com/mini-lemon-tarts/"
   },
   {
     id: '16',
@@ -604,6 +619,7 @@ export const recipeData = [
       carbs: "26g",
       fat: "13g",
       fiber: "4g"
-    }
+    },
+    sourceUrl: "https://www.loveandlemons.com/brownies-recipe/#wprm-recipe-container-42107"
   }
 ];

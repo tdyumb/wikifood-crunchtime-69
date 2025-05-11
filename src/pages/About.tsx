@@ -1,7 +1,7 @@
 
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 const About = () => {
@@ -79,6 +79,81 @@ const About = () => {
                   celebrated, and preserved for future generations.
                 </p>
               </motion.div>
+            </motion.div>
+
+            {/* Recipe Attribution Section */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-lg shadow-md my-12"
+            >
+              <h2 className="text-2xl font-bold mb-6">Recipe Attributions</h2>
+              <p className="text-gray-600 mb-4">
+                We'd like to express our sincere gratitude to the following websites for their fantastic recipes that 
+                helped make WikiFoods possible:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a 
+                  href="https://www.tasteofhome.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <ExternalLink size={16} className="mr-2 text-gray-500" />
+                  <span className="text-blue-600">Taste of Home</span>
+                </a>
+                <a 
+                  href="https://www.allrecipes.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <ExternalLink size={16} className="mr-2 text-gray-500" />
+                  <span className="text-blue-600">Allrecipes</span>
+                </a>
+                <a 
+                  href="https://www.bettycrocker.com"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <ExternalLink size={16} className="mr-2 text-gray-500" />
+                  <span className="text-blue-600">Betty Crocker</span>
+                </a>
+                <a 
+                  href="https://www.inspiredtaste.net"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <ExternalLink size={16} className="mr-2 text-gray-500" />
+                  <span className="text-blue-600">Inspired Taste</span>
+                </a>
+                <a 
+                  href="https://foolproofliving.com"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <ExternalLink size={16} className="mr-2 text-gray-500" />
+                  <span className="text-blue-600">Foolproof Living</span>
+                </a>
+                <a 
+                  href="https://www.loveandlemons.com"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <ExternalLink size={16} className="mr-2 text-gray-500" />
+                  <span className="text-blue-600">Love and Lemons</span>
+                </a>
+              </div>
+              <p className="text-gray-600 mt-4">
+                Each recipe on our platform includes a direct link to its original source. We believe in giving proper 
+                credit to these amazing content creators who have inspired our culinary journey.
+              </p>
             </motion.div>
 
             {/* TSA Forms Section */}
