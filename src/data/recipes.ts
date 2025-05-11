@@ -21,11 +21,11 @@ export const recipeData = [
       '1/4 cup shredded cheese of your choice (ex. cheddar cheese, cream cheese, Swiss cheese, etc)'
     ],
     instructions: [
-      'Melt the butter over medium high heat and spread it around on the pan by tilting it.',
-      'Whisk the eggs, water, salt, and pepper together until it froths.',
-      'Pour the egg mixture into your pan and spread it around by tilting the pan.',
-      'On one half of the pan, scatter the ham and cheese once the eggs are set evenly.',
-      'Carefully fold the other half of the eggs over the filling.',
+      'Heat the butter over medium-high heat until it melts, tilting the pan to coat the surface evenly.',
+      'Beat the eggs, water, salt, and pepper together until the mixture becomes frothy.',
+      'Pour the egg mixture into the pan and gently tilt it to evenly distribute the eggs.',
+      'Once the eggs have set evenly, sprinkle the ham and cheese over one half of the pan.',
+      'Gently fold the opposite side of the eggs over the ham and cheese filling.',
       'Slip the omelet onto a plate and serve. Enjoy!'
     ],
     nutritionInfo: {
@@ -53,7 +53,7 @@ export const recipeData = [
       '1/2 cup granola or cereal'
     ],
     instructions: [
-      'Layer the yogurt, fruit(s), and granola/cereal into a glass or cup.',
+      'Spoon layers of yogurt, fruit, and granola or cereal into a glass or cup.',
       'Repeat layers as necessary.',
       'Serve and enjoy!'
     ],
@@ -84,12 +84,12 @@ export const recipeData = [
       'Optional: fruits, sugar, and whipped cream as toppings'
     ],
     instructions: [
-      'Prepared the pancake batter according to package instructions.',
-      'Stir in the banana, oats, and walnuts to the batter.',
-      'Pour batter by 1/4 cupfuls onto a hot griddle or a pan on the stove.',
-      'Flip the pancake when bubbles form on top.',
-      'Cook until the second side is golden brown.',
-      'Slide the pancakes onto a plate and add chopped walnuts and toppings as desired. Enjoy!'
+      'Prepare the pancake batter following the instructions on the package.',
+      'Stir the banana, oats, and walnuts into the batter.',
+      'Pour 1/4 cup portions of the batter onto a hot griddle or skillet on the stove.',
+      'Once bubbles appear on the surface, flip the pancake.',
+      'Cook until the other side is golden brown.',
+      'Transfer the pancakes to a plate and sprinkle with chopped walnuts and your choice of toppings. Enjoy!'
     ],
     nutritionInfo: {
       calories: 703,
@@ -161,15 +161,15 @@ export const recipeData = [
     instructions: [
       'Preheat oven to 375°F.',
       'Line a sheet pan with parchment paper.',
-      'Spread butter onto both sides of each slice of bread and place it on the pan.',
-      'Bake the bread for around 8 minutes. Halfway through, flip the bread to the other side. Bake until the bread is lightly browned on both sides.',
-      'Cover the perimeter of one bread slice with half of the mozzarella cheese, leaving the middle part of the bread empty. The, top with the other slice bread.',
-      'Use the back of a spoon to make an indentation in the middle of the bread slices, pushing down firmly to reach the bottom slice.',
-      'Add the pizza sauce to the indentation, and sprinkle alf the Italian seasoning over the top.',
-      'Cover with the remaining 1/2 oz mozzarella cheese and pepper jack, followed by the jalapeno and pepperoni if desired.',
-      'Sprinkle the remaining Italian seasoning, crushed red pepper, and black pepper.',
-      'Bake for around 5 minutes until the cheese is melted and golden-brown.',
-      'Slice the bread in half once done and serve. Enjoy!'
+      'Butter both sides of each slice of bread and place them on the pan.',
+      'Bake the bread for about 8 minutes, flipping it halfway through. Continue baking until both sides are lightly browned.',
+      'Place half of the mozzarella cheese around the edges of one slice of bread, leaving the center empty. Then, top it with the other slice of bread.',
+      'Press the back of a spoon into the center of the bread slices, creating an indentation and pushing down firmly until you reach the bottom slice.',
+      'Spoon the pizza sauce into the indentation and sprinkle half of the Italian seasoning over the top.',
+      'Top with the remaining 1/2 oz of mozzarella and pepper jack cheese, then add jalapeños and pepperoni if desired.',
+      'Sprinkle the remaining Italian seasoning, along with crushed red pepper and black pepper, over the top.',
+      'Bake for about 5 minutes, or until the cheese is melted and golden brown.',
+      'Once done, slice the bread in half and serve. Enjoy!'
     ],
     nutritionInfo: {
       calories: 703,
@@ -198,11 +198,11 @@ export const recipeData = [
       '2 tablespoons chopped fresh cilantro, or to taste (optional)'
     ],
     instructions: [
-      'Combine crumbled chorizo and chipotle peppers in adobo sauce in a bowl.',
-      'Heat a skillet over medium-high heat; add chorizo mixture and cook until crisp, 5 to 7 minutes. Transfer to a plate, reserving grease into the skillet.',
-      'Heat tortillas in reserved grease in the skillet over medium heat until warmed, 1 to 2 minutes per side.',
-      'Stack 2 tortillas for each taco, then fill with chorizo, onion, and cilantro.',
-      'Plate the tortillas and serve with toppings and sauces if desired. Enjoy!'
+      'In a bowl, mix together the crumbled chorizo and chipotle peppers in adobo sauce.',
+      'Heat a skillet over medium-high heat, add the chorizo mixture, and cook for 5 to 7 minutes until crispy. Transfer the mixture to a plate, leaving the grease in the skillet.',
+      'Warm the tortillas in the reserved grease in the skillet over medium heat, cooking each side for 1 to 2 minutes.',
+      'Stack two tortillas for each taco and fill them with the chorizo, chopped onion, and fresh cilantro.',
+      'Plate the tacos and serve with your choice of toppings and sauces. Enjoy!'
     ],
     nutritionInfo: {
       calories: 262,
@@ -231,11 +231,11 @@ export const recipeData = [
       '1/4 cup baby spinach, or to taste'
     ],
     instructions: [
-      'Set oven rack about 6 inches from the heat source and preheat the oven\'s broiler.',
-      'Spread mayonnaise on 1 side of each bread slice.',
-      'Layer Swiss cheese, turkey, and spinach ono the mayonnaise-side of 1 bread slice; top with second bread slice.',
+      'Position the oven rack approximately 6 inches from the heat source and preheat the broiler.',
+      'Apply mayonnaise to one side of each slice of bread.',
+      'Layer Swiss cheese, turkey, and spinach on the mayonnaise-coated side of one bread slice, then place the second slice of bread on top.',
       'Place sandwich on a baking sheet.',
-      'Broil for about 5 minutes in the preheated oven until heated through and cheese is bubbling.',
+      'Broil in the preheated oven for approximately 5 minutes, or until thoroughly heated and the cheese is bubbling.',
       'Plate and serve! Enjoy!'
     ],
     nutritionInfo: {
@@ -265,7 +265,7 @@ export const recipeData = [
       'Salt and ground black pepper to taste'
     ],
     instructions: [
-      'Mix together eggs, cucumber, ranch dressing, mustard, salt, and black pepper in a large bowl until well combined.',
+      'In a large bowl, mix together eggs, cucumber, ranch dressing, mustard, salt, and black pepper until well combined.',
       'Plate and serve! Enjoy!'
     ],
     nutritionInfo: {
@@ -296,13 +296,13 @@ export const recipeData = [
       'Lightly salted water'
     ],
     instructions: [
-      'Pour some lightly salted water to a large pot to boil.',
-      'Add pasta and cook for around 8 to 10 minutes or until al dente; drain water after.',
-      'In a medium saucepan over medium heat, melt butter.',
-      'Stir the ham into the butter and cook for 1 min.',
-      'Stir in cream to the ham and butter and heat through.',
-      'Stir in the Parmesan to the sauce and cook until thick and smooth.',
-      'Toss with cooked pasta.',
+      'In a large pot, pour in some lightly salted water to boil.',
+      'Put the pasta into the boiling water and cook it for about 8 to 10 minutes, until it\'s firm but cooked. Then pour out the water.',
+      'Melt the butter in a medium saucepan on medium heat.',
+      'Add the ham to the melted butter and stir it for about 1 minute while it cooks.',
+      'Pour the cream into the ham and butter mixture, then stir and heat until it\'s warmed through.',
+      'Add the Parmesan cheese to the sauce, then stir and cook until it becomes thick and smooth.',
+      'Mix the cooked pasta into the sauce and toss until well coated.',
       'Plate and serve. Enjoy!'
     ],
     nutritionInfo: {
@@ -336,12 +336,11 @@ export const recipeData = [
       '1/4 teaspoon ground black pepper'
     ],
     instructions: [
-      'Boil the water, soy sauce, and salt together in a medium saucepan.',
-      'Stir in the instant rice and remove from heat. Cover and let stand for 5 minutes.',
-      'Heat oil in a medium skillet or wok over medium heat. Saute onions and green beans or peas in the oil for 2 to 3 minutes.',
-      'Pour in beaten egg and fry for 2 minutes, scrambling egg while it cooks.',
-      'Add cooked rice to egg mixture; mix well.',
-      'Season with pepper.',
+      'In a medium saucepan, bring the water, soy sauce, and salt to a boil.',
+      'Stir in the instant rice, then take the saucepan off the heat. Cover it and let it sit for 5 minutes.',
+      'Heat the oil in a medium skillet or wok over medium heat. Add the onions and green beans or peas, and cook while stirring for 2 to 3 minutes.',
+      'Add the beaten egg to the pan and cook for about 2 minutes, stirring to scramble it as it cooks.',
+      'Add the cooked rice to the egg mixture and stir everything together until well combined. Season with pepper on top.',
       'Plate and serve. Enjoy!'
     ],
     nutritionInfo: {
@@ -380,11 +379,11 @@ export const recipeData = [
       'Barbeque sauce'
     ],
     instructions: [
-      'Mix lettuce, black beans, corn, red bell pepper, jicama, carrots, scallions, basil, and cilantro together in a large bowl.',
-      'Juice 2 limes and drizzle juice over salad.',
-      'Toss salad lightly.',
-      'Combine chicken and barbeque sauce in a microwave-safe bowl; heat for around 45 seconds until chicken is warmed through.',
-      'Arrange chicken and avocado on top of salad and squeeze remaining lime over salad.',
+      'In a large bowl, combine the lettuce, black beans, corn, red bell pepper, jicama, carrots, scallions, basil, and cilantro until well mixed.',
+      'Squeeze the juice from 2 limes and drizzle it over the salad.',
+      'Gently toss the salad to mix everything together.',
+      'Put the chicken and barbecue sauce in a microwave-safe bowl and heat it for about 45 seconds, or until the chicken is warmed through.',
+      'Place the chicken and avocado on top of the salad, then squeeze the remaining lime juice over everything.',
       'Serve and enjoy!'
     ],
     nutritionInfo: {
@@ -418,13 +417,13 @@ export const recipeData = [
     ],
     instructions: [
       'Heat oven to 350°F.',
-      'Cut a thin slice from the end of each bell pepper to remove the top of the pepper. Remove seeds and membranes, then rinse.',
-      'In a pot, add enough water to cover peppers. Heat to boiling; add peppers. Cook for about 2 minutes, then drain.',
-      'Cook beef and onion over medium heat in a skillet for 8 to 10 minutes. Stir occasionally until the beef is brown, then drain the water.',
-      'Stir in rice, salt, garlic and 1 cup of the tomato sauce. Cook until heated through.',
-      'Stand peppers upright in a glass baking dish. Stuff peppers with the beef mixture, then pour remaining tomato sauce over peppers.',
-      'After covering tightly with foil, bake for 10 minutes. Uncover and bake about 15 minutes longer or until peppers are tender.',
-      'Remove from oven; immediately sprinkle with cheese.',
+      'Slice a thin piece off the top of each bell pepper to remove the stem. Take out the seeds and membranes, then rinse the peppers with water.',
+      'Fill a pot with enough water to cover the bell peppers and bring it to a boil. Add the peppers and cook for about 2 minutes, then drain the water.',
+      'Cook the beef and onion in a skillet over medium heat for 8 to 10 minutes, stirring occasionally, until the beef is browned. Then drain any excess liquid.',
+      'Add the rice, salt, garlic, and 1 cup of tomato sauce to the skillet. Stir and cook until everything is heated through.',
+      'Place the peppers upright in a glass baking dish. Fill each one with the beef mixture, then pour the remaining tomato sauce over the top.',
+      'Cover the dish tightly with foil and bake for 10 minutes. Then remove the foil and bake for another 15 minutes, or until the peppers are tender.',
+      'Take the dish out of the oven and sprinkle cheese on top right away.',
       'Plate and serve. Enjoy!'
     ],
     nutritionInfo: {
@@ -451,7 +450,7 @@ export const recipeData = [
       '3/4 cup unsweetened cocoa or cacao powder, sifted if needed',
       '1 1/2 teaspoons baking soda',
       '1/2 teaspoon fine sea salt',
-      '3/4 cup granulated sugar',
+      '3/4 cup white sugar',
       '3/4 cup brown sugar',
       '1/2 cup neutral oil or light and fruity olive oil',
       '2 tablespoons apple cider vinegar or white vinegar',
@@ -464,17 +463,17 @@ export const recipeData = [
       '1/8 teaspoon fine sea salt'
     ],
     instructions: [
-      'Preheat the oven to 350°F. Line a muffin pan with 16 cupcake liners.',
-      'In a medium bowl, whisk the flour, cocoa powder, baking soda and salt until well blended.',
-      'In another medium bowl, whisk the sugars with the oil, vinegar, and vanilla extract.',
-      'Add the dry ingredients into the second medium bowl. Gently stir until the two mixtures blend together and the batter is thick.',
-      'Pour in the hot water and stir until blended and the batter is mostly smooth.',
-      'Pour or spoon the batter into the liners, filling about 3/4 of the way to the top.',
-      'Bake for around 20-25 minutes until the tops of the cupcakes are springy when touched and when a toothpick inserted into the center of the cake comes out clean.',
-      'Cool cupcakes in the pan then top with frosting if desired.',
-      'For the vanilla buttercream: Add vegan butter sticks to a bowl and beat until light and fluffy using a mixer.',
-      'Sift the powdered sugar if it\'s lumpy.',
-      'Add the vanilla, salt, and sugar until well incorporated and the frosting is fluffy. If it seems too thick, thin it out with a splash of non-dairy milk. If it seems too thin, add 1/4 to 1/2 cup more of powdered sugar.'
+      'Preheat your oven to 350°F and place 16 cupcake liners into a muffin pan.',
+      'In a medium bowl, whisk the flour, cocoa powder, baking soda and salt until evenly mixed.',
+      'In a separate medium bowl, whisk together the sugars, oil, vinegar, and vanilla extract until well combined.',
+      'Pour the dry ingredients into the bowl with the wet mixture. Stir gently until everything comes together into a thick batter.',
+      'Add the hot water to the batter and stir until it\'s well blended and mostly smooth.',
+      'Spoon or pour the batter into the cupcake liners, filling each one about three-quarters full.',
+      'Bake for about 20 to 25 minutes, or until the tops of the cupcakes spring back when lightly touched and a toothpick inserted in the center comes out clean.',
+      'Let the cupcakes cool in the pan, then add frosting on top if you like.',
+      'For the vanilla buttercream: Place the vegan butter sticks in a bowl and use a mixer to beat them until they\'re light and fluffy.',
+      'If the powdered sugar has lumps, sift it to make it smooth.',
+      'Add the vanilla, salt, and powdered sugar, mixing until the frosting is well combined and fluffy. If it\'s too thick, mix in a splash of non-dairy milk. If it\'s too thin, add 1/4 to 1/2 cup more powdered sugar.'
     ],
     nutritionInfo: {
       calories: 409,
@@ -509,16 +508,16 @@ export const recipeData = [
       '1 3/4 cups semisweet chocolate chips'
     ],
     instructions: [
-      'Preheat the oven to 325°F. Line a baking sheet with parchment paper.',
-      'Melt the butter in a pan. Remove it from the heat when the butter is light brown and smells nutty. Set aside while you prepare the reamining ingredients.',
-      'Whisk the flour, baking soda, and salt together in a medium bowl. Set aside.',
-      'In a large bowl, whisk the brown sugar, white sugar, whole egg, egg yolk, vanilla, and melted butter together. Whisk in the espresso powder (optional).',
-      'Add the dry ingredients into the large bowl in 3 parts, stirring gently until they disappear. Fold in most of the chocolate chips, saving a handful for adding to the tops of each scooped cookie before baking.',
-      'Roll 1 1/2 tablespoons of cookie dough into balls, or use a medium cookie scoop. Add to the baking sheets, leaving 2 inches between the cookies to allow for spreading.',
-      'Press a few extra pieces of chocolate into the tops of each cookie dough mound.',
-      'Bake the cookies for 12-16 minutes, rotating the baking sheet once during baking, until golden brown around the edges but light in the middle.',
-      'Let the cookies cool on the baking sheet for 5 minutes before transferring them to a wire rack to cool completely.',
-      'Top with toppings or icing if desired then serve. Enjoy!'
+      'Preheat the oven to 325°F and line a baking sheet with parchment paper.',
+      'Melt the butter in a pan, then take it off the heat once it turns light brown and gives off a nutty aroma. Set it aside while you get the rest of the ingredients ready.',
+      'In a medium bowl, whisk together the flour, baking soda, and salt. Then set the bowl aside.',
+      'In a large bowl, whisk together the brown sugar, white sugar, whole egg, egg yolk, vanilla, and the melted butter. If using, whisk in the espresso powder as well.',
+      'Gradually add the dry ingredients to the large bowl in three parts, gently stirring after each addition until fully mixed in. Fold in most of the chocolate chips, saving a handful to press on top of each cookie before baking.',
+      'Scoop about 1 1/2 tablespoons of cookie dough and roll into balls, or use a medium cookie scoop. Place them on the baking sheets, leaving about 2 inches of space between each one so they have room to spread.',
+      'Gently press a few extra chocolate pieces into the top of each cookie dough ball before baking.',
+      'Bake the cookies for 12 to 16 minutes. About halfway through, turn the baking sheet around. They\'re ready when the edges look golden but the centers still appear a bit soft.',
+      'Allow the cookies to cool on the baking sheet for 5 minutes, then move them to a wire rack to cool completely.',
+      'Add any toppings or icing you like, then serve and enjoy!'
     ],
     nutritionInfo: {
       calories: 217,
@@ -552,11 +551,11 @@ export const recipeData = [
       'A handful of pomegranate seeds as garnish (optional)'
     ],
     instructions: [
-      'Preheat the oven to 350°F. Line a baking sheet with parchment paper. Set aside.',
-      'Whisk together ricotta cheese with eggs, honey, vanilla extract, lemon zest, lemon juice, and salt in a medium bowl.',
-      'Place the phyllo cups on the prepared pan and fill each cup wit 1 tablespoon filling.',
-      'Bake them for about 14-15 minutes until the filling is warm and the shells turn lightly golden brown.',
-      'Allow them to cool for a few minutes. Garnish with blueberries and pomegranate seeds (if using) and serve. Enjoy!'
+      'Preheat the oven to 350°F and line a baking sheet with parchment paper. Then set aside.',
+      'In a medium bowl, whisk the ricotta cheese together with the eggs, honey, vanilla extract, lemon zest, lemon juice, and salt until smooth.',
+      'Arrange the phyllo cups on the prepared baking sheet and spoon 1 tablespoon of filling into each one.',
+      'Bake for 14–15 minutes, or until the filling is heated through and the shells are lightly golden.',
+      'Let them cool slightly, then garnish with blueberries and pomegranate seeds if desired. Serve and enjoy!'
     ],
     nutritionInfo: {
       calories: 43,
@@ -590,14 +589,14 @@ export const recipeData = [
       '1/2 teaspoon vanilla'
     ],
     instructions: [
-      'Heat oven to 325°F. Lightly spray an 8x8 baking dish with cooking spray and line it with parchment paper. Spray the parchment paper.',
-      'In a medium bowl, combine the sugar, flour, cocoa powder, powdered sugar, chocolate chips, and salt.',
-      'In a large bowl, whisk together the eggs, olive oil, water, and vanilla.',
-      'Sprinkle the dry mix over the wet mix and stir until just combined.',
-      'Pour the batter into the prepared pan then use a spatula to smooth the top. It\'s okay if the batter is thick.',
-      'Bake for 40-48 minutes, or until a toothpick comes out with only a few crumbs attached.',
-      'Let the brownies cool completely before slicing.',
-      'Plate and serve. Enjoy!'
+      'Preheat the oven to 325°F. Lightly coat an 8x8-inch baking dish with cooking spray, then line it with parchment paper and spray the parchment as well.',
+      'In a medium bowl, mix together the sugar, flour, cocoa powder, powdered sugar, chocolate chips, and salt.',
+      'In a large bowl, whisk the eggs, olive oil, water, and vanilla until well combined.',
+      'Add the dry ingredients to the wet mixture and stir gently until just combined.',
+      'Transfer the batter to the prepared pan and use a spatula to smooth the surface—it\'s okay if the batter is thick.',
+      'Bake for 40-48 minutes, or until a toothpick inserted in the center comes out with only a few crumbs attached.',
+      'Allow the brownies to cool completely before cutting them into the desired shape.',
+      'Serve and enjoy!'
     ],
     nutritionInfo: {
       calories: 262,
@@ -608,4 +607,3 @@ export const recipeData = [
     }
   }
 ];
-
