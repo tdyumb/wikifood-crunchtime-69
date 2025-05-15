@@ -1,9 +1,22 @@
 
-import React from 'react';
-import { Clock, Star, LeafyGreen, Apple, Search } from 'lucide-react'; // Using LeafyGreen for general dietary, Apple for flavor
-import { Button } from '@/components/ui/button'; // Importing Button for a potential future "Take the Quiz" button
+import React, { useState } from 'react';
+import { Clock, Star, LeafyGreen, Apple, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import RecipeQuizForm from './RecipeQuizForm'; // We'll create this next
 
 const RecipeQuizTeaser = () => {
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+
   const filterQuestions = [
     {
       id: 1,
@@ -33,9 +46,16 @@ const RecipeQuizTeaser = () => {
       id: 5,
       question: "Available Ingredients",
       example: "optional",
-      icon: <Search className="h-5 w-5 text-orange-500" /> // Using Search as a generic icon for ingredients
+      icon: <Search className="h-5 w-5 text-orange-500" />
     }
   ];
+
+  const handleQuizSubmit = (answers: any) => {
+    console.log("Quiz Answers:", answers);
+    // Here you would typically filter recipes based on answers
+    // For now, we just log and close
+    setIsQuizOpen(false);
+  };
 
   return (
     <section className="py-12 px-4 bg-gradient-to-br from-orange-50 to-yellow-50">
@@ -59,16 +79,22 @@ const RecipeQuizTeaser = () => {
           ))}
         </div>
 
-        {/* 
-          A button can be added here later if you want to link to an actual quiz page.
-          For example:
-          <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-            Take the Quiz!
-          </Button> 
-        */}
-        <p className="text-sm text-gray-500 mt-2">
-            (Quiz feature coming soon!)
-        </p>
+        <Dialog open={isQuizOpen} onOpenChange={setIsQuizOpen}>
+          <DialogTrigger asChild>
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+              Take the Quiz!
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[525px]">
+            <DialogHeader>
+              <DialogTitle>Recipe Quiz</DialogTitle>
+              <DialogDescription>
+                Answer a few questions to find your perfect recipe.
+              </DialogDescription>
+            </DialogHeader>
+            <RecipeQuizForm onSubmit={handleQuizSubmit} onSkip={() => setIsQuizOpen(false)} />
+          </DialogContent>
+        </Dialog>
 
       </div>
     </section>
@@ -76,4 +102,3 @@ const RecipeQuizTeaser = () => {
 };
 
 export default RecipeQuizTeaser;
-
