@@ -1,176 +1,236 @@
-
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Clock, Star, LeafyGreen, Apple, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { useRecipes } from '@/contexts/RecipeContext';
-import { toast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 
-
-interface RecipeQuizFormProps {
-  onSubmit: (answers: any) => void;
-  onSkip: () => void;
+interface QuizAnswers {
+  timeToMake: string;
+  skillLevel: string;
+  dietaryNeeds: string[];
+  flavorProfile: string;
+  availableIngredients: string;
 }
 
-const quizSteps = [
-  {
-    id: 'timeToMake',
-    question: 'How much time do you have?',
-    icon: <Clock className="h-6 w-6 mr-2 text-orange-500" />,
-    type: 'radio',
-    options: ['5-15 minutes', '15-30 minutes', '30+ minutes'],
-  },
-  {
-    id: 'skillLevel',
-    question: 'What is your skill level?',
-    icon: <Star className="h-6 w-6 mr-2 text-orange-500" />,
-    type: 'radio',
-    options: ['Easy', 'Intermediate', 'Advanced'],
-  },
-  {
-    id: 'dietaryNeeds',
-    question: 'Any dietary needs?',
-    icon: <LeafyGreen className="h-6 w-6 mr-2 text-orange-500" />,
-    type: 'checkbox',
-    options: ['Vegan', 'Vegetarian', 'Gluten-Free', 'Nut-Free', 'Dairy-Free'],
-  },
-  {
-    id: 'flavorProfile',
-    question: 'What flavor profile are you looking for?',
-    icon: <Apple className="h-6 w-6 mr-2 text-orange-500" />, // Could use a more generic flavor icon
-    type: 'checkbox',
-    options: ['Sweet', 'Savory', 'Spicy', 'Fruity', 'Chocolatey', 'Umami'],
-  },
-  {
-    id: 'availableIngredients',
-    question: 'List any key ingredients you have (optional)',
-    icon: <Search className="h-6 w-6 mr-2 text-orange-500" />,
-    type: 'text',
-    placeholder: 'e.g., chicken, tomatoes, pasta',
-  },
+type FilterState = {
+  cuisineType: string[];
+  mealType: string[];
+  dietaryRestrictions: string[];
+};
+
+const timeToMakeOptions = [
+  { id: 'time-short', label: 'Quick (30 mins or less)' },
+  { id: 'time-medium', label: 'Moderate (30-60 mins)' },
+  { id: 'time-long', label: 'Long (60+ mins)' },
 ];
 
-const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit, onSkip }) => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<any>({});
-  const { setFilters } = useRecipes();
+const skillLevelOptions = [
+  { id: 'skill-beginner', label: 'Beginner' },
+  { id: 'skill-intermediate', label: 'Intermediate' },
+  { id: 'skill-advanced', label: 'Advanced' },
+];
 
-  const handleAnswerChange = (questionId: string, value: string | string[]) => {
-    setAnswers((prev: any) => ({ ...prev, [questionId]: value }));
-  };
+const dietaryNeedsOptions = [
+  { id: 'diet-vegetarian', label: 'Vegetarian' },
+  { id: 'diet-vegan', label: 'Vegan' },
+  { id: 'diet-gluten-free', label: 'Gluten-Free' },
+  { id: 'diet-dairy-free', label: 'Dairy-Free' },
+];
+
+const flavorProfileOptions = [
+  { id: 'flavor-sweet', label: 'Sweet' },
+  { id: 'flavor-savory', label: 'Savory' },
+  { id: 'flavor-spicy', label: 'Spicy' },
+  { id: 'flavor-umami', label: 'Umami' },
+];
+
+const RecipeQuizForm = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [answers, setAnswers] = useState<QuizAnswers>({
+    timeToMake: '',
+    skillLevel: '',
+    dietaryNeeds: [],
+    flavorProfile: '',
+    availableIngredients: '',
+  });
+
+  const { setFilters } = useRecipes();
+  const navigate = useNavigate();
 
   const handleNext = () => {
-    if (currentStep < quizSteps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
+    setCurrentStep(prev => Math.min(prev + 1, 5));
   };
 
   const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
+    setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
-  const handleSubmitQuiz = () => {
-    // Apply dietary restrictions if any are selected
-    if (answers.dietaryNeeds && Array.isArray(answers.dietaryNeeds) && answers.dietaryNeeds.length > 0) {
-      setFilters(prevFilters => ({
-        ...prevFilters,
-        dietaryRestrictions: answers.dietaryNeeds,
-      }));
-      toast({
-        title: "Filters Applied!",
-        description: `Dietary needs filter has been updated based on your quiz answers.`,
-      });
-    } else {
-       // Clear dietary restrictions if none selected or not applicable
-       setFilters(prevFilters => ({
-        ...prevFilters,
-        dietaryRestrictions: [], 
-      }));
-       toast({
-        title: "Quiz Completed!",
-        description: "No specific dietary filters applied from the quiz.",
-      });
-    }
-    onSubmit(answers);
+  const handleInputChange = (question: keyof QuizAnswers, value: string) => {
+    setAnswers(prev => ({ ...prev, [question]: value }));
   };
 
-  const currentQuestion = quizSteps[currentStep];
+  const handleCheckboxChange = (question: keyof QuizAnswers, value: string) => {
+    setAnswers(prev => {
+      const newValues = prev[question].includes(value)
+        ? prev[question].filter(item => item !== value)
+        : [...prev[question], value];
+      return { ...prev, [question]: newValues };
+    });
+  };
+
+  const handleRadioChange = (question: keyof QuizAnswers, value: string) => {
+    setAnswers(prev => ({ ...prev, [question]: value }));
+  };
+
+  const handleDietaryNeedsChange = (need: string) => {
+    setAnswers(prev => {
+      const newDietaryNeeds = prev.dietaryNeeds.includes(need)
+        ? prev.dietaryNeeds.filter(item => item !== need)
+        : [...prev.dietaryNeeds, need];
+      return { ...prev, dietaryNeeds: newDietaryNeeds };
+    });
+  };
+
+  const handleFindRecipes = () => {
+    console.log('Quiz Answers:', answers);
+
+    // Apply filters based on answers
+    const { dietaryNeeds, timeToMake } = answers; // Assuming mealType might be an answer later
+                                              // For now, dietaryNeeds is the main filter from quiz.
+
+    const selectedDietaryNeeds = dietaryNeeds.map(d => d.toLowerCase());
+    
+    // Example: If there was a mealType question in the quiz
+    const selectedMealType = timeToMake; // This is a placeholder, assuming 'timeToMake' might hint at a meal type or you add a meal type question
+
+    setFilters((prevFilters: FilterState) => ({
+      ...prevFilters,
+      dietaryRestrictions: selectedDietaryNeeds.length > 0 ? selectedDietaryNeeds : prevFilters.dietaryRestrictions,
+      mealType: selectedMealType ? [selectedMealType.toLowerCase()] : prevFilters.mealType, // Example
+    }));
+    
+    navigate('/find-recipe');
+  };
+  
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <motion.div key="step1" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="space-y-4">
+            <h3 className="text-xl font-semibold">Time to Make</h3>
+            <p className="text-sm text-gray-600">How much time do you have to cook?</p>
+            <RadioGroup defaultValue={answers.timeToMake} onValueChange={(value) => handleRadioChange('timeToMake', value)} className="grid grid-cols-1 gap-4">
+              {timeToMakeOptions.map(option => (
+                <div key={option.id} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                  <RadioGroupItem value={option.label} id={option.id} className="h-4 w-4 text-orange-500 focus:ring-0 focus:ring-offset-0" />
+                  <Label htmlFor={option.id} className="text-sm font-medium cursor-pointer flex-grow">{option.label}</Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </motion.div>
+        );
+      case 2:
+        return (
+          <motion.div key="step2" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="space-y-4">
+            <h3 className="text-xl font-semibold">Skill Level</h3>
+            <p className="text-sm text-gray-600">What's your cooking skill level?</p>
+            <RadioGroup defaultValue={answers.skillLevel} onValueChange={(value) => handleRadioChange('skillLevel', value)} className="grid grid-cols-1 gap-4">
+              {skillLevelOptions.map(option => (
+                <div key={option.id} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                  <RadioGroupItem value={option.label} id={option.id} className="h-4 w-4 text-orange-500 focus:ring-0 focus:ring-offset-0" />
+                  <Label htmlFor={option.id} className="text-sm font-medium cursor-pointer flex-grow">{option.label}</Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </motion.div>
+        );
+      case 3:
+        return (
+          <motion.div key="step3" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="space-y-4">
+            <h3 className="text-xl font-semibold">Dietary Needs</h3>
+            <p className="text-sm text-gray-600">Select any dietary restrictions or preferences.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {dietaryNeedsOptions.map(option => (
+                <div key={option.id} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                  <Checkbox
+                    id={option.id}
+                    checked={answers.dietaryNeeds.includes(option.label)}
+                    onCheckedChange={() => handleDietaryNeedsChange(option.label)}
+                  />
+                  <Label htmlFor={option.id} className="text-sm font-medium cursor-pointer flex-grow">{option.label}</Label>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        );
+      case 4:
+        return (
+          <motion.div key="step4" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="space-y-4">
+            <h3 className="text-xl font-semibold">Flavor Profile</h3>
+            <p className="text-sm text-gray-600">What kind of flavors are you in the mood for?</p>
+            <RadioGroup defaultValue={answers.flavorProfile} onValueChange={(value) => handleRadioChange('flavorProfile', value)} className="grid grid-cols-2 gap-4">
+              {flavorProfileOptions.map(option => (
+                <div key={option.id} className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                  <RadioGroupItem value={option.label} id={option.id} className="h-4 w-4 text-orange-500 focus:ring-0 focus:ring-offset-0" />
+                  <Label htmlFor={option.id} className="text-sm font-medium cursor-pointer flex-grow">{option.label}</Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </motion.div>
+        );
+      case 5:
+        return (
+          <motion.div key="step5" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="space-y-4">
+            <h3 className="text-xl font-semibold">Available Ingredients</h3>
+            <p className="text-sm text-gray-600">List any ingredients you have on hand (optional).</p>
+            <Input
+              type="text"
+              placeholder="e.g., chicken, rice, vegetables"
+              value={answers.availableIngredients}
+              onChange={(e) => handleInputChange('availableIngredients', e.target.value)}
+              className="border rounded-lg py-2 px-3 w-full focus:ring-0 focus:ring-offset-0"
+            />
+          </motion.div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center mb-4">
-        {currentQuestion.icon}
-        <h3 className="text-lg font-semibold">{currentQuestion.question}</h3>
-      </div>
-
-      {currentQuestion.type === 'radio' && currentQuestion.options && (
-        <RadioGroup
-          value={answers[currentQuestion.id] || ''}
-          onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
-          className="space-y-2"
-        >
-          {currentQuestion.options.map((option) => (
-            <div key={option} className="flex items-center space-x-2 p-3 border rounded-md hover:bg-gray-50 transition-colors">
-              <RadioGroupItem value={option} id={`${currentQuestion.id}-${option}`} />
-              <Label htmlFor={`${currentQuestion.id}-${option}`} className="font-normal text-base cursor-pointer flex-grow">{option}</Label>
-            </div>
-          ))}
-        </RadioGroup>
-      )}
-
-      {currentQuestion.type === 'checkbox' && currentQuestion.options && (
-        <div className="space-y-2">
-          {currentQuestion.options.map((option) => (
-            <div key={option} className="flex items-center space-x-2 p-3 border rounded-md hover:bg-gray-50 transition-colors">
-              <Checkbox
-                id={`${currentQuestion.id}-${option}`}
-                checked={answers[currentQuestion.id]?.includes(option) || false}
-                onCheckedChange={(checked) => {
-                  const currentAnswers = answers[currentQuestion.id] || [];
-                  const newAnswers = checked
-                    ? [...currentAnswers, option]
-                    : currentAnswers.filter((item: string) => item !== option);
-                  handleAnswerChange(currentQuestion.id, newAnswers);
-                }}
-              />
-              <Label htmlFor={`${currentQuestion.id}-${option}`} className="font-normal text-base cursor-pointer flex-grow">{option}</Label>
-            </div>
-          ))}
+    <div className="min-h-screen bg-gray-100 py-12">
+      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="bg-orange-500 text-white py-6 px-8">
+          <h2 className="text-3xl font-bold text-center">Recipe Finder Quiz</h2>
+          <p className="text-md text-white/80 text-center mt-2">Answer a few questions to find the perfect recipe for you!</p>
         </div>
-      )}
 
-      {currentQuestion.type === 'text' && (
-        <Input
-          type="text"
-          placeholder={currentQuestion.placeholder}
-          value={answers[currentQuestion.id] || ''}
-          onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
-          className="text-base"
-        />
-      )}
+        <div className="p-8">
+          <AnimatePresence mode="wait" initial={false}>
+            {renderStepContent()}
+          </AnimatePresence>
+        </div>
 
-      <div className="flex justify-between items-center mt-8 pt-4 border-t">
-        <Button variant="outline" onClick={onSkip} className="text-sm">
-          Skip Quiz
-        </Button>
-        <div className="flex gap-2">
-          {currentStep > 0 && (
-            <Button variant="outline" onClick={handlePrevious} className="text-sm">
-              <ChevronLeft className="h-4 w-4 mr-1" /> Previous
-            </Button>
-          )}
-          {currentStep < quizSteps.length - 1 ? (
-            <Button onClick={handleNext} className="text-sm bg-orange-500 hover:bg-orange-600">
-              Next <ChevronRight className="h-4 w-4 ml-1" />
+        <div className="bg-gray-50 px-8 py-4 flex justify-between items-center">
+          <Button onClick={handlePrevious} disabled={currentStep === 1} variant="outline" className="transition-transform hover:scale-105">
+            <ChevronLeft size={20} className="mr-2" />
+            Previous
+          </Button>
+          <div className="text-sm text-gray-600">Step {currentStep} of 5</div>
+          {currentStep < 5 ? (
+            <Button onClick={handleNext} className="bg-orange-500 hover:bg-orange-600 text-white transition-transform hover:scale-105">
+              Next
+              <ChevronRight size={20} className="ml-2" />
             </Button>
           ) : (
-            <Button onClick={handleSubmitQuiz} className="text-sm bg-green-500 hover:bg-green-600">
-              Find Recipes
+            <Button onClick={handleFindRecipes} className="w-full bg-orange-500 hover:bg-orange-600 text-white text-lg py-3 rounded-lg shadow-lg transition-transform hover:scale-105 flex items-center justify-center space-x-2">
+              <Search size={20} />
+              <span>Find Recipes</span>
             </Button>
           )}
         </div>

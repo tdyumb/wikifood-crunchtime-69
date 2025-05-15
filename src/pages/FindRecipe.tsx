@@ -1,7 +1,7 @@
-
 import Navigation from "@/components/Navigation";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
+import MealTypeFilterBar from "@/components/MealTypeFilterBar"; // Import the new component
 import { useRecipes } from "@/contexts/RecipeContext";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
@@ -16,7 +16,9 @@ const FindRecipe = () => {
     let description = "";
     
     const cuisineTypes = filters.cuisineType.filter(c => c !== "all");
-    const mealTypes = filters.mealType.filter(m => m !== "all");
+    // Meal types description will now largely be driven by the new filter bar,
+    // but we can still show it if selected.
+    const mealTypes = filters.mealType.filter(m => m !== "all" && m.length > 0); 
     const dietaryRestrictions = filters.dietaryRestrictions.filter(d => d !== "all");
     
     if (cuisineTypes.length > 0) {
@@ -110,6 +112,8 @@ const FindRecipe = () => {
               <span className="text-sm font-medium">Showing results for: {searchDescription}</span>
             </motion.div>
           )}
+          
+          <MealTypeFilterBar /> {/* Add the new filter bar here */}
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
