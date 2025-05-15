@@ -8,11 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
-  DialogFooter,
+  // DialogClose, // Not explicitly used for a custom close button here
+  // DialogFooter, // Not used
   DialogDescription,
 } from "@/components/ui/dialog";
-import RecipeQuizForm from './RecipeQuizForm'; // We'll create this next
+import RecipeQuizForm from './RecipeQuizForm';
 
 const RecipeQuizTeaser = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
@@ -50,10 +50,10 @@ const RecipeQuizTeaser = () => {
     }
   ];
 
-  const handleQuizSubmit = (answers: any) => {
-    console.log("Quiz Answers:", answers);
-    // Here you would typically filter recipes based on answers
-    // For now, we just log and close
+  const handleQuizSubmit = () => {
+    console.log("Recipe quiz submitted. Closing dialog.");
+    // This function is called by RecipeQuizForm's onSubmit prop
+    // to allow RecipeQuizTeaser to react, e.g., by closing the dialog.
     setIsQuizOpen(false);
   };
 
@@ -85,14 +85,15 @@ const RecipeQuizTeaser = () => {
               Take the Quiz!
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[525px]">
+          <DialogContent className="sm:max-w-[525px]"> {/* Consider max-w-xl or max-w-2xl if content is wider */}
             <DialogHeader>
               <DialogTitle>Recipe Quiz</DialogTitle>
               <DialogDescription>
                 Answer a few questions to find your perfect recipe.
               </DialogDescription>
             </DialogHeader>
-            <RecipeQuizForm onSubmit={handleQuizSubmit} onSkip={() => setIsQuizOpen(false)} />
+            {/* Pass only onSubmit. The Dialog's onOpenChange handles closing/skip implicitly. */}
+            <RecipeQuizForm onSubmit={handleQuizSubmit} />
           </DialogContent>
         </Dialog>
 

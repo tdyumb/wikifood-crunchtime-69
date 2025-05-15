@@ -17,11 +17,17 @@ interface QuizAnswers {
   availableIngredients: string;
 }
 
-type FilterState = {
+// This type definition is for the setFilters from useRecipes context.
+// Ensure it matches the actual type in RecipeContext.ts for consistency.
+type RecipeFilterStateFromContext = {
   cuisineType: string[];
   mealType: string[];
   dietaryRestrictions: string[];
 };
+
+interface RecipeQuizFormProps {
+  onSubmit: () => void;
+}
 
 const timeToMakeOptions = [
   { id: 'time-short', label: 'Quick (30 mins or less)' },
@@ -49,7 +55,7 @@ const flavorProfileOptions = [
   { id: 'flavor-umami', label: 'Umami' },
 ];
 
-const RecipeQuizForm = () => {
+const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<QuizAnswers>({
     timeToMake: '',
@@ -74,15 +80,6 @@ const RecipeQuizForm = () => {
     setAnswers(prev => ({ ...prev, [question]: value }));
   };
 
-  const handleCheckboxChange = (question: keyof QuizAnswers, value: string) => {
-    setAnswers(prev => {
-      const newValues = prev[question].includes(value)
-        ? prev[question].filter(item => item !== value)
-        : [...prev[question], value];
-      return { ...prev, [question]: newValues };
-    });
-  };
-
   const handleRadioChange = (question: keyof QuizAnswers, value: string) => {
     setAnswers(prev => ({ ...prev, [question]: value }));
   };
@@ -99,21 +96,17 @@ const RecipeQuizForm = () => {
   const handleFindRecipes = () => {
     console.log('Quiz Answers:', answers);
 
-    // Apply filters based on answers
-    const { dietaryNeeds, timeToMake } = answers; // Assuming mealType might be an answer later
-                                              // For now, dietaryNeeds is the main filter from quiz.
-
+    const { dietaryNeeds } = answers;
     const selectedDietaryNeeds = dietaryNeeds.map(d => d.toLowerCase());
     
-    // Example: If there was a mealType question in the quiz
-    const selectedMealType = timeToMake; // This is a placeholder, assuming 'timeToMake' might hint at a meal type or you add a meal type question
-
-    setFilters((prevFilters: FilterState) => ({
+    setFilters((prevFilters: RecipeFilterStateFromContext) => ({
       ...prevFilters,
       dietaryRestrictions: selectedDietaryNeeds.length > 0 ? selectedDietaryNeeds : prevFilters.dietaryRestrictions,
-      mealType: selectedMealType ? [selectedMealType.toLowerCase()] : prevFilters.mealType, // Example
+      // Removed mealType update from here as answers.timeToMake is not a mealType.
+      // mealType: prevFilters.mealType, // Keep existing mealType filters
     }));
     
+    onSubmit(); // Call the onSubmit prop (e.g., to close the dialog)
     navigate('/find-recipe');
   };
   

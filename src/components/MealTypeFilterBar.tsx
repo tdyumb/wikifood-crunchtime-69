@@ -1,42 +1,36 @@
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useRecipes } from "@/contexts/RecipeContext";
-import { Filter, Dessert, Lunch, Dinner } from "lucide-react"; // Corrected Dinner import
+import { Filter, Dessert, Soup, Utensils } from "lucide-react"; // Corrected icon imports
 
 const mealTypeOptions = [
   { value: "all", label: "All", icon: Filter },
   { value: "dessert", label: "Dessert", icon: Dessert },
-  { value: "lunch", label: "Lunch", icon: Lunch },
-  { value: "dinner", label: "Dinner", icon: Dinner },
+  { value: "lunch", label: "Lunch", icon: Soup }, // Changed to Soup
+  { value: "dinner", label: "Dinner", icon: Utensils }, // Changed to Utensils
 ];
 
 const MealTypeFilterBar = () => {
   const { filters, setFilters } = useRecipes();
 
   const handleValueChange = (value: string) => {
-    if (value) { // value can be empty string if nothing is selected, handle this if ToggleGroup allows deselection
+    if (value) {
       if (value === "all") {
         setFilters({ ...filters, mealType: [] });
       } else {
         setFilters({ ...filters, mealType: [value] });
       }
     } else {
-      // If deselecting is possible and leads to empty value, treat as "all"
       setFilters({ ...filters, mealType: [] });
     }
   };
 
-  // Determine current value for ToggleGroup. It expects a string.
-  // If filters.mealType is empty or has 'all', select 'all'. Otherwise, select the first specific meal type.
   let currentSelectedValue = "all";
   if (filters.mealType.length === 1 && filters.mealType[0] !== "all") {
     currentSelectedValue = filters.mealType[0];
   } else if (filters.mealType.length > 1 || (filters.mealType.length === 1 && filters.mealType[0] === "all") ) {
-    // If multiple are somehow selected (e.g. from other filter components) or 'all' is explicitly there, default to 'all' visual.
-    // Or handle this case based on desired UX. For single select toggle, this should ideally not happen if only this component controls it.
     currentSelectedValue = "all"; 
   }
-
 
   return (
     <div className="mb-8 flex justify-center">
