@@ -19,11 +19,12 @@ interface QuizAnswers {
 
 // This type definition is for the setFilters from useRecipes context.
 // Ensure it matches the actual type in RecipeContext.ts for consistency.
-type RecipeFilterStateFromContext = {
-  cuisineType: string[];
-  mealType: string[];
-  dietaryRestrictions: string[];
-};
+// type RecipeFilterStateFromContext = {
+//   cuisineType: string[];
+//   mealType: string[];
+//   dietaryRestrictions: string[];
+// };
+// Commenting out RecipeFilterStateFromContext as it's not directly used with the new approach
 
 interface RecipeQuizFormProps {
   onSubmit: () => void;
@@ -65,7 +66,7 @@ const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit }) => {
     availableIngredients: '',
   });
 
-  const { setFilters } = useRecipes();
+  const { filters, setFilters } = useRecipes(); // Ensure 'filters' is destructured here
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -99,12 +100,13 @@ const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit }) => {
     const { dietaryNeeds } = answers;
     const selectedDietaryNeeds = dietaryNeeds.map(d => d.toLowerCase());
     
-    setFilters((prevFilters: RecipeFilterStateFromContext) => ({
-      ...prevFilters,
-      dietaryRestrictions: selectedDietaryNeeds.length > 0 ? selectedDietaryNeeds : prevFilters.dietaryRestrictions,
-      // Removed mealType update from here as answers.timeToMake is not a mealType.
-      // mealType: prevFilters.mealType, // Keep existing mealType filters
-    }));
+    // Construct the new filter state object directly
+    const newFilterState = {
+      ...filters, // Preserve existing filters for cuisineType and mealType
+      dietaryRestrictions: selectedDietaryNeeds.length > 0 ? selectedDietaryNeeds : filters.dietaryRestrictions,
+    };
+    
+    setFilters(newFilterState); // Pass the object directly
     
     onSubmit(); // Call the onSubmit prop (e.g., to close the dialog)
     navigate('/find-recipe');
