@@ -1,6 +1,6 @@
-
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
+import RecipeQuizTeaser from "@/components/RecipeQuizTeaser";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
@@ -82,6 +82,16 @@ const Home = () => {
       
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Recipe Quiz Teaser Section */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 }}}} // Simple variant for this new section
+      >
+        <RecipeQuizTeaser />
+      </motion.section>
 
       {/* Recipe Filter Section */}
       <motion.section 
