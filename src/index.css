@@ -45,3 +45,13 @@
 .stagger-delay > *:nth-child(2) { animation-delay: 0.2s; }
 .stagger-delay > *:nth-child(3) { animation-delay: 0.3s; }
 .stagger-delay > *:nth-child(4) { animation-delay: 0.4s; }
+
+/* Custom dialog styling */
+.recipe-quiz-dialog {
+  @apply border-none shadow-xl rounded-xl overflow-hidden;
+}
+
+/* Override Radix Dialog styling */
+[data-radix-popper-content-wrapper] {
+  @apply !pointer-events-auto;
+}

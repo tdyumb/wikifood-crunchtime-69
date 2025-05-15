@@ -66,7 +66,7 @@ const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit }) => {
     availableIngredients: '',
   });
 
-  const { filters, setFilters } = useRecipes(); // Ensure 'filters' is destructured here
+  const { filters, setFilters } = useRecipes();
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -100,15 +100,14 @@ const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit }) => {
     const { dietaryNeeds } = answers;
     const selectedDietaryNeeds = dietaryNeeds.map(d => d.toLowerCase());
     
-    // Construct the new filter state object directly
     const newFilterState = {
-      ...filters, // Preserve existing filters for cuisineType and mealType
+      ...filters,
       dietaryRestrictions: selectedDietaryNeeds.length > 0 ? selectedDietaryNeeds : filters.dietaryRestrictions,
     };
     
-    setFilters(newFilterState); // Pass the object directly
+    setFilters(newFilterState);
     
-    onSubmit(); // Call the onSubmit prop (e.g., to close the dialog)
+    onSubmit();
     navigate('/find-recipe');
   };
   
@@ -198,37 +197,49 @@ const RecipeQuizForm: React.FC<RecipeQuizFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
-      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
-        <div className="bg-orange-500 text-white py-6 px-8">
-          <h2 className="text-3xl font-bold text-center">Recipe Finder Quiz</h2>
-          <p className="text-md text-white/80 text-center mt-2">Answer a few questions to find the perfect recipe for you!</p>
-        </div>
+    <div>
+      <div className="bg-orange-500 text-white py-6 px-8 rounded-t-lg">
+        <h2 className="text-2xl font-bold text-center">Recipe Finder Quiz</h2>
+        <p className="text-sm text-white/90 text-center mt-1">Answer a few questions to find the perfect recipe for you!</p>
+      </div>
 
-        <div className="p-8">
-          <AnimatePresence mode="wait" initial={false}>
-            {renderStepContent()}
-          </AnimatePresence>
-        </div>
+      <div className="p-8 bg-white">
+        <AnimatePresence mode="wait" initial={false}>
+          {renderStepContent()}
+        </AnimatePresence>
+      </div>
 
-        <div className="bg-gray-50 px-8 py-4 flex justify-between items-center">
-          <Button onClick={handlePrevious} disabled={currentStep === 1} variant="outline" className="transition-transform hover:scale-105">
-            <ChevronLeft size={20} className="mr-2" />
-            Previous
+      <div className="bg-gray-50 px-8 py-4 flex justify-between items-center rounded-b-lg">
+        <Button 
+          onClick={handlePrevious} 
+          disabled={currentStep === 1} 
+          variant="outline" 
+          className="transition-transform hover:scale-105"
+          type="button"
+        >
+          <ChevronLeft size={20} className="mr-2" />
+          Previous
+        </Button>
+        <div className="text-sm text-gray-600">Step {currentStep} of 5</div>
+        {currentStep < 5 ? (
+          <Button 
+            onClick={handleNext} 
+            className="bg-orange-500 hover:bg-orange-600 text-white transition-transform hover:scale-105"
+            type="button"
+          >
+            Next
+            <ChevronRight size={20} className="ml-2" />
           </Button>
-          <div className="text-sm text-gray-600">Step {currentStep} of 5</div>
-          {currentStep < 5 ? (
-            <Button onClick={handleNext} className="bg-orange-500 hover:bg-orange-600 text-white transition-transform hover:scale-105">
-              Next
-              <ChevronRight size={20} className="ml-2" />
-            </Button>
-          ) : (
-            <Button onClick={handleFindRecipes} className="w-full bg-orange-500 hover:bg-orange-600 text-white text-lg py-3 rounded-lg shadow-lg transition-transform hover:scale-105 flex items-center justify-center space-x-2">
-              <Search size={20} />
-              <span>Find Recipes</span>
-            </Button>
-          )}
-        </div>
+        ) : (
+          <Button 
+            onClick={handleFindRecipes} 
+            className="bg-orange-500 hover:bg-orange-600 text-white transition-transform hover:scale-105 flex items-center justify-center"
+            type="button"
+          >
+            <Search size={20} className="mr-2" />
+            <span>Find Recipes</span>
+          </Button>
+        )}
       </div>
     </div>
   );
