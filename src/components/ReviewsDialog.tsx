@@ -40,7 +40,6 @@ const ReviewsDialog = ({ reviews, recipeName }: ReviewsDialogProps) => {
         </Button>
       </DialogTrigger>
       
-      {/* Fix: Remove AnimatePresence and don't use asChild prop on DialogContent */}
       <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">Reviews for {recipeName}</DialogTitle>
