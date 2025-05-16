@@ -57,7 +57,7 @@ const Navigation = () => {
     }
   };
 
-  // Enhanced scroll effect for navigation bar with sliding animation
+  // Fixed smooth scroll effect for navigation bar
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -255,7 +255,7 @@ const Navigation = () => {
     }
   };
 
-  // Enhanced navigation animation variants with sliding effect
+  // Improved navigation animation variants with consistent transitions
   const navVariants = {
     normal: { 
       height: "4rem", // 64px in rem
@@ -272,11 +272,29 @@ const Navigation = () => {
       backgroundColor: "rgba(255, 153, 51, 0.95)",
       backdropFilter: "blur(8px)",
       boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-      y: "5px",
-      scale: 0.95,
-      width: "90%",
+      y: 0, // Remove vertical movement for consistent animation
+      scale: 0.98,
+      width: "95%",
       margin: "0 auto",
       borderRadius: "0 0 1rem 1rem"
+    }
+  };
+
+  // Consistent animation transition
+  const navTransition = {
+    duration: 0.3,
+    ease: "easeInOut"
+  };
+
+  // Search input animation variants to match nav bar
+  const searchInputVariants = {
+    normal: {
+      width: "100%",
+      height: "2.5rem"
+    },
+    scrolled: {
+      width: "100%",
+      height: "2rem"
     }
   };
 
@@ -320,12 +338,7 @@ const Navigation = () => {
           initial="normal"
           animate={scrolled ? "scrolled" : "normal"}
           variants={navVariants}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 30,
-            mass: 1
-          }}
+          transition={navTransition}
         >
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between h-full">
@@ -336,10 +349,8 @@ const Navigation = () => {
                   <motion.div
                     animate={{ 
                       fontSize: scrolled ? "1.25rem" : "1.5rem",
-                      paddingTop: scrolled ? "0.25rem" : "0",
-                      paddingBottom: scrolled ? "0.25rem" : "0"
                     }}
-                    transition={{ duration: 0.3 }}
+                    transition={navTransition}
                   >
                     WikiFoods
                   </motion.div>
@@ -351,14 +362,22 @@ const Navigation = () => {
                     {/* Desktop Search Bar */}
                     <form onSubmit={handleSearch} className="relative w-full max-w-md">
                       <div className="relative">
-                        <Input
-                          ref={searchInputRef}
-                          type="search"
-                          placeholder="Search recipes, meal types, dietary..."
-                          className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                        />
+                        <motion.div
+                          variants={searchInputVariants}
+                          initial="normal"
+                          animate={scrolled ? "scrolled" : "normal"}
+                          transition={navTransition}
+                          className="w-full"
+                        >
+                          <Input
+                            ref={searchInputRef}
+                            type="search"
+                            placeholder="Search recipes, meal types, dietary..."
+                            className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full h-full"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                          />
+                        </motion.div>
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                           <Search size={18} className="text-gray-400" />
                         </div>
@@ -483,58 +502,34 @@ const Navigation = () => {
                     </div>
                   ) : (
                     <div className="flex items-center space-x-6">
-                      {/* Desktop Navigation Links with whitespace-nowrap */}
-                      <motion.div
-                        animate={{ 
-                          fontSize: scrolled ? "0.875rem" : "1rem"
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="whitespace-nowrap"
-                      >
-                        <Link to="/" className="text-white hover:text-gray-200 transition-colors">Home</Link>
-                      </motion.div>
-                      <motion.div
-                        animate={{ 
-                          fontSize: scrolled ? "0.875rem" : "1rem"
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="whitespace-nowrap"
-                      >
-                        <Link 
-                          to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
-                          className="text-white hover:text-gray-200 transition-colors"
-                          onClick={scrollToRecipeFilter}
+                      {/* Desktop Navigation Links with consistent animations */}
+                      {["Home", "Find A Recipe", "Recipe Collection", "About", "Contact"].map((item, index) => (
+                        <motion.div
+                          key={item}
+                          animate={{ 
+                            fontSize: scrolled ? "0.875rem" : "1rem"
+                          }}
+                          transition={navTransition}
+                          className="whitespace-nowrap"
                         >
-                          Find A Recipe
-                        </Link>
-                      </motion.div>
-                      <motion.div
-                        animate={{ 
-                          fontSize: scrolled ? "0.875rem" : "1rem"
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="whitespace-nowrap"
-                      >
-                        <Link to="/recipe-collection" className="text-white hover:text-gray-200 transition-colors">Recipe Collection</Link>
-                      </motion.div>
-                      <motion.div
-                        animate={{ 
-                          fontSize: scrolled ? "0.875rem" : "1rem"
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="whitespace-nowrap"
-                      >
-                        <Link to="/about" className="text-white hover:text-gray-200 transition-colors">About</Link>
-                      </motion.div>
-                      <motion.div
-                        animate={{ 
-                          fontSize: scrolled ? "0.875rem" : "1rem"
-                        }}
-                        transition={{ duration: 0.3 }}
-                        className="whitespace-nowrap"
-                      >
-                        <Link to="/contact" className="text-white hover:text-gray-200 transition-colors">Contact</Link>
-                      </motion.div>
+                          {item === "Find A Recipe" ? (
+                            <Link 
+                              to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                              className="text-white hover:text-gray-200 transition-colors"
+                              onClick={scrollToRecipeFilter}
+                            >
+                              {item}
+                            </Link>
+                          ) : (
+                            <Link 
+                              to={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
+                              className="text-white hover:text-gray-200 transition-colors"
+                            >
+                              {item}
+                            </Link>
+                          )}
+                        </motion.div>
+                      ))}
                     </div>
                   )}
                 </div>
