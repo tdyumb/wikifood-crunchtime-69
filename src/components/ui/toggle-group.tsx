@@ -32,12 +32,12 @@ const ToggleGroup = React.forwardRef<
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
 interface ToggleGroupItemProps extends 
-  Omit<React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>, "value"> &
-  VariantProps<typeof toggleVariants> & {
+  Omit<React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>, "value">,
+  VariantProps<typeof toggleVariants> {
     value: string;
     imageSrc?: string;
     imageAlt?: string;
-  }
+}
 
 const ToggleGroupItem = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
