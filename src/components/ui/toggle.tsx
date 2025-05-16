@@ -40,16 +40,15 @@ const Toggle = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
   ToggleProps
 >(({ className, variant, size, imageSrc, imageAlt, children, ...props }, ref) => {
-  const isWithImage = imageSrc && variant === "withImage";
+  const isWithImage = !!imageSrc;
   
   return (
     <TogglePrimitive.Root
       ref={ref}
       className={cn(toggleVariants({ 
         variant: isWithImage ? "withImage" : variant, 
-        size: isWithImage ? "withImage" : size, 
-        className 
-      }))}
+        size: isWithImage ? "withImage" : size
+      }), className)}
       {...props}
     >
       {imageSrc && (

@@ -31,8 +31,8 @@ const ToggleGroup = React.forwardRef<
 
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
-interface ToggleGroupItemProps extends 
-  Omit<React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>, "value">,
+interface ToggleGroupItemProps 
+  extends Omit<React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>, "value">,
   VariantProps<typeof toggleVariants> {
     value: string;
     imageSrc?: string;
@@ -59,13 +59,17 @@ const ToggleGroupItem = React.forwardRef<
       {...props}
     >
       {imageSrc && (
-        <img 
-          src={imageSrc} 
-          alt={imageAlt || "Toggle image"} 
-          className="w-full h-auto max-h-12 object-cover rounded-md mb-1" 
-        />
+        <span className="inline-block w-full">
+          <img 
+            src={imageSrc} 
+            alt={imageAlt || "Toggle image"} 
+            className="w-full h-auto max-h-12 object-cover rounded-md mb-1" 
+          />
+        </span>
       )}
-      {children}
+      <span className="inline-block">
+        {children}
+      </span>
     </ToggleGroupPrimitive.Item>
   )
 })
