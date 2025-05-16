@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as TogglePrimitive from "@radix-ui/react-toggle"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -12,11 +13,14 @@ const toggleVariants = cva(
         default: "bg-transparent",
         outline:
           "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        withImage:
+          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground flex flex-col p-1 gap-1",
       },
       size: {
         default: "h-10 px-3",
         sm: "h-9 px-2.5",
         lg: "h-11 px-5",
+        withImage: "min-h-[5rem] min-w-[5rem] p-1",
       },
     },
     defaultVariants: {
@@ -26,18 +30,41 @@ const toggleVariants = cva(
   }
 )
 
+interface ToggleProps extends React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root>,
+  VariantProps<typeof toggleVariants> {
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
 const Toggle = React.forwardRef<
   React.ElementRef<typeof TogglePrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> &
-    VariantProps<typeof toggleVariants>
->(({ className, variant, size, ...props }, ref) => (
-  <TogglePrimitive.Root
-    ref={ref}
-    className={cn(toggleVariants({ variant, size, className }))}
-    {...props}
-  />
-))
+  ToggleProps
+>(({ className, variant, size, imageSrc, imageAlt, children, ...props }, ref) => {
+  const isWithImage = imageSrc && variant === "withImage";
+  
+  return (
+    <TogglePrimitive.Root
+      ref={ref}
+      className={cn(toggleVariants({ 
+        variant: isWithImage ? "withImage" : variant, 
+        size: isWithImage ? "withImage" : size, 
+        className 
+      }))}
+      {...props}
+    >
+      {imageSrc && (
+        <img 
+          src={imageSrc} 
+          alt={imageAlt || "Toggle image"} 
+          className="w-full h-auto max-h-12 object-cover rounded-md mb-1" 
+        />
+      )}
+      {children}
+    </TogglePrimitive.Root>
+  );
+})
 
 Toggle.displayName = TogglePrimitive.Root.displayName
 
 export { Toggle, toggleVariants }
+export type { ToggleProps }

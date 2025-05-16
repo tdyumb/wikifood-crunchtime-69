@@ -1,9 +1,10 @@
+
 import * as React from "react"
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
 import { type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import { toggleVariants } from "@/components/ui/toggle"
+import { toggleVariants, type ToggleProps } from "@/components/ui/toggle"
 
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants>
@@ -30,25 +31,40 @@ const ToggleGroup = React.forwardRef<
 
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
+interface ToggleGroupItemProps extends 
+  Omit<React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>, "value"> &
+  VariantProps<typeof toggleVariants> & {
+    value: string;
+    imageSrc?: string;
+    imageAlt?: string;
+  }
+
 const ToggleGroupItem = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
-    VariantProps<typeof toggleVariants>
->(({ className, children, variant, size, ...props }, ref) => {
+  ToggleGroupItemProps
+>(({ className, children, variant, size, imageSrc, imageAlt, ...props }, ref) => {
   const context = React.useContext(ToggleGroupContext)
+  const isWithImage = !!imageSrc;
 
   return (
     <ToggleGroupPrimitive.Item
       ref={ref}
       className={cn(
         toggleVariants({
-          variant: context.variant || variant,
-          size: context.size || size,
+          variant: isWithImage ? "withImage" : context.variant || variant,
+          size: isWithImage ? "withImage" : context.size || size,
         }),
         className
       )}
       {...props}
     >
+      {imageSrc && (
+        <img 
+          src={imageSrc} 
+          alt={imageAlt || "Toggle image"} 
+          className="w-full h-auto max-h-12 object-cover rounded-md mb-1" 
+        />
+      )}
       {children}
     </ToggleGroupPrimitive.Item>
   )
