@@ -356,11 +356,11 @@ const Navigation = () => {
                   </motion.div>
                 </Link>
 
-                {/* Center: Search bar and/or navigation links */}
+                {/* Center: Search bar - Now with better centering by adjusting max-width and adding mx-auto */}
                 {!isMobile ? (
                   <div className="flex items-center justify-center flex-1 mx-4">
-                    {/* Desktop Search Bar */}
-                    <form onSubmit={handleSearch} className="relative w-full max-w-md">
+                    {/* Desktop Search Bar - Centered with mx-auto and constrained width */}
+                    <form onSubmit={handleSearch} className="relative w-full max-w-xl mx-auto">
                       <div className="relative">
                         <motion.div
                           variants={searchInputVariants}
