@@ -475,7 +475,7 @@ export const recipeData = [
     ],
     instructions: [
       'Preheat your oven to 350°F and place 16 cupcake liners into a muffin pan.',
-      'In a medium bowl, whisk the flour, cocoa powder, baking soda and salt until evenly mixed.',
+      'In a medium bowl, whisk the flour, cocoa powder, baking soda and salt. Then set the bowl aside.',
       'In a separate medium bowl, whisk together the sugars, oil, vinegar, and vanilla extract until well combined.',
       'Pour the dry ingredients into the bowl with the wet mixture. Stir gently until everything comes together into a thick batter.',
       'Add the hot water to the batter and stir until it\'s well blended and mostly smooth.',
@@ -565,7 +565,7 @@ export const recipeData = [
     ],
     instructions: [
       'Preheat the oven to 350°F and line a baking sheet with parchment paper. Then set aside.',
-      'In a medium bowl, whisk the ricotta cheese together with the eggs, honey, vanilla extract, lemon zest, lemon juice, and salt until smooth.',
+      'In a medium bowl, whisk the ricotta cheese together with the eggs, honey, vanilla extract, lemon zest, lemon juice, and salt.',
       'Arrange the phyllo cups on the prepared baking sheet and spoon 1 tablespoon of filling into each one.',
       'Bake for 14–15 minutes, or until the filling is heated through and the shells are lightly golden.',
       'Let them cool slightly, then garnish with blueberries and pomegranate seeds if desired. Serve and enjoy!'
