@@ -23,11 +23,11 @@ const HeroSection = () => {
     return () => clearInterval(textRotationTimer);
   }, []);
 
-  function openTrailer() {
+  function openVideoTutorial() {
     window.open('https://www.youtube.com/watch?v=_DbRKvi5_OI', '_blank');
     toast({
-      title: "Trailer",
-      description: "Opening video trailer...",
+      title: "Tutorial",
+      description: "Opening video tutorial...",
     });
   };
 
@@ -61,10 +61,10 @@ const HeroSection = () => {
         >
           <button 
             className="mb-8 px-6 py-2 bg-black/50 text-white rounded-full flex items-center gap-2 mx-auto hover:bg-black/70 transition-colors"
-            onClick={openTrailer}
+            onClick={openVideoTutorial}
           >
             <Play size={16} />
-            Watch Trailer
+            Watch Video Tutorial
           </button>
 
           <h1 className="text-6xl md:text-7xl font-bold mb-6 text-white">

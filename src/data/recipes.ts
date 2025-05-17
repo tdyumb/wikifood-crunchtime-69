@@ -1,3 +1,4 @@
+
 export const recipeData = [
   {
     id: '1',
@@ -369,7 +370,7 @@ export const recipeData = [
     mealType: 'dinner',
     dietaryRestrictions: [],
     cookTime: '1 min',
-    prepTime: '20 mins',
+    prepTime: '19 mins',
     servings: 6,
     ingredients: [
       '1 head lettuce, chopped',
