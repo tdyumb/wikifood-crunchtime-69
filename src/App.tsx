@@ -33,12 +33,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <RecipeProvider>
-          <Toaster />
-          <Sonner />
-          {showSplash ? (
-            <SplashScreen onComplete={handleSplashComplete} />
-          ) : (
+        <Toaster />
+        <Sonner />
+        {showSplash ? (
+          <SplashScreen onComplete={handleSplashComplete} />
+        ) : (
+          <RecipeProvider>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -52,8 +52,8 @@ function App() {
                 <Route path="/events" element={<Events />} />
               </Routes>
             </BrowserRouter>
-          )}
-        </RecipeProvider>
+          </RecipeProvider>
+        )}
       </TooltipProvider>
     </QueryClientProvider>
   );
