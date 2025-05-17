@@ -1,4 +1,3 @@
-
 export const recipeData = [
   {
     id: '1',
@@ -288,7 +287,7 @@ export const recipeData = [
     id: '9',
     title: 'Fettuccine Alfredo with Ham',
     description: 'Creamy pasta dish with ham and Parmesan cheese.',
-    image: 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?auto=format&fit=crop&w=800',
+    image: 'https://images.unsplash.com/photo-1516100882582-96c3a05fe590?auto=format&fit=crop&w=800',
     cuisineType: 'italian',
     mealType: 'dinner',
     dietaryRestrictions: [],
