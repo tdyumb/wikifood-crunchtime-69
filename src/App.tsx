@@ -29,7 +29,6 @@ function App() {
     setShowSplash(false);
   };
 
-  // No comments here - humans often don't comment simple components
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
