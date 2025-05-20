@@ -1,8 +1,7 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+
 import { Button } from "./ui/button";
 import { useRecipes } from "@/contexts/RecipeContext";
 import { useToast } from "./ui/use-toast";
-import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { 
@@ -11,15 +10,12 @@ import {
   Pizza, 
   Flag, 
   Beef,
-  Sunrise,
   Coffee,
   Soup,
   UtensilsCrossed as Dinner,
   Leaf,
   Wheat,
   Milk,
-  Heart,
-  Apple,
   Carrot
 } from "lucide-react";
 
@@ -27,11 +23,10 @@ const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
   const { toast } = useToast();
 
-  const cuisineTypes = ["all", "italian", "chinese", "american", "mexican"];
-  const mealTypes = ["all", "breakfast", "lunch", "dinner"];
+  const cuisineTypes = ["all", "italian", "asian", "american", "mexican"];
+  const mealTypes = ["all", "breakfast", "lunch", "dinner", "dessert"];
   const dietaryTags = [
-    "all", "vegetarian", "vegan", "gluten-free", "dairy-free", 
-    "low-carb", "keto", "paleo", "whole30", "pescatarian"
+    "all", "vegetarian", "vegan", "gluten-free", "dairy-free"
   ];
 
   const getCuisineIcon = (cuisine: string) => {
@@ -40,7 +35,7 @@ const RecipeFilter = () => {
         return <Globe className="h-4 w-4" />;
       case 'italian':
         return <Pizza className="h-4 w-4" />;
-      case 'chinese':
+      case 'asian':
         return <UtensilsCrossed className="h-4 w-4" />;
       case 'american':
         return <Flag className="h-4 w-4" />;
@@ -61,6 +56,8 @@ const RecipeFilter = () => {
         return <Soup className="h-4 w-4" />;
       case 'dinner':
         return <Dinner className="h-4 w-4" />;
+      case 'dessert':
+        return <Pizza className="h-4 w-4" />;
       default:
         return null;
     }
@@ -78,16 +75,6 @@ const RecipeFilter = () => {
         return <Wheat className="h-4 w-4" />;
       case 'dairy-free':
         return <Milk className="h-4 w-4" />;
-      case 'low-carb':
-        return <Heart className="h-4 w-4" />;
-      case 'keto':
-        return <Apple className="h-4 w-4" />;
-      case 'paleo':
-        return <Leaf className="h-4 w-4" />;
-      case 'whole30':
-        return <Heart className="h-4 w-4" />;
-      case 'pescatarian':
-        return <UtensilsCrossed className="h-4 w-4" />;
       default:
         return null;
     }

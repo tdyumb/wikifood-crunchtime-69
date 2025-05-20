@@ -1,13 +1,14 @@
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useRecipes } from "@/contexts/RecipeContext";
-import { Filter, Dessert, Soup, Utensils } from "lucide-react"; // Corrected icon imports
+import { Coffee, Dessert, Soup, Utensils } from "lucide-react";
 
 const mealTypeOptions = [
-  { value: "all", label: "All", icon: Filter },
-  { value: "dessert", label: "Dessert", icon: Dessert },
-  { value: "lunch", label: "Lunch", icon: Soup }, // Changed to Soup
-  { value: "dinner", label: "Dinner", icon: Utensils }, // Changed to Utensils
+  { value: "all", label: "All Meals", icon: Utensils },
+  { value: "breakfast", label: "Breakfast", icon: Coffee },
+  { value: "lunch", label: "Lunch", icon: Soup },
+  { value: "dinner", label: "Dinner", icon: Utensils },
+  { value: "dessert", label: "Dessert", icon: Dessert }
 ];
 
 const MealTypeFilterBar = () => {
@@ -28,7 +29,7 @@ const MealTypeFilterBar = () => {
   let currentSelectedValue = "all";
   if (filters.mealType.length === 1 && filters.mealType[0] !== "all") {
     currentSelectedValue = filters.mealType[0];
-  } else if (filters.mealType.length > 1 || (filters.mealType.length === 1 && filters.mealType[0] === "all") ) {
+  } else if (filters.mealType.length > 1 || (filters.mealType.length === 1 && filters.mealType[0] === "all")) {
     currentSelectedValue = "all"; 
   }
 

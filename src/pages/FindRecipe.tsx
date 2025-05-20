@@ -1,6 +1,5 @@
 
 import Navigation from "@/components/Navigation";
-import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import MealTypeFilterBar from "@/components/MealTypeFilterBar"; 
 import { useRecipes } from "@/contexts/RecipeContext";
@@ -113,14 +112,6 @@ const FindRecipe = () => {
           )}
           
           <MealTypeFilterBar />
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <RecipeFilter />
-          </motion.div>
           
           <motion.div 
             className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"

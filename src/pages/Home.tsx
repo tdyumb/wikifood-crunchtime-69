@@ -1,7 +1,7 @@
+
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import RecipeQuizTeaser from "@/components/RecipeQuizTeaser";
-import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
 import ContactForm from "@/components/ContactForm";
@@ -93,18 +93,6 @@ const Home = () => {
         <RecipeQuizTeaser />
       </motion.section>
 
-      {/* Recipe Filter Section */}
-      <motion.section 
-        id="recipe-filter-section"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={sectionVariants}
-        className="py-12 px-4"
-      >
-        <RecipeFilter />
-      </motion.section>
-
       {/* Recipe Collection */}
       <motion.section 
         initial="hidden"
@@ -122,7 +110,7 @@ const Home = () => {
             animate="show"
             key={filteredRecipes.length} // Re-animate when recipes change
           >
-            {filteredRecipes.map((recipe, index) => (
+            {filteredRecipes.slice(0, 6).map((recipe, index) => (
               <motion.div key={recipe.id} variants={item} custom={index} className="h-full flex">
                 <div className="w-full">
                   <RecipeCard

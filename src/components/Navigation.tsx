@@ -1,3 +1,4 @@
+
 import { Menu, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
@@ -10,7 +11,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import RecipeCard from "./RecipeCard";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Less structured component with some inconsistencies
 const Navigation = () => {
   // State for menu toggle
   const [menuOpen, setMenuOpen] = useState(false);
@@ -148,15 +148,10 @@ const Navigation = () => {
     }
   };
 
-  // Scroll to recipe filter section if on home page
-  const scrollToRecipeFilter = (e: React.MouseEvent) => {
-    if (location.pathname === "/" || location.pathname === "/home") {
-      e.preventDefault();
-      const recipeFilterSection = document.querySelector('#recipe-filter-section');
-      if (recipeFilterSection) {
-        recipeFilterSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  // Handle navigation to find-recipe
+  const navigateToFindRecipe = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/find-recipe');
   };
 
   // Handle search submission
@@ -194,8 +189,7 @@ const Navigation = () => {
       : [];
     
     const dietaryRestrictionsList = [
-      "vegetarian", "vegan", "gluten-free", "dairy-free", 
-      "low-carb", "keto", "paleo", "whole30", "pescatarian"
+      "vegetarian", "vegan", "gluten-free", "dairy-free"
     ];
     
     const isDietaryRestriction = dietaryRestrictionsList.some(
@@ -502,8 +496,8 @@ const Navigation = () => {
                     </div>
                   ) : (
                     <div className="flex items-center space-x-6">
-                      {/* Desktop Navigation Links with consistent animations */}
-                      {["Home", "Find A Recipe", "Recipe Collection", "About", "Contact"].map((item, index) => (
+                      {/* Desktop Navigation Links with simplified navigation */}
+                      {["Find A Recipe", "About", "Contact"].map((item) => (
                         <motion.div
                           key={item}
                           animate={{ 
@@ -514,15 +508,15 @@ const Navigation = () => {
                         >
                           {item === "Find A Recipe" ? (
                             <Link 
-                              to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                              to="/find-recipe" 
                               className="text-white hover:text-gray-200 transition-colors"
-                              onClick={scrollToRecipeFilter}
+                              onClick={navigateToFindRecipe}
                             >
                               {item}
                             </Link>
                           ) : (
                             <Link 
-                              to={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
+                              to={`/${item.toLowerCase().replace(/\s+/g, '-')}`} 
                               className="text-white hover:text-gray-200 transition-colors"
                             >
                               {item}
@@ -640,19 +634,18 @@ const Navigation = () => {
               </div>
             )}
 
-            {/* Mobile menu - inconsistent naming with menuOpen instead of isMenuOpen */}
+            {/* Mobile menu - simplified navigation */}
             {isMobile && menuOpen && !showMobileSearch && (
               <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
                 <div className="flex flex-col space-y-4">
                   <Link to="/" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Home</Link>
                   <Link 
-                    to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                    to="/find-recipe" 
                     className="text-white hover:text-gray-200 px-4 py-2 transition-colors"
-                    onClick={scrollToRecipeFilter}
+                    onClick={navigateToFindRecipe}
                   >
                     Find A Recipe
                   </Link>
-                  <Link to="/recipe-collection" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Recipe Collection</Link>
                   <Link to="/about" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">About</Link>
                   <Link to="/contact" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Contact</Link>
                 </div>
@@ -685,9 +678,14 @@ const Navigation = () => {
                         description={selectedRecipe.description}
                         image={selectedRecipe.image}
                         cookTime={selectedRecipe.cookTime}
+                        prepTime={selectedRecipe.prepTime}
+                        totalTime={selectedRecipe.totalTime}
                         servings={selectedRecipe.servings}
                         ingredients={selectedRecipe.ingredients}
                         instructions={selectedRecipe.instructions}
+                        equipment={["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"]}
+                        sourceUrl={selectedRecipe.sourceUrl}
+                        nutritionInfo={selectedRecipe.nutritionInfo}
                       />
                     </div>
                   </>
