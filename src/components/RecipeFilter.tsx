@@ -1,4 +1,3 @@
-
 import { Button } from "./ui/button";
 import { useRecipes } from "@/contexts/RecipeContext";
 import { useToast } from "./ui/use-toast";
@@ -10,7 +9,7 @@ import {
   UtensilsCrossed, 
   Coffee,
   Soup,
-  Dinner,
+  Utensils,
   Leaf,
   Wheat,
   Milk,
@@ -43,7 +42,7 @@ const RecipeFilter = () => {
       case 'lunch':
         return <Soup className="h-4 w-4" />;
       case 'dinner':
-        return <Dinner className="h-4 w-4" />;
+        return <Utensils className="h-4 w-4" />;
       case 'dessert':
         return <Cake className="h-4 w-4" />;
       default:
