@@ -1,4 +1,3 @@
-
 export const recipeData = [
   {
     id: '1',
@@ -624,7 +623,7 @@ export const recipeData = [
       'In a medium bowl, mix together the sugar, flour, cocoa powder, powdered sugar, chocolate chips, and salt.',
       'In a large bowl, whisk the eggs, olive oil, water, and vanilla until well combined.',
       'Add the dry ingredients to the wet mixture and stir gently until just combined.',
-      'Transfer the batter to the prepared pan and use a spatula to smooth the surface—it's okay if the batter is thick.',
+      'Transfer the batter to the prepared pan and use a spatula to smooth the surface—it\'s okay if the batter is thick.',
       'Bake for 40-48 minutes, or until a toothpick inserted in the center comes out with only a few crumbs attached.',
       'Allow the brownies to cool completely before cutting them into the desired shape.',
       'Serve and enjoy!'
