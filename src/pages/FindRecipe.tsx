@@ -1,7 +1,8 @@
+
 import Navigation from "@/components/Navigation";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
-import MealTypeFilterBar from "@/components/MealTypeFilterBar"; // Import the new component
+import MealTypeFilterBar from "@/components/MealTypeFilterBar"; 
 import { useRecipes } from "@/contexts/RecipeContext";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
@@ -16,8 +17,6 @@ const FindRecipe = () => {
     let description = "";
     
     const cuisineTypes = filters.cuisineType.filter(c => c !== "all");
-    // Meal types description will now largely be driven by the new filter bar,
-    // but we can still show it if selected.
     const mealTypes = filters.mealType.filter(m => m !== "all" && m.length > 0); 
     const dietaryRestrictions = filters.dietaryRestrictions.filter(d => d !== "all");
     
@@ -113,7 +112,7 @@ const FindRecipe = () => {
             </motion.div>
           )}
           
-          <MealTypeFilterBar /> {/* Add the new filter bar here */}
+          <MealTypeFilterBar />
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -128,7 +127,7 @@ const FindRecipe = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            key={`${filteredRecipes.length}-${JSON.stringify(filters)}`} // Re-animate when recipes or filters change
+            key={`${filteredRecipes.length}-${JSON.stringify(filters)}`}
           >
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe, index) => (
@@ -141,10 +140,13 @@ const FindRecipe = () => {
                       image={recipe.image}
                       cookTime={recipe.cookTime}
                       prepTime={recipe.prepTime}
+                      totalTime={recipe.totalTime}
                       servings={recipe.servings}
                       ingredients={recipe.ingredients}
                       instructions={recipe.instructions}
                       equipment={getEquipmentForRecipe(recipe.id, recipe.mealType)}
+                      sourceUrl={recipe.sourceUrl}
+                      nutritionInfo={recipe.nutritionInfo}
                     />
                   </div>
                 </motion.div>

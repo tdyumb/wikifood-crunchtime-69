@@ -10,6 +10,7 @@ export const recipeData = [
     dietaryRestrictions: [],
     cookTime: '10 mins',
     prepTime: '10 mins',
+    totalTime: '20 mins',
     servings: 1,
     ingredients: [
       '1 tablespoon butter',
@@ -47,6 +48,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '0 mins',
     prepTime: '15 mins',
+    totalTime: '15 mins',
     servings: 4,
     ingredients: [
       '4 cups of yogurt of your choice',
@@ -77,6 +79,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '5 mins',
     prepTime: '10 mins',
+    totalTime: '15 mins',
     servings: 8,
     ingredients: [
       '2 cups pancake mix of your choice',
@@ -112,6 +115,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '10 mins',
     prepTime: '15 mins',
+    totalTime: '25 mins',
     servings: 6,
     ingredients: [
       '8 oz whipped cream cheese',
@@ -149,6 +153,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '10 mins',
     prepTime: '5 mins',
+    totalTime: '15 mins',
     servings: 1,
     ingredients: [
       '2 teaspoons butter',
@@ -194,6 +199,7 @@ export const recipeData = [
     dietaryRestrictions: [],
     cookTime: '10 mins',
     prepTime: '10 mins',
+    totalTime: '20 mins',
     servings: 2,
     ingredients: [
       '1 chorizo sausage link, casing removed and meat crumbled',
@@ -228,6 +234,7 @@ export const recipeData = [
     dietaryRestrictions: [],
     cookTime: '5 mins',
     prepTime: '10 mins',
+    totalTime: '15 mins',
     servings: 1,
     ingredients: [
       '1 tablespoon mayonnaise',
@@ -263,6 +270,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '0 mins',
     prepTime: '10 mins',
+    totalTime: '10 mins',
     servings: 4,
     ingredients: [
       '6 hard-cooked eggs, chopped',
@@ -294,6 +302,7 @@ export const recipeData = [
     dietaryRestrictions: [],
     cookTime: '10 mins',
     prepTime: '5 mins',
+    totalTime: '15 mins',
     servings: 8,
     ingredients: [
       '1 pound dry fettuccine pasta',
@@ -332,6 +341,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '15 mins',
     prepTime: '5 mins',
+    totalTime: '20 mins',
     servings: 4,
     ingredients: [
       '1 cup water',
@@ -371,6 +381,7 @@ export const recipeData = [
     dietaryRestrictions: [],
     cookTime: '1 min',
     prepTime: '19 mins',
+    totalTime: '20 mins',
     servings: 6,
     ingredients: [
       '1 head lettuce, chopped',
@@ -415,6 +426,7 @@ export const recipeData = [
     dietaryRestrictions: [],
     cookTime: '40 mins',
     prepTime: '15 mins',
+    totalTime: '55 mins',
     servings: 4,
     ingredients: [
       '4 large bell peppers (any color)',
@@ -456,6 +468,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian', 'vegan'],
     cookTime: '20 mins',
     prepTime: '10 mins',
+    totalTime: '30 mins',
     servings: 16,
     ingredients: [
       '1 1/2 cups all-purpose flour',
@@ -506,6 +519,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '15 mins',
     prepTime: '15 mins',
+    totalTime: '30 mins',
     servings: 18,
     ingredients: [
       '1 3/4 cups all-purpose flour, spoon and leveled',
@@ -551,6 +565,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '15 mins',
     prepTime: '10 mins',
+    totalTime: '25 mins',
     servings: 24,
     ingredients: [
       '3/4 cup whole milk ricotta cheese',
@@ -590,6 +605,7 @@ export const recipeData = [
     dietaryRestrictions: ['vegetarian'],
     cookTime: '45 mins',
     prepTime: '5 mins',
+    totalTime: '50 mins',
     servings: 16,
     ingredients: [
       '1 1/2 cups white sugar',
@@ -608,7 +624,7 @@ export const recipeData = [
       'In a medium bowl, mix together the sugar, flour, cocoa powder, powdered sugar, chocolate chips, and salt.',
       'In a large bowl, whisk the eggs, olive oil, water, and vanilla until well combined.',
       'Add the dry ingredients to the wet mixture and stir gently until just combined.',
-      'Transfer the batter to the prepared pan and use a spatula to smooth the surface—it\'s okay if the batter is thick.',
+      'Transfer the batter to the prepared pan and use a spatula to smooth the surface—it's okay if the batter is thick.',
       'Bake for 40-48 minutes, or until a toothpick inserted in the center comes out with only a few crumbs attached.',
       'Allow the brownies to cool completely before cutting them into the desired shape.',
       'Serve and enjoy!'

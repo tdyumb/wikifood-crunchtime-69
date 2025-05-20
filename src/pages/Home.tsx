@@ -88,7 +88,7 @@ const Home = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 }}}} // Simple variant for this new section
+        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 }}}}
       >
         <RecipeQuizTeaser />
       </motion.section>
@@ -132,10 +132,13 @@ const Home = () => {
                     image={recipe.image}
                     cookTime={recipe.cookTime}
                     prepTime={recipe.prepTime}
+                    totalTime={recipe.totalTime}
                     servings={recipe.servings}
                     ingredients={recipe.ingredients}
                     instructions={recipe.instructions}
                     equipment={getEquipmentForRecipe(recipe.id, recipe.mealType)}
+                    sourceUrl={recipe.sourceUrl}
+                    nutritionInfo={recipe.nutritionInfo}
                   />
                 </div>
               </motion.div>

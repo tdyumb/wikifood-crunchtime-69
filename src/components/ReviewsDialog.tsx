@@ -6,11 +6,11 @@ import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface ReviewsDialogProps {
-  reviews: Review[];
+  reviews?: Review[];
   recipeName: string;
 }
 
-const ReviewsDialog = ({ reviews, recipeName }: ReviewsDialogProps) => {
+const ReviewsDialog = ({ reviews = [], recipeName }: ReviewsDialogProps) => {
   const averageRating = reviews.length > 0
     ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
     : 0;
@@ -36,13 +36,13 @@ const ReviewsDialog = ({ reviews, recipeName }: ReviewsDialogProps) => {
           className="w-full"
         >
           <Star className="mr-1" />
-          See Reviews ({reviews.length})
+          See Recipe Details
         </Button>
       </DialogTrigger>
       
       <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Reviews for {recipeName}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">Details for {recipeName}</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
@@ -51,57 +51,13 @@ const ReviewsDialog = ({ reviews, recipeName }: ReviewsDialogProps) => {
             animate={{ opacity: 1 }}
             className="flex items-center gap-2 text-lg font-semibold"
           >
-            <span>Average Rating:</span>
-            <div className="flex items-center">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className={`h-5 w-5 ${
-                    i < Math.round(averageRating)
-                      ? "text-yellow-400 fill-yellow-400"
-                      : "text-gray-300"
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="ml-2">({averageRating.toFixed(1)})</span>
+            <span>Recipe Information</span>
           </motion.div>
 
-          {reviews.length > 0 ? (
-            <div className="space-y-4">
-              {reviews.map((review) => (
-                <motion.div
-                  key={review.id}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="border rounded-lg p-4 bg-gray-50"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < review.rating
-                              ? "text-yellow-400 fill-yellow-400"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-500">{review.date}</span>
-                  </div>
-                  <p className="text-gray-700 mb-2">{review.comment}</p>
-                  <p className="text-sm font-medium">- {review.author}</p>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-500 py-4">
-              No reviews yet for this recipe
-            </p>
-          )}
+          <div className="text-center text-gray-500 py-4">
+            <p>This recipe is beginner-friendly and designed to be easy to follow.</p>
+            <p className="mt-2">Follow the step-by-step instructions for best results!</p>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
