@@ -11,7 +11,8 @@ type Recipe = {
   mealType: string;
   dietaryRestrictions: string[];
   cookTime: string;
-  prepTime: string; // Add prepTime property
+  prepTime: string;
+  totalTime: string;
   servings: number;
   ingredients: string[];
   instructions: string[];
@@ -22,6 +23,7 @@ type Recipe = {
     fat: string;
     fiber: string;
   };
+  sourceUrl?: string;
 };
 
 type RecipeContextType = {

@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
@@ -16,6 +17,7 @@ interface RecipeCardProps {
   image: string;
   cookTime?: string;
   prepTime?: string;
+  totalTime?: string; // Added totalTime
   servings?: number;
   ingredients?: string[];
   instructions?: string[];
@@ -24,6 +26,13 @@ interface RecipeCardProps {
   sweetness?: string[];
   equipment?: string[];
   sourceUrl?: string;
+  nutritionInfo?: {
+    calories: number;
+    protein: string;
+    carbs: string;
+    fat: string;
+    fiber: string;
+  };
 }
 
 interface NutritionalInfo {
@@ -41,6 +50,7 @@ const RecipeCard = ({
   image, 
   cookTime = "30 mins", 
   prepTime = "15 mins",
+  totalTime,
   servings = 4,
   ingredients = [],
   instructions = [],
@@ -48,7 +58,8 @@ const RecipeCard = ({
   yield: recipeYield = "4 servings",
   sweetness = [],
   equipment = ["Bowl", "Whisk", "Baking Sheet"],
-  sourceUrl
+  sourceUrl,
+  nutritionInfo
 }: RecipeCardProps) => {
   const recipeReviews = reviewsData.filter(review => review.recipeId === id);
   const [keepScreenOn, setKeepScreenOn] = useState(false);
@@ -56,6 +67,11 @@ const RecipeCard = ({
   
   // This would come from an API or database in a real app
   const getNutritionalInfo = (recipeId: string): NutritionalInfo => {
+    // If nutritionInfo is provided, use that
+    if (nutritionInfo) {
+      return nutritionInfo;
+    }
+    
     // Default nutritional info
     const defaultInfo: NutritionalInfo = {
       calories: 320,
