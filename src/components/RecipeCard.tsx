@@ -1,10 +1,8 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Clock, Users, Save, ToggleRight, Utensils, Timer, ExternalLink } from "lucide-react";
 import { Switch } from "./ui/switch";
-import ReviewsDialog from "./ReviewsDialog";
 import { reviewsData } from "@/data/reviews";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -316,14 +314,10 @@ const RecipeCard = ({
             </Dialog>
 
             <div className="flex gap-2">
-              <div className="w-1/2">
-                <ReviewsDialog reviews={recipeReviews} recipeName={title} />
-              </div>
-              
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="w-1/2"
+                className="w-full"
                 onClick={handleSaveRecipe}
               >
                 <Save className="mr-1" />
