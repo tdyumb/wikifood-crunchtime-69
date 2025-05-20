@@ -1,32 +1,30 @@
+
 import Navigation from "@/components/Navigation";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
-import MealTypeFilterBar from "@/components/MealTypeFilterBar"; // Import the new component
+import MealTypeFilterBar from "@/components/MealTypeFilterBar";
 import { useRecipes } from "@/contexts/RecipeContext";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import RecipeQuizForm from "@/components/RecipeQuizForm";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const FindRecipe = () => {
   const { filteredRecipes, filters } = useRecipes();
   const [searchDescription, setSearchDescription] = useState<string | null>(null);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   // Generate a description based on active filters
   useEffect(() => {
     let description = "";
     
-    const cuisineTypes = filters.cuisineType.filter(c => c !== "all");
-    // Meal types description will now largely be driven by the new filter bar,
-    // but we can still show it if selected.
     const mealTypes = filters.mealType.filter(m => m !== "all" && m.length > 0); 
     const dietaryRestrictions = filters.dietaryRestrictions.filter(d => d !== "all");
     
-    if (cuisineTypes.length > 0) {
-      description += `${cuisineTypes.join(", ")} cuisine`;
-    }
-    
     if (mealTypes.length > 0) {
-      if (description) description += " - ";
       description += `${mealTypes.join(", ")} recipes`;
     }
     
@@ -36,6 +34,13 @@ const FindRecipe = () => {
     }
     
     setSearchDescription(description || null);
+    
+    // Auto-scroll to results when filters change
+    if (resultsRef.current && (mealTypes.length > 0 || dietaryRestrictions.length > 0)) {
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   }, [filters]);
 
   const container = {
@@ -61,30 +66,14 @@ const FindRecipe = () => {
     }
   };
 
-  // Function to get equipment for a recipe based on its meal type
-  const getEquipmentForRecipe = (id: string, mealType: string) => {
-    // Different equipment based on meal type
-    const breakfastEquipment = ["Whisk", "Mixing Bowl", "Spatula", "Frying Pan"];
-    const lunchEquipment = ["Knife", "Cutting Board", "Skillet", "Measuring Cups"];
-    const dinnerEquipment = ["Pot", "Pan", "Colander", "Wooden Spoon"];
-    const dessertEquipment = ["Mixer", "Baking Sheet", "Measuring Spoons", "Oven"];
-    
-    const recipe = filteredRecipes.find(r => r.id === id);
-    if (recipe) {
-      switch(recipe.mealType) {
-        case "breakfast":
-          return breakfastEquipment;
-        case "lunch":
-          return lunchEquipment;
-        case "dinner":
-          return dinnerEquipment;
-        case "dessert":
-          return dessertEquipment;
-        default:
-          return ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
-      }
-    }
-    return ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
+  const handleQuizSubmit = () => {
+    console.log("Recipe quiz submitted. Closing dialog.");
+    setIsQuizOpen(false);
+  };
+  
+  // Basic equipment for all recipes since we're focusing on beginner-friendly recipes
+  const getBasicEquipment = () => {
+    return ["Mixing Bowl", "Measuring Cups", "Knife", "Cutting Board"];
   };
 
   return (
@@ -102,6 +91,19 @@ const FindRecipe = () => {
             Find Your Perfect Recipe
           </motion.h1>
           
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
+            <Dialog open={isQuizOpen} onOpenChange={setIsQuizOpen}>
+              <DialogTrigger asChild>
+                <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+                  Take the Recipe Quiz
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[525px] p-0 border-none shadow-xl">
+                <RecipeQuizForm onSubmit={handleQuizSubmit} />
+              </DialogContent>
+            </Dialog>
+          </div>
+          
           {searchDescription && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -113,7 +115,7 @@ const FindRecipe = () => {
             </motion.div>
           )}
           
-          <MealTypeFilterBar /> {/* Add the new filter bar here */}
+          <MealTypeFilterBar />
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -124,14 +126,15 @@ const FindRecipe = () => {
           </motion.div>
           
           <motion.div 
+            ref={resultsRef}
             className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={container}
             initial="hidden"
             animate="show"
-            key={`${filteredRecipes.length}-${JSON.stringify(filters)}`} // Re-animate when recipes or filters change
+            key={`${filteredRecipes.length}-${JSON.stringify(filters)}`}
           >
             {filteredRecipes.length > 0 ? (
-              filteredRecipes.map((recipe, index) => (
+              filteredRecipes.map((recipe) => (
                 <motion.div key={recipe.id} variants={item} className="h-full flex">
                   <div className="w-full">
                     <RecipeCard
@@ -144,7 +147,7 @@ const FindRecipe = () => {
                       servings={recipe.servings}
                       ingredients={recipe.ingredients}
                       instructions={recipe.instructions}
-                      equipment={getEquipmentForRecipe(recipe.id, recipe.mealType)}
+                      equipment={getBasicEquipment()}
                     />
                   </div>
                 </motion.div>

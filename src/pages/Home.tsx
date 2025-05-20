@@ -1,15 +1,17 @@
+
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
-import RecipeQuizTeaser from "@/components/RecipeQuizTeaser";
 import RecipeFilter from "@/components/RecipeFilter";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
 import ContactForm from "@/components/ContactForm";
-import WhyChooseSection from "@/components/WhyChooseSection";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect } from "react";
 
 const Home = () => {
   const { filteredRecipes } = useRecipes();
+  const recipesRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(recipesRef);
 
   const container = {
     hidden: { opacity: 0 },
@@ -46,30 +48,17 @@ const Home = () => {
   };
 
   // Function to get equipment for a recipe based on its meal type
-  const getEquipmentForRecipe = (id: string, mealType: string) => {
-    // Different equipment based on meal type
-    const breakfastEquipment = ["Whisk", "Mixing Bowl", "Spatula", "Frying Pan"];
-    const lunchEquipment = ["Knife", "Cutting Board", "Skillet", "Measuring Cups"];
-    const dinnerEquipment = ["Pot", "Pan", "Colander", "Wooden Spoon"];
-    const dessertEquipment = ["Mixer", "Baking Sheet", "Measuring Spoons", "Oven"];
-    
-    const recipe = filteredRecipes.find(r => r.id === id);
-    if (recipe) {
-      switch(recipe.mealType) {
-        case "breakfast":
-          return breakfastEquipment;
-        case "lunch":
-          return lunchEquipment;
-        case "dinner":
-          return dinnerEquipment;
-        case "dessert":
-          return dessertEquipment;
-        default:
-          return ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
-      }
-    }
-    return ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
+  const getEquipmentForRecipe = (id: string) => {
+    const basicEquipment = ["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"];
+    return basicEquipment;
   };
+
+  // If filtration happens, scroll to recipes
+  useEffect(() => {
+    if (recipesRef.current && isInView === false) {
+      recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [filteredRecipes.length, isInView]);
 
   return (
     <motion.div 
@@ -82,16 +71,6 @@ const Home = () => {
       
       {/* Hero Section */}
       <HeroSection />
-
-      {/* Recipe Quiz Teaser Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 }}}} // Simple variant for this new section
-      >
-        <RecipeQuizTeaser />
-      </motion.section>
 
       {/* Recipe Filter Section */}
       <motion.section 
@@ -107,6 +86,7 @@ const Home = () => {
 
       {/* Recipe Collection */}
       <motion.section 
+        ref={recipesRef}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -122,8 +102,8 @@ const Home = () => {
             animate="show"
             key={filteredRecipes.length} // Re-animate when recipes change
           >
-            {filteredRecipes.map((recipe, index) => (
-              <motion.div key={recipe.id} variants={item} custom={index} className="h-full flex">
+            {filteredRecipes.map((recipe) => (
+              <motion.div key={recipe.id} variants={item} className="h-full flex">
                 <div className="w-full">
                   <RecipeCard
                     id={recipe.id}
@@ -135,7 +115,7 @@ const Home = () => {
                     servings={recipe.servings}
                     ingredients={recipe.ingredients}
                     instructions={recipe.instructions}
-                    equipment={getEquipmentForRecipe(recipe.id, recipe.mealType)}
+                    equipment={getEquipmentForRecipe(recipe.id)}
                   />
                 </div>
               </motion.div>
@@ -143,9 +123,6 @@ const Home = () => {
           </motion.div>
         </div>
       </motion.section>
-
-      {/* Why Choose Section */}
-      <WhyChooseSection />
 
       {/* Contact Form Section */}
       <motion.div
@@ -160,7 +137,7 @@ const Home = () => {
       {/* Footer */}
       <footer className="bg-[#ff9933] text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -211,16 +188,12 @@ const Home = () => {
 // Adding the footerLinks array that was missing
 const footerLinks = [
   {
-    title: "Company",
-    links: ["About", "Careers", "Press", "Contact"],
-  },
-  {
     title: "Resources",
-    links: ["Blog", "Newsletter", "Events", "Help Center"],
+    links: ["Blog", "Newsletter", "Help Center"],
   },
   {
     title: "Legal",
-    links: ["Terms", "Privacy", "Cookies", "Licenses"],
+    links: ["Terms", "Privacy", "Cookies"],
   },
 ];
 
