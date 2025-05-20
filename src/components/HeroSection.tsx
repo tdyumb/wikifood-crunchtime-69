@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "./ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 const HeroSection = () => {
@@ -153,10 +153,10 @@ const HeroSection = () => {
               >
                 <Button
                   variant="outline"
-                  onClick={handleFindRecipeClick}
+                  onClick={scrollToRecipeFilter}
                   className="border-white text-white hover:bg-white/20 font-semibold text-lg px-8 py-6 rounded-full backdrop-blur-sm transition-all duration-300"
                 >
-                  Explore Recipes
+                  Explore Categories
                 </Button>
               </motion.div>
             </motion.div>

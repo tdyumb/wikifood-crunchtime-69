@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import RecipeCard from "./RecipeCard";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Less structured component with some inconsistencies
 const Navigation = () => {
   // State for menu toggle
   const [menuOpen, setMenuOpen] = useState(false);
@@ -95,6 +96,7 @@ const Navigation = () => {
       .filter(recipe => 
         recipe.title.toLowerCase().includes(query) || 
         recipe.description.toLowerCase().includes(query) ||
+        recipe.cuisineType.toLowerCase().includes(query) ||
         recipe.mealType.toLowerCase().includes(query) ||
         recipe.dietaryRestrictions.some(restriction => restriction.toLowerCase().includes(query))
       )
@@ -134,7 +136,7 @@ const Navigation = () => {
     }
   }, [showMobileSearch]);
 
-  // Simple toggle function
+  // Simple toggle function a human would write
   const handleMenuToggle = () => setMenuOpen(!menuOpen);
   
   // Toggle mobile search
@@ -143,6 +145,17 @@ const Navigation = () => {
     if (!showMobileSearch) {
       // Clear the search query when opening the search bar
       setSearchQuery("");
+    }
+  };
+
+  // Scroll to recipe filter section if on home page
+  const scrollToRecipeFilter = (e: React.MouseEvent) => {
+    if (location.pathname === "/" || location.pathname === "/home") {
+      e.preventDefault();
+      const recipeFilterSection = document.querySelector('#recipe-filter-section');
+      if (recipeFilterSection) {
+        recipeFilterSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -158,6 +171,7 @@ const Navigation = () => {
     const filteredRecipes = recipes.filter(recipe => 
       recipe.title.toLowerCase().includes(finalQuery.toLowerCase()) ||
       recipe.description.toLowerCase().includes(finalQuery.toLowerCase()) ||
+      recipe.cuisineType.toLowerCase().includes(finalQuery.toLowerCase()) ||
       recipe.mealType.toLowerCase().includes(finalQuery.toLowerCase()) ||
       recipe.dietaryRestrictions.some(restriction => 
         restriction.toLowerCase().includes(finalQuery.toLowerCase())
@@ -165,6 +179,10 @@ const Navigation = () => {
     );
     
     // Set filters based on search term
+    const uniqueCuisineTypes = Array.from(
+      new Set(filteredRecipes.map(recipe => recipe.cuisineType))
+    );
+    
     const isMealType = ["breakfast", "lunch", "dinner", "dessert"].some(
       mealType => finalQuery.toLowerCase().includes(mealType.toLowerCase())
     );
@@ -176,7 +194,8 @@ const Navigation = () => {
       : [];
     
     const dietaryRestrictionsList = [
-      "vegetarian", "vegan", "gluten-free", "dairy-free"
+      "vegetarian", "vegan", "gluten-free", "dairy-free", 
+      "low-carb", "keto", "paleo", "whole30", "pescatarian"
     ];
     
     const isDietaryRestriction = dietaryRestrictionsList.some(
@@ -190,7 +209,7 @@ const Navigation = () => {
       : [];
     
     setFilters({
-      cuisineType: [],
+      cuisineType: uniqueCuisineTypes.length > 0 ? uniqueCuisineTypes : [],
       mealType: mealTypesFilter,
       dietaryRestrictions: dietaryRestrictionsFilter
     });
@@ -243,15 +262,21 @@ const Navigation = () => {
       backgroundColor: "#ff9933",
       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
       y: 0,
-      scale: 1
+      scale: 1,
+      width: "100%",
+      margin: "0",
+      borderRadius: "0"
     },
     scrolled: { 
       height: "3rem", // 48px in rem when scrolled
       backgroundColor: "rgba(255, 153, 51, 0.95)",
       backdropFilter: "blur(8px)",
       boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-      y: 0,
-      scale: 0.98
+      y: 0, // Remove vertical movement for consistent animation
+      scale: 0.98,
+      width: "95%",
+      margin: "0 auto",
+      borderRadius: "0 0 1rem 1rem"
     }
   };
 
@@ -315,8 +340,8 @@ const Navigation = () => {
           variants={navVariants}
           transition={navTransition}
         >
-          <div className="container mx-auto flex justify-center px-4">
-            <div className="flex items-center justify-between h-full w-full max-w-6xl">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between h-full">
               {/* Navigation content with improved centering */}
               <div className="flex items-center justify-between w-full">
                 {/* Left side: Logo */}
@@ -477,8 +502,8 @@ const Navigation = () => {
                     </div>
                   ) : (
                     <div className="flex items-center space-x-6">
-                      {/* Desktop Navigation Links with consistent animations - Removed unnecessary links */}
-                      {["Find Recipes", "About", "Contact"].map((item, index) => (
+                      {/* Desktop Navigation Links with consistent animations */}
+                      {["Home", "Find A Recipe", "Recipe Collection", "About", "Contact"].map((item, index) => (
                         <motion.div
                           key={item}
                           animate={{ 
@@ -487,12 +512,22 @@ const Navigation = () => {
                           transition={navTransition}
                           className="whitespace-nowrap"
                         >
-                          <Link 
-                            to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                            className="text-white hover:text-gray-200 transition-colors"
-                          >
-                            {item}
-                          </Link>
+                          {item === "Find A Recipe" ? (
+                            <Link 
+                              to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                              className="text-white hover:text-gray-200 transition-colors"
+                              onClick={scrollToRecipeFilter}
+                            >
+                              {item}
+                            </Link>
+                          ) : (
+                            <Link 
+                              to={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
+                              className="text-white hover:text-gray-200 transition-colors"
+                            >
+                              {item}
+                            </Link>
+                          )}
                         </motion.div>
                       ))}
                     </div>
@@ -500,122 +535,130 @@ const Navigation = () => {
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Mobile search input - only shown when search icon is clicked */}
-          {isMobile && showMobileSearch && (
-            <div className="py-2 animate-fadeIn">
-              <form onSubmit={handleSearch}>
-                <div className="relative">
-                  <Input
-                    ref={mobileSearchInputRef}
-                    type="search"
-                    placeholder="Search recipes, meal types, dietary..."
-                    className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search size={18} className="text-gray-400" />
-                  </div>
-                  
-                  {/* Mobile Search Suggestions Dropdown */}
-                  {searchQuery.trim() !== "" && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
-                      {searchSuggestions.recipes.length === 0 && 
-                       searchSuggestions.mealTypes.length === 0 && 
-                       searchSuggestions.dietaryRestrictions.length === 0 ? (
-                        <div className="p-4 text-center text-gray-500">No results found</div>
-                      ) : (
-                        <div className="max-h-60 overflow-y-auto">
-                          {searchSuggestions.recipes.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
-                              <ul>
-                                {searchSuggestions.recipes.map(recipe => (
-                                  <li key={recipe.id}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{recipe.title}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {searchSuggestions.mealTypes.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
-                              <ul>
-                                {searchSuggestions.mealTypes.map(mealType => (
-                                  <li key={mealType}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(mealType, 'mealType')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{mealType}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {searchSuggestions.dietaryRestrictions.length > 0 && (
-                            <div className="p-2">
-                              <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
-                              <ul>
-                                {searchSuggestions.dietaryRestrictions.map(restriction => (
-                                  <li key={restriction}>
-                                    <button
-                                      type="button"
-                                      className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
-                                      onClick={() => handleSearchItemSelect(restriction, 'dietary')}
-                                    >
-                                      <Search className="mr-2 h-4 w-4 text-gray-400" />
-                                      <span>{restriction}</span>
-                                    </button>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                          
-                          <div className="p-2 border-t">
-                            <button
-                              type="submit"
-                              className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
-                            >
-                              <Search className="mr-2 h-4 w-4" />
-                              <span>Search for "{searchQuery}"</span>
-                            </button>
-                          </div>
-                        </div>
-                      )}
+            {/* Mobile search input - only shown when search icon is clicked */}
+            {isMobile && showMobileSearch && (
+              <div className="py-2 animate-fadeIn">
+                <form onSubmit={handleSearch}>
+                  <div className="relative">
+                    <Input
+                      ref={mobileSearchInputRef}
+                      type="search"
+                      placeholder="Search recipes, meal types, dietary..."
+                      className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Search size={18} className="text-gray-400" />
                     </div>
-                  )}
-                </div>
-              </form>
-            </div>
-          )}
-
-          {/* Mobile menu */}
-          {isMobile && menuOpen && !showMobileSearch && (
-            <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
-              <div className="flex flex-col space-y-4">
-                <Link to="/find-recipe" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Find Recipes</Link>
-                <Link to="/about" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">About</Link>
-                <Link to="/contact" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Contact</Link>
+                    
+                    {/* Mobile Search Suggestions Dropdown */}
+                    {searchQuery.trim() !== "" && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                        {searchSuggestions.recipes.length === 0 && 
+                         searchSuggestions.mealTypes.length === 0 && 
+                         searchSuggestions.dietaryRestrictions.length === 0 ? (
+                          <div className="p-4 text-center text-gray-500">No results found</div>
+                        ) : (
+                          <div className="max-h-60 overflow-y-auto">
+                            {searchSuggestions.recipes.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Recipes</h3>
+                                <ul>
+                                  {searchSuggestions.recipes.map(recipe => (
+                                    <li key={recipe.id}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(recipe.id, 'recipe')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{recipe.title}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {searchSuggestions.mealTypes.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Meal Types</h3>
+                                <ul>
+                                  {searchSuggestions.mealTypes.map(mealType => (
+                                    <li key={mealType}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(mealType, 'mealType')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{mealType}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            {searchSuggestions.dietaryRestrictions.length > 0 && (
+                              <div className="p-2">
+                                <h3 className="text-xs font-semibold text-gray-500 uppercase px-2 py-1">Dietary Restrictions</h3>
+                                <ul>
+                                  {searchSuggestions.dietaryRestrictions.map(restriction => (
+                                    <li key={restriction}>
+                                      <button
+                                        type="button"
+                                        className="flex items-center w-full px-2 py-1 text-left hover:bg-gray-100 rounded"
+                                        onClick={() => handleSearchItemSelect(restriction, 'dietary')}
+                                      >
+                                        <Search className="mr-2 h-4 w-4 text-gray-400" />
+                                        <span>{restriction}</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            
+                            <div className="p-2 border-t">
+                              <button
+                                type="submit"
+                                className="flex items-center w-full px-2 py-1 text-left text-blue-600 hover:bg-gray-100 rounded font-medium"
+                              >
+                                <Search className="mr-2 h-4 w-4" />
+                                <span>Search for "{searchQuery}"</span>
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </form>
               </div>
-            </div>
-          )}
+            )}
+
+            {/* Mobile menu - inconsistent naming with menuOpen instead of isMenuOpen */}
+            {isMobile && menuOpen && !showMobileSearch && (
+              <div className="bg-[#ff9933] py-4 animate-fade-in rounded-b-lg shadow-lg">
+                <div className="flex flex-col space-y-4">
+                  <Link to="/" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Home</Link>
+                  <Link 
+                    to={location.pathname === "/" || location.pathname === "/home" ? "#recipe-filter-section" : "/find-recipe"} 
+                    className="text-white hover:text-gray-200 px-4 py-2 transition-colors"
+                    onClick={scrollToRecipeFilter}
+                  >
+                    Find A Recipe
+                  </Link>
+                  <Link to="/recipe-collection" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Recipe Collection</Link>
+                  <Link to="/about" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">About</Link>
+                  <Link to="/contact" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Contact</Link>
+                </div>
+              </div>
+            )}
+          </div>
         </motion.div>
       </motion.nav>
       

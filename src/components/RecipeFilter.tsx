@@ -1,3 +1,4 @@
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
 import { useRecipes } from "@/contexts/RecipeContext";
 import { useToast } from "./ui/use-toast";
@@ -5,33 +6,50 @@ import { Badge } from "./ui/badge";
 import { Checkbox } from "./ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { 
-  Clock, 
+  Globe, 
   UtensilsCrossed, 
+  Pizza, 
+  Flag, 
+  Beef,
+  Sunrise,
   Coffee,
   Soup,
-  Utensils,
+  UtensilsCrossed as Dinner,
   Leaf,
   Wheat,
   Milk,
-  Cake
+  Heart,
+  Apple,
+  Carrot
 } from "lucide-react";
 
 const RecipeFilter = () => {
   const { filters, setFilters } = useRecipes();
   const { toast } = useToast();
 
-  const timeOptions = [
-    { id: "time-quick", label: "Quick (20 mins or less)" },
-    { id: "time-moderate", label: "Moderate (20-30 mins)" },
-    { id: "time-longer", label: "Longer (30+ mins)" }
-  ];
-  
-  const mealTypes = ["all", "breakfast", "lunch", "dinner", "dessert"];
+  const cuisineTypes = ["all", "italian", "chinese", "american", "mexican"];
+  const mealTypes = ["all", "breakfast", "lunch", "dinner"];
   const dietaryTags = [
-    "all", "vegetarian", "vegan", "gluten-free", "dairy-free"
+    "all", "vegetarian", "vegan", "gluten-free", "dairy-free", 
+    "low-carb", "keto", "paleo", "whole30", "pescatarian"
   ];
 
-  const getTimeIcon = () => <Clock className="h-4 w-4" />;
+  const getCuisineIcon = (cuisine: string) => {
+    switch (cuisine.toLowerCase()) {
+      case 'all':
+        return <Globe className="h-4 w-4" />;
+      case 'italian':
+        return <Pizza className="h-4 w-4" />;
+      case 'chinese':
+        return <UtensilsCrossed className="h-4 w-4" />;
+      case 'american':
+        return <Flag className="h-4 w-4" />;
+      case 'mexican':
+        return <Beef className="h-4 w-4" />;
+      default:
+        return null;
+    }
+  };
 
   const getMealIcon = (meal: string) => {
     switch (meal.toLowerCase()) {
@@ -42,9 +60,7 @@ const RecipeFilter = () => {
       case 'lunch':
         return <Soup className="h-4 w-4" />;
       case 'dinner':
-        return <Utensils className="h-4 w-4" />;
-      case 'dessert':
-        return <Cake className="h-4 w-4" />;
+        return <Dinner className="h-4 w-4" />;
       default:
         return null;
     }
@@ -57,11 +73,21 @@ const RecipeFilter = () => {
       case 'vegetarian':
         return <Leaf className="h-4 w-4" />;
       case 'vegan':
-        return <Leaf className="h-4 w-4" />;
+        return <Carrot className="h-4 w-4" />;
       case 'gluten-free':
         return <Wheat className="h-4 w-4" />;
       case 'dairy-free':
         return <Milk className="h-4 w-4" />;
+      case 'low-carb':
+        return <Heart className="h-4 w-4" />;
+      case 'keto':
+        return <Apple className="h-4 w-4" />;
+      case 'paleo':
+        return <Leaf className="h-4 w-4" />;
+      case 'whole30':
+        return <Heart className="h-4 w-4" />;
+      case 'pescatarian':
+        return <UtensilsCrossed className="h-4 w-4" />;
       default:
         return null;
     }
@@ -96,9 +122,25 @@ const RecipeFilter = () => {
     });
   };
 
-  const handleTimeChange = (time: string) => {
-    // We'll handle time filtering in a future implementation
-    console.log("Selected time:", time);
+  const handleCuisineChange = (cuisine: string) => {
+    let newCuisines: string[];
+    
+    if (cuisine === 'all') {
+      newCuisines = filters.cuisineType.includes('all') ? [] : ['all'];
+    } else {
+      if (filters.cuisineType.includes('all')) {
+        newCuisines = [cuisine];
+      } else {
+        newCuisines = filters.cuisineType.includes(cuisine)
+          ? filters.cuisineType.filter(t => t !== cuisine)
+          : [...filters.cuisineType, cuisine];
+      }
+    }
+
+    setFilters({
+      ...filters,
+      cuisineType: newCuisines
+    });
   };
 
   const handleMealChange = (meal: string) => {
@@ -127,29 +169,32 @@ const RecipeFilter = () => {
       <h2 className="text-2xl font-bold text-center mb-6">Find Your Perfect Recipe</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Total Time</label>
+          <label className="text-sm font-medium">Cuisine Type</label>
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full justify-between">
                 <div className="flex items-center gap-2">
-                  Select Time
+                  Select Cuisine Types
                   <div className="flex gap-1">
-                    {getTimeIcon()}
+                    {filters.cuisineType.map((cuisine, index) => (
+                      <span key={index}>{getCuisineIcon(cuisine)}</span>
+                    ))}
                   </div>
                 </div>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-2 bg-white border border-gray-200 shadow-lg">
               <div className="space-y-2">
-                {timeOptions.map((option) => (
-                  <div key={option.id} className="flex items-center space-x-2">
+                {cuisineTypes.map((cuisine) => (
+                  <div key={cuisine} className="flex items-center space-x-2">
                     <Checkbox 
-                      id={option.id}
-                      onCheckedChange={() => handleTimeChange(option.label)}
+                      id={`cuisine-${cuisine}`}
+                      checked={filters.cuisineType.includes(cuisine)}
+                      onCheckedChange={() => handleCuisineChange(cuisine)}
                     />
-                    <label htmlFor={option.id} className="text-sm flex items-center gap-2">
-                      {option.label}
-                      {getTimeIcon()}
+                    <label htmlFor={`cuisine-${cuisine}`} className="text-sm capitalize flex items-center gap-2">
+                      {cuisine}
+                      {getCuisineIcon(cuisine)}
                     </label>
                   </div>
                 ))}
