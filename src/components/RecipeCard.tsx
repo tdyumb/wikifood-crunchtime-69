@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Clock, Users, Save, ToggleRight, Utensils, Timer, ExternalLink } from "lucide-react";
+import { Clock, Users, ToggleRight, Utensils, ExternalLink } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { reviewsData } from "@/data/reviews";
 import { useState } from "react";
@@ -103,13 +103,6 @@ const RecipeCard = ({
   };
   
   const nutritionalInfo = getNutritionalInfo(id);
-  
-  const handleSaveRecipe = () => {
-    toast({
-      title: "Recipe Saved!",
-      description: `${title} has been saved to your collection`,
-    });
-  };
   
   const handleToggleScreenOn = () => {
     setKeepScreenOn(!keepScreenOn);
@@ -312,18 +305,6 @@ const RecipeCard = ({
                 </div>
               </DialogContent>
             </Dialog>
-
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="w-full"
-                onClick={handleSaveRecipe}
-              >
-                <Save className="mr-1" />
-                Save Recipe
-              </Button>
-            </div>
           </div>
         </CardContent>
       </Card>
