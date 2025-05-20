@@ -35,13 +35,6 @@ const HeroSection = () => {
     navigate('/find-recipe');
   };
 
-  const scrollToRecipeFilter = () => {
-    const recipeFilterSection = document.querySelector('#recipe-filter-section');
-    if (recipeFilterSection) {
-      recipeFilterSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -129,13 +122,14 @@ const HeroSection = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row justify-center gap-4 mt-8"
+              className="flex justify-center mt-8"
               variants={fadeInUp}
             >
-              {/* Fix: Use motion.div wrapper around Button instead of passing motion props directly */}
+              {/* Centered "Find your perfect recipe" button */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="mx-auto"
               >
                 <Button 
                   variant="default"
@@ -143,20 +137,6 @@ const HeroSection = () => {
                   className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold text-lg px-8 py-6 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   Find your perfect recipe
-                </Button>
-              </motion.div>
-              
-              {/* Fix: Use motion.div wrapper around Button instead of passing motion props directly */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="outline"
-                  onClick={scrollToRecipeFilter}
-                  className="border-white text-white hover:bg-white/20 font-semibold text-lg px-8 py-6 rounded-full backdrop-blur-sm transition-all duration-300"
-                >
-                  Explore Categories
                 </Button>
               </motion.div>
             </motion.div>

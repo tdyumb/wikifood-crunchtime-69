@@ -1,7 +1,6 @@
 
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
-import RecipeQuizTeaser from "@/components/RecipeQuizTeaser";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
 import ContactForm from "@/components/ContactForm";
@@ -82,16 +81,6 @@ const Home = () => {
       
       {/* Hero Section */}
       <HeroSection />
-
-      {/* Recipe Quiz Teaser Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 }}}}
-      >
-        <RecipeQuizTeaser />
-      </motion.section>
 
       {/* Recipe Collection */}
       <motion.section 
