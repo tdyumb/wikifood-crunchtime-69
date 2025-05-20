@@ -1,4 +1,3 @@
-
 import { Menu, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
@@ -154,7 +153,7 @@ const Navigation = () => {
     navigate('/find-recipe');
   };
 
-  // Handle search submission
+  // Handle search submission - Fixed to properly filter recipes
   const handleSearch = (e?: React.FormEvent, searchTerm?: string) => {
     if (e) e.preventDefault();
     
@@ -211,12 +210,23 @@ const Navigation = () => {
     // Navigate to find recipe page
     if (location.pathname !== "/find-recipe") {
       navigate("/find-recipe");
+    } else {
+      // Force re-render of the filtered recipes
+      const currentFilters = {
+        cuisineType: uniqueCuisineTypes.length > 0 ? uniqueCuisineTypes : [],
+        mealType: mealTypesFilter,
+        dietaryRestrictions: dietaryRestrictionsFilter
+      };
+      setFilters({ ...currentFilters });
     }
     
     // Close mobile search if it's open
     if (showMobileSearch) {
       setShowMobileSearch(false);
     }
+    
+    // Clear search query after search
+    setSearchQuery("");
   };
 
   const handleSearchItemSelect = (value: string, type: 'recipe' | 'mealType' | 'dietary') => {
@@ -353,7 +363,7 @@ const Navigation = () => {
                 {/* Center: Search bar and/or navigation links */}
                 {!isMobile ? (
                   <div className="flex items-center justify-center flex-1 mx-4">
-                    {/* Desktop Search Bar */}
+                    {/* Desktop Search Bar - Updated styling */}
                     <form onSubmit={handleSearch} className="relative w-full max-w-md">
                       <div className="relative">
                         <motion.div
@@ -367,7 +377,7 @@ const Navigation = () => {
                             ref={searchInputRef}
                             type="search"
                             placeholder="Search recipes, meal types, dietary..."
-                            className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full h-full"
+                            className="pl-10 pr-4 py-2 bg-white/90 border border-gray-200 focus:border-orange-300 focus:ring-2 focus:ring-orange-200 rounded-full text-sm w-full h-full shadow-sm"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
@@ -376,9 +386,9 @@ const Navigation = () => {
                           <Search size={18} className="text-gray-400" />
                         </div>
                         
-                        {/* Search Suggestions Dropdown */}
+                        {/* Search Suggestions Dropdown - Improved styling */}
                         {searchQuery.trim() !== "" && (
-                          <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                          <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg overflow-hidden z-50 border border-gray-200">
                             {searchSuggestions.recipes.length === 0 && 
                              searchSuggestions.mealTypes.length === 0 && 
                              searchSuggestions.dietaryRestrictions.length === 0 ? (
@@ -530,7 +540,7 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* Mobile search input - only shown when search icon is clicked */}
+            {/* Mobile search input - only shown when search icon is clicked - Updated styling */}
             {isMobile && showMobileSearch && (
               <div className="py-2 animate-fadeIn">
                 <form onSubmit={handleSearch}>
@@ -539,7 +549,7 @@ const Navigation = () => {
                       ref={mobileSearchInputRef}
                       type="search"
                       placeholder="Search recipes, meal types, dietary..."
-                      className="pl-10 pr-4 py-2 bg-white/90 border-transparent focus:border-transparent focus:ring-0 rounded-full text-sm w-full"
+                      className="pl-10 pr-4 py-2 bg-white/90 border border-gray-200 focus:border-orange-300 focus:ring-2 focus:ring-orange-200 rounded-full text-sm w-full shadow-sm"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />

@@ -10,6 +10,15 @@ import { useState, useEffect } from "react";
 const FindRecipe = () => {
   const { filteredRecipes, filters } = useRecipes();
   const [searchDescription, setSearchDescription] = useState<string | null>(null);
+  const [initialRender, setInitialRender] = useState(true);
+
+  // New effect to handle initial render and force recipe filter
+  useEffect(() => {
+    if (initialRender) {
+      setInitialRender(false);
+      console.log("Initial render, filters:", filters);
+    }
+  }, [initialRender, filters]);
 
   // Generate a description based on active filters
   useEffect(() => {
@@ -34,7 +43,11 @@ const FindRecipe = () => {
     }
     
     setSearchDescription(description || null);
-  }, [filters]);
+    
+    // Log current filters and recipes for debugging
+    console.log("Current filters:", filters);
+    console.log("Filtered recipes count:", filteredRecipes.length);
+  }, [filters, filteredRecipes.length]);
 
   const container = {
     hidden: { opacity: 0 },

@@ -110,7 +110,7 @@ const HeroSection = () => {
               className="flex flex-col sm:flex-row justify-center gap-4 mt-8"
               variants={fadeInUp}
             >
-              {/* Fix: Use motion.div wrapper around Button instead of passing motion props directly */}
+              {/* Centered Find Recipe Button */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -124,8 +124,6 @@ const HeroSection = () => {
                   Find your perfect recipe
                 </Button>
               </motion.div>
-              
-              {/* Explore Categories button removed */}
             </motion.div>
           </motion.div>
         </motion.div>
