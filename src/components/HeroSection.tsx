@@ -1,9 +1,9 @@
-
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/hooks/use-toast"; // Corrected import path for useToast
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
+import { PlayCircle } from "lucide-react"; // Import an icon for the video button
 
 const HeroSection = () => {
   const [activeText, setActiveText] = useState("Talk");
@@ -26,11 +26,13 @@ const HeroSection = () => {
     navigate('/find-recipe');
   };
 
-  const scrollToRecipeFilter = () => {
-    const recipeFilterSection = document.querySelector('#recipe-filter-section');
-    if (recipeFilterSection) {
-      recipeFilterSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleWatchTutorialClick = () => {
+    // For now, let's toast a message. This can be updated to open a modal or navigate to a video page.
+    toast({
+      title: "Video Tutorial",
+      description: "Video tutorial coming soon!",
+    });
+    console.log("Watch tutorial clicked");
   };
 
   // Animation variants
@@ -107,14 +109,12 @@ const HeroSection = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row justify-center gap-4 mt-8"
+              className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8"
               variants={fadeInUp}
             >
-              {/* Centered Find Recipe Button */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="mx-auto"
               >
                 <Button 
                   variant="default"
@@ -122,6 +122,19 @@ const HeroSection = () => {
                   className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold text-lg px-8 py-6 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
                   Find your perfect recipe
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  variant="outline"
+                  onClick={handleWatchTutorialClick}
+                  className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-semibold text-lg px-8 py-6 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2"
+                >
+                  <PlayCircle size={24} />
+                  Watch Video Tutorial
                 </Button>
               </motion.div>
             </motion.div>
