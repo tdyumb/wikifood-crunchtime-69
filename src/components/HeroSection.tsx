@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "./ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,14 +21,6 @@ const HeroSection = () => {
 
     return () => clearInterval(textRotationTimer);
   }, []);
-
-  function openVideoTutorial() {
-    window.open('https://www.youtube.com/watch?v=_DbRKvi5_OI', '_blank');
-    toast({
-      title: "Tutorial",
-      description: "Opening video tutorial...",
-    });
-  };
 
   const handleFindRecipeClick = () => {
     navigate('/find-recipe');
@@ -84,19 +75,6 @@ const HeroSection = () => {
           variants={staggerContainer}
           className="max-w-4xl mx-auto"
         >
-          <motion.button 
-            variants={fadeInUp}
-            className="mb-8 px-6 py-3 bg-black/60 text-white rounded-full flex items-center gap-3 mx-auto hover:bg-yellow-500 hover:text-black transition-all duration-300 border border-white/20 backdrop-blur-sm shadow-lg"
-            onClick={openVideoTutorial}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="bg-white text-black rounded-full p-1">
-              <Play size={16} className="ml-0.5" />
-            </div>
-            Watch Video Tutorial
-          </motion.button>
-
           <motion.div variants={fadeInUp} className="space-y-6">
             <h1 className="text-6xl md:text-7xl font-bold mb-6 text-white">
               <motion.span
@@ -136,6 +114,7 @@ const HeroSection = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="mx-auto"
               >
                 <Button 
                   variant="default"
@@ -146,19 +125,7 @@ const HeroSection = () => {
                 </Button>
               </motion.div>
               
-              {/* Fix: Use motion.div wrapper around Button instead of passing motion props directly */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="outline"
-                  onClick={scrollToRecipeFilter}
-                  className="border-white text-white hover:bg-white/20 font-semibold text-lg px-8 py-6 rounded-full backdrop-blur-sm transition-all duration-300"
-                >
-                  Explore Categories
-                </Button>
-              </motion.div>
+              {/* Explore Categories button removed */}
             </motion.div>
           </motion.div>
         </motion.div>
