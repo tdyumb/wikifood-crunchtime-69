@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -20,7 +21,7 @@ const HeroSection = () => {
     }, 2000);
 
     return () => clearInterval(textRotationTimer);
-  }, []);
+  }, []); // Removed textOptions from dependency array as it's constant
 
   const handleFindRecipeClick = () => {
     navigate('/find-recipe');
@@ -62,7 +63,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent z-10"></div>
         <img 
-          src="/Wikifoods Images/0fddfe61-51f7-4f97-bba5-555b7789c0ff.png"
+          src="/lovable-uploads/0fddfe61-51f7-4f97-bba5-555b7789c0ff.png"
           alt="Chef cooking with flames"
           className="w-full h-full object-cover brightness-90"
         />
