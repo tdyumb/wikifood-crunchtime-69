@@ -21,10 +21,23 @@ const HeroSection = () => {
     }, 2000);
 
     return () => clearInterval(textRotationTimer);
-  }, []); // Removed textOptions from dependency array as it's constant
+  }, []);
 
   const handleFindRecipeClick = () => {
-    navigate('/find-recipe');
+    // Scroll to quiz section instead of navigating
+    const quizSection = document.getElementById('recipe-quiz-section');
+    if (quizSection) {
+      quizSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Fallback in case the element doesn't exist on the current page
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById('recipe-quiz-section');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
   };
 
   const handleWatchTutorialClick = () => {

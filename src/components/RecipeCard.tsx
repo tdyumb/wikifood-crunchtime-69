@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
@@ -15,7 +16,7 @@ interface RecipeCardProps {
   image: string;
   cookTime?: string;
   prepTime?: string;
-  totalTime?: string; // Added totalTime
+  totalTime?: string;
   servings?: number;
   ingredients?: string[];
   instructions?: string[];
@@ -48,7 +49,7 @@ const RecipeCard = ({
   image, 
   cookTime = "30 mins", 
   prepTime = "15 mins",
-  totalTime,
+  totalTime = "45 mins", // Default value
   servings = 4,
   ingredients = [],
   instructions = [],
@@ -139,7 +140,7 @@ const RecipeCard = ({
           <div className="flex justify-between items-center mb-4 text-sm text-gray-600">
             <div className="flex items-center gap-1">
               <Clock size={16} />
-              <span>{cookTime}</span>
+              <span>{totalTime || `${prepTime} + ${cookTime}`}</span>
             </div>
             <div className="flex items-center gap-1">
               <Users size={16} />
@@ -171,9 +172,15 @@ const RecipeCard = ({
                       <p className="text-sm text-gray-600">Prep Time</p>
                       <p className="font-semibold">{prepTime}</p>
                     </div>
+                    {cookTime !== "0 mins" && (
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-sm text-gray-600">Cook Time</p>
+                        <p className="font-semibold">{cookTime}</p>
+                      </div>
+                    )}
                     <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600">Cook Time</p>
-                      <p className="font-semibold">{cookTime}</p>
+                      <p className="text-sm text-gray-600">Total Time</p>
+                      <p className="font-semibold">{totalTime}</p>
                     </div>
                     <div className="text-center p-3 bg-gray-50 rounded-lg">
                       <p className="text-sm text-gray-600">Difficulty</p>

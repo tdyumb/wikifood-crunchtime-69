@@ -147,10 +147,10 @@ const Navigation = () => {
     }
   };
 
-  // Handle navigation to find-recipe
-  const navigateToFindRecipe = (e: React.MouseEvent) => {
+  // Handle navigation to recipe collection
+  const navigateToRecipeCollection = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigate('/find-recipe');
+    navigate('/recipe-collection');
   };
 
   // Handle search submission - Fixed to properly filter recipes
@@ -347,7 +347,7 @@ const Navigation = () => {
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between h-full">
               {/* Navigation content with improved centering */}
-              <div className="flex items-center justify-between w-full">
+              <div className="flex items-center justify-center w-full">
                 {/* Left side: Logo */}
                 <Link to="/" className="text-2xl font-bold text-white hover:text-gray-200 transition-colors whitespace-nowrap">
                   <motion.div
@@ -360,11 +360,10 @@ const Navigation = () => {
                   </motion.div>
                 </Link>
 
-                {/* Center: Search bar and/or navigation links */}
-                {!isMobile ? (
-                  <div className="flex items-center justify-center flex-1 mx-4">
-                    {/* Desktop Search Bar - Updated styling */}
-                    <form onSubmit={handleSearch} className="relative w-full max-w-md">
+                {/* Center: Search bar and/or navigation links - Centered */}
+                <div className="flex-1 flex justify-center">
+                  {!isMobile ? (
+                    <form onSubmit={handleSearch} className="relative w-full max-w-md mx-auto">
                       <div className="relative">
                         <motion.div
                           variants={searchInputVariants}
@@ -470,8 +469,8 @@ const Navigation = () => {
                         )}
                       </div>
                     </form>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
 
                 {/* Right side: Navigation Links or Mobile Controls */}
                 <div className="flex items-center">
@@ -505,9 +504,9 @@ const Navigation = () => {
                       </button>
                     </div>
                   ) : (
-                    <div className="flex items-center space-x-6">
-                      {/* Desktop Navigation Links with simplified navigation */}
-                      {["Find A Recipe", "About", "Contact"].map((item) => (
+                    <div className="flex items-center space-x-6 ml-4">
+                      {/* Desktop Navigation Links - Changed "Find A Recipe" to "Recipe Collection" */}
+                      {["Recipe Collection", "About", "Contact"].map((item) => (
                         <motion.div
                           key={item}
                           animate={{ 
@@ -516,11 +515,11 @@ const Navigation = () => {
                           transition={navTransition}
                           className="whitespace-nowrap"
                         >
-                          {item === "Find A Recipe" ? (
+                          {item === "Recipe Collection" ? (
                             <Link 
-                              to="/find-recipe" 
+                              to="/recipe-collection" 
                               className="text-white hover:text-gray-200 transition-colors"
-                              onClick={navigateToFindRecipe}
+                              onClick={navigateToRecipeCollection}
                             >
                               {item}
                             </Link>

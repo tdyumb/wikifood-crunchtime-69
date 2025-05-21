@@ -5,7 +5,6 @@ import RecipeQuizTeaser from "@/components/RecipeQuizTeaser";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/contexts/RecipeContext";
 import ContactForm from "@/components/ContactForm";
-import WhyChooseSection from "@/components/WhyChooseSection";
 import { motion } from "framer-motion";
 
 const Home = () => {
@@ -83,8 +82,9 @@ const Home = () => {
       {/* Hero Section */}
       <HeroSection />
 
-      {/* Recipe Quiz Teaser Section */}
+      {/* Recipe Quiz Teaser Section - Add id for scrolling */}
       <motion.section
+        id="recipe-quiz-section"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -120,7 +120,7 @@ const Home = () => {
                     image={recipe.image}
                     cookTime={recipe.cookTime}
                     prepTime={recipe.prepTime}
-                    totalTime={recipe.totalTime}
+                    totalTime={recipe.totalTime || `${recipe.prepTime.split(' ')[0] + parseInt(recipe.cookTime.split(' ')[0])} mins`}
                     servings={recipe.servings}
                     ingredients={recipe.ingredients}
                     instructions={recipe.instructions}
@@ -134,9 +134,6 @@ const Home = () => {
           </motion.div>
         </div>
       </motion.section>
-
-      {/* Why Choose Section */}
-      <WhyChooseSection />
 
       {/* Contact Form Section */}
       <motion.div
