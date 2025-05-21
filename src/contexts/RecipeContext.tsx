@@ -53,10 +53,12 @@ export const RecipeProvider = ({ children }: { children: ReactNode }) => {
 
   const filteredRecipes = recipes.filter(recipe => {
     // Filter by search query if present
-    if (searchQuery && !recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    if (searchQuery && 
+        !recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
         !recipe.description.toLowerCase().includes(searchQuery.toLowerCase()) &&
         !recipe.cuisineType.toLowerCase().includes(searchQuery.toLowerCase()) &&
         !recipe.mealType.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(searchQuery.toLowerCase())) &&
         !recipe.dietaryRestrictions.some(r => r.toLowerCase().includes(searchQuery.toLowerCase()))) {
       return false;
     }

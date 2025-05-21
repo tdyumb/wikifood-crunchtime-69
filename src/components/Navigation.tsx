@@ -654,42 +654,40 @@ const Navigation = () => {
         </motion.div>
       </motion.nav>
       
-      {/* Recipe Dialog */}
+      {/* Recipe Dialog - Fixed to properly wrap content in a single child element */}
       <AnimatePresence>
         {recipeDialogOpen && (
           <Dialog open={recipeDialogOpen} onOpenChange={setRecipeDialogOpen}>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" asChild>
-              <motion.div
-                variants={dialogEnterAnimation}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
-                {selectedRecipe && (
-                  <>
-                    <DialogHeader>
-                      <DialogTitle className="text-2xl font-bold">{selectedRecipe.title}</DialogTitle>
-                    </DialogHeader>
-                    <div className="pt-2">
-                      <RecipeCard
-                        id={selectedRecipe.id}
-                        title={selectedRecipe.title}
-                        description={selectedRecipe.description}
-                        image={selectedRecipe.image}
-                        cookTime={selectedRecipe.cookTime}
-                        prepTime={selectedRecipe.prepTime}
-                        totalTime={selectedRecipe.totalTime}
-                        servings={selectedRecipe.servings}
-                        ingredients={selectedRecipe.ingredients}
-                        instructions={selectedRecipe.instructions}
-                        equipment={["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"]}
-                        sourceUrl={selectedRecipe.sourceUrl}
-                        nutritionInfo={selectedRecipe.nutritionInfo}
-                      />
-                    </div>
-                  </>
-                )}
-              </motion.div>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              {selectedRecipe && (
+                <motion.div
+                  variants={dialogEnterAnimation}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold">{selectedRecipe.title}</DialogTitle>
+                  </DialogHeader>
+                  <div className="pt-2">
+                    <RecipeCard
+                      id={selectedRecipe.id}
+                      title={selectedRecipe.title}
+                      description={selectedRecipe.description}
+                      image={selectedRecipe.image}
+                      cookTime={selectedRecipe.cookTime}
+                      prepTime={selectedRecipe.prepTime}
+                      totalTime={selectedRecipe.totalTime}
+                      servings={selectedRecipe.servings}
+                      ingredients={selectedRecipe.ingredients}
+                      instructions={selectedRecipe.instructions}
+                      equipment={["Bowl", "Whisk", "Baking Sheet", "Measuring Cups"]}
+                      sourceUrl={selectedRecipe.sourceUrl}
+                      nutritionInfo={selectedRecipe.nutritionInfo}
+                    />
+                  </div>
+                </motion.div>
+              )}
             </DialogContent>
           </Dialog>
         )}
