@@ -120,7 +120,7 @@ const Home = () => {
                     image={recipe.image}
                     cookTime={recipe.cookTime}
                     prepTime={recipe.prepTime}
-                    totalTime={recipe.totalTime || `${recipe.prepTime.split(' ')[0] + parseInt(recipe.cookTime.split(' ')[0])} mins`}
+                    totalTime={recipe.totalTime}
                     servings={recipe.servings}
                     ingredients={recipe.ingredients}
                     instructions={recipe.instructions}

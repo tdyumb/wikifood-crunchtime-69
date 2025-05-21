@@ -1,3 +1,4 @@
+
 export const recipeData = [
   {
     id: '1',
@@ -45,9 +46,9 @@ export const recipeData = [
     cuisineType: 'american',
     mealType: 'breakfast',
     dietaryRestrictions: ['vegetarian'],
-    cookTime: '15 mins',
+    cookTime: '0 mins',
     prepTime: '15 mins',
-    totalTime: '30 mins',
+    totalTime: '15 mins',
     servings: 4,
     ingredients: [
       '4 cups of yogurt of your choice',
