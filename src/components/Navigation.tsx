@@ -649,11 +649,11 @@ const Navigation = () => {
                 <div className="flex flex-col space-y-4">
                   <Link to="/" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Home</Link>
                   <Link 
-                    to="/find-recipe" 
+                    to="/recipe-collection" 
                     className="text-white hover:text-gray-200 px-4 py-2 transition-colors"
-                    onClick={navigateToFindRecipe}
+                    onClick={navigateToRecipeCollection}
                   >
-                    Find A Recipe
+                    Recipe Collection
                   </Link>
                   <Link to="/about" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">About</Link>
                   <Link to="/contact" className="text-white hover:text-gray-200 px-4 py-2 transition-colors">Contact</Link>
