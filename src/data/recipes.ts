@@ -1,4 +1,3 @@
-
 export const recipeData = [
   {
     id: '1',
@@ -161,7 +160,7 @@ export const recipeData = [
       '1 1/2 oz sliced mozzarella cheese, divided',
       '1/2 oz sliced pepper jack cheese',
       '1 tablespoon pizza sauce',
-      '1/4 teaspoon italian seasoning, divided',
+      '1/4 teaspoon italian seasoning',
       '5 slices pickled jalapeno (optional)',
       '5 slices pepperoni (optional)',
       'Crushed red pepper, to taste',

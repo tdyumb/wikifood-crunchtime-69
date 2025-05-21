@@ -153,22 +153,23 @@ const Navigation = () => {
     navigate('/recipe-collection');
   };
 
-  // Handle search submission - Fixed to properly filter recipes
-  const handleSearch = (e?: React.FormEvent, searchTerm?: string) => {
+  // Modified handleSearch to use the context's search functionality
+  const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     
-    const finalQuery = searchTerm || searchQuery;
+    if (searchQuery.trim() === "") return;
     
-    if (finalQuery.trim() === "") return;
+    // Update search query in context
+    setSearchQuery(searchQuery);
     
     // Filter recipes by search query
     const filteredRecipes = recipes.filter(recipe => 
-      recipe.title.toLowerCase().includes(finalQuery.toLowerCase()) ||
-      recipe.description.toLowerCase().includes(finalQuery.toLowerCase()) ||
-      recipe.cuisineType.toLowerCase().includes(finalQuery.toLowerCase()) ||
-      recipe.mealType.toLowerCase().includes(finalQuery.toLowerCase()) ||
+      recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recipe.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recipe.cuisineType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recipe.mealType.toLowerCase().includes(searchQuery.toLowerCase()) ||
       recipe.dietaryRestrictions.some(restriction => 
-        restriction.toLowerCase().includes(finalQuery.toLowerCase())
+        restriction.toLowerCase().includes(searchQuery.toLowerCase())
       )
     );
     
@@ -178,12 +179,12 @@ const Navigation = () => {
     );
     
     const isMealType = ["breakfast", "lunch", "dinner", "dessert"].some(
-      mealType => finalQuery.toLowerCase().includes(mealType.toLowerCase())
+      mealType => searchQuery.toLowerCase().includes(mealType.toLowerCase())
     );
     
     const mealTypesFilter = isMealType 
       ? ["breakfast", "lunch", "dinner", "dessert"].filter(
-          mealType => finalQuery.toLowerCase().includes(mealType.toLowerCase())
+          mealType => searchQuery.toLowerCase().includes(mealType.toLowerCase())
         )
       : [];
     
@@ -192,12 +193,12 @@ const Navigation = () => {
     ];
     
     const isDietaryRestriction = dietaryRestrictionsList.some(
-      restriction => finalQuery.toLowerCase().includes(restriction.toLowerCase())
+      restriction => searchQuery.toLowerCase().includes(restriction.toLowerCase())
     );
     
     const dietaryRestrictionsFilter = isDietaryRestriction 
       ? dietaryRestrictionsList.filter(
-          restriction => finalQuery.toLowerCase().includes(restriction.toLowerCase())
+          restriction => searchQuery.toLowerCase().includes(restriction.toLowerCase())
         )
       : [];
     
@@ -210,23 +211,12 @@ const Navigation = () => {
     // Navigate to find recipe page
     if (location.pathname !== "/find-recipe") {
       navigate("/find-recipe");
-    } else {
-      // Force re-render of the filtered recipes
-      const currentFilters = {
-        cuisineType: uniqueCuisineTypes.length > 0 ? uniqueCuisineTypes : [],
-        mealType: mealTypesFilter,
-        dietaryRestrictions: dietaryRestrictionsFilter
-      };
-      setFilters({ ...currentFilters });
     }
     
     // Close mobile search if it's open
     if (showMobileSearch) {
       setShowMobileSearch(false);
     }
-    
-    // Clear search query after search
-    setSearchQuery("");
   };
 
   const handleSearchItemSelect = (value: string, type: 'recipe' | 'mealType' | 'dietary') => {

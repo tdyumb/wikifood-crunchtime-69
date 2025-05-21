@@ -1,14 +1,14 @@
 
 import Navigation from "@/components/Navigation";
 import RecipeCard from "@/components/RecipeCard";
-import MealTypeFilterBar from "@/components/MealTypeFilterBar"; 
+import RecipeFilterTabs from "@/components/RecipeFilterTabs";
 import { useRecipes } from "@/contexts/RecipeContext";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const FindRecipe = () => {
-  const { filteredRecipes, filters } = useRecipes();
+  const { filteredRecipes, filters, searchQuery } = useRecipes();
   const [searchDescription, setSearchDescription] = useState<string | null>(null);
   const [initialRender, setInitialRender] = useState(true);
 
@@ -42,12 +42,18 @@ const FindRecipe = () => {
       description += `${dietaryRestrictions.join(", ")} options`;
     }
     
+    if (searchQuery && !description) {
+      description = `Search results for "${searchQuery}"`;
+    } else if (searchQuery) {
+      description += ` - Search: "${searchQuery}"`;
+    }
+    
     setSearchDescription(description || null);
     
     // Log current filters and recipes for debugging
     console.log("Current filters:", filters);
     console.log("Filtered recipes count:", filteredRecipes.length);
-  }, [filters, filteredRecipes.length]);
+  }, [filters, filteredRecipes.length, searchQuery]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -120,21 +126,21 @@ const FindRecipe = () => {
               className="flex items-center justify-center mb-6 bg-white/70 py-2 px-4 rounded-full shadow-sm mx-auto w-fit"
             >
               <Search className="mr-2 h-4 w-4 text-orange-500" />
-              <span className="text-sm font-medium">Showing results for: {searchDescription}</span>
+              <span className="text-sm font-medium">{searchDescription}</span>
             </motion.div>
           )}
           
-          <MealTypeFilterBar />
+          <RecipeFilterTabs />
           
           <motion.div 
             className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={container}
             initial="hidden"
             animate="show"
-            key={`${filteredRecipes.length}-${JSON.stringify(filters)}`}
+            key={`${filteredRecipes.length}-${JSON.stringify(filters)}-${searchQuery}`}
           >
             {filteredRecipes.length > 0 ? (
-              filteredRecipes.map((recipe, index) => (
+              filteredRecipes.map((recipe) => (
                 <motion.div key={recipe.id} variants={item} className="h-full flex">
                   <div className="w-full">
                     <RecipeCard

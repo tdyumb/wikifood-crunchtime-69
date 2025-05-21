@@ -2,10 +2,11 @@
 import Navigation from "@/components/Navigation";
 import { useRecipes } from "@/contexts/RecipeContext";
 import RecipeCard from "@/components/RecipeCard";
+import RecipeFilterTabs from "@/components/RecipeFilterTabs";
 import { motion } from "framer-motion";
 
 const RecipeCollection = () => {
-  const { recipes } = useRecipes();
+  const { filteredRecipes } = useRecipes();
 
   const container = {
     hidden: { opacity: 0 },
@@ -102,18 +103,20 @@ const RecipeCollection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-center text-gray-600 mb-12"
+            className="text-center text-gray-600 mb-8"
           >
             Explore our complete collection of delicious recipes
           </motion.p>
+          
+          <RecipeFilterTabs />
           
           <motion.div 
             variants={container}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
           >
-            {recipes.map((recipe, index) => (
+            {filteredRecipes.map((recipe, index) => (
               <motion.div key={recipe.id} variants={item} custom={index} className="h-full flex">
                 <div className="w-full">
                   <RecipeCard
@@ -123,10 +126,13 @@ const RecipeCollection = () => {
                     image={getAppropriateImage(recipe)}
                     cookTime={recipe.cookTime}
                     prepTime={recipe.prepTime}
+                    totalTime={recipe.totalTime}
                     servings={recipe.servings}
                     ingredients={recipe.ingredients}
                     instructions={recipe.instructions}
                     equipment={getEquipmentForRecipe(recipe.id, recipe.mealType)}
+                    sourceUrl={recipe.sourceUrl}
+                    nutritionInfo={recipe.nutritionInfo}
                   />
                 </div>
               </motion.div>
